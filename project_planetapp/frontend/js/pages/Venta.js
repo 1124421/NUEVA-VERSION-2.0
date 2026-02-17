@@ -502,7 +502,7 @@ export class Venta extends Component {
             await this.loadVentas();
             await this.loadAllMateriales();
         } catch (err) {
-            Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo cancelar la venta.' });
+            Swal.fire({ icon: 'error', title: 'Error', text: err.message || 'No se pudo cancelar la venta.' });
         }
     }
 }

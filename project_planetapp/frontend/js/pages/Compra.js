@@ -533,7 +533,7 @@ export class Compra extends Component {
             Swal.fire({ icon: 'success', title: 'Compra cancelada', text: 'El stock ha sido revertido correctamente.', timer: 2000, showConfirmButton: false });
             await this.loadCompras();
         } catch (err) {
-            Swal.fire({ icon: 'error', title: 'Error', text: 'No se pudo cancelar la compra.' });
+            Swal.fire({ icon: 'error', title: 'Error', text: err.message || 'No se pudo cancelar la compra.' });
         }
     }
 }

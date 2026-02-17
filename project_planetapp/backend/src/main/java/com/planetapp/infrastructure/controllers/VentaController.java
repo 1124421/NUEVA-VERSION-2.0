@@ -48,13 +48,16 @@ public class VentaController {
     }
 
     @PatchMapping("/{id}/cancelar")
+    @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PATCH,
+            RequestMethod.DELETE })
     @Operation(summary = "Cancelar venta - NO elimina, solo cambia estado")
-    public ResponseEntity<String> cancelar(@PathVariable Long id) {
+    public ResponseEntity<?> cancelar(@PathVariable Long id) {
         try {
             ventaService.cancelar(id);
-            return ResponseEntity.ok("Venta cancelada correctamente. El historial se conserva.");
+            return ResponseEntity
+                    .ok(java.util.Map.of("message", "Venta cancelada correctamente. El historial se conserva."));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(java.util.Map.of("message", e.getMessage()));
         }
     }
 

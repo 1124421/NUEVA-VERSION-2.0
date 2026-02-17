@@ -9,12 +9,24 @@ async function request(url, options = {}) {
             headers: { 'Content-Type': 'application/json', ...options.headers },
             ...options
         });
-        if (!res.ok) {
-            const text = await res.text();
-            throw new Error(text || `HTTP ${res.status}`);
+
+        const contentType = res.headers.get('content-type');
+        let data;
+
+        if (contentType && contentType.includes('application/json')) {
+            data = await res.json();
+        } else {
+            data = await res.text();
         }
+
+        if (!res.ok) {
+            // Si data es un objeto con message, lo usamos
+            const errorMsg = (data && typeof data === 'object' && data.message) ? data.message : (typeof data === 'string' ? data : `HTTP ${res.status}`);
+            throw new Error(errorMsg);
+        }
+
         if (res.status === 204) return null;
-        return await res.json();
+        return data;
     } catch (err) {
         console.error(`[ApiClient] ${options.method || 'GET'} ${url}`, err);
         throw err;
