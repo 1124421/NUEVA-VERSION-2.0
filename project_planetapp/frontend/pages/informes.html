@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informes - PlanetApp</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Design System -->
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/vi.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Cargar componentes Web -->
+    <script type="module" src="../components/app-sidebar.js"></script>
+    <script type="module" src="../components/app-header.js"></script>
+</head>
+
+<body>
+    <!-- Sidebar estilo Apprky (único cambio visual: menú lateral) -->
+    <app-sidebar active="informes" base-path=".." app-name="PlanetApp" subtitle="Gestión de Reciclaje"></app-sidebar>
+
+    <div class="main main-informes">
+        <!-- Header original de Informes (se mantiene el estilo que tenías) -->
+        <app-header title="Informes"></app-header>
+
+        <hr class="header-divider">
+
+        <section class="filters">
+            <div class="filter-group">
+                <label for="tipoRegistro">Tipo de registro</label>
+                <select id="tipoRegistro">
+                    <option value="">Seleccione el registro</option>
+                    <option value="registro-ventas">Registro de ventas</option>
+                    <option value="registro-compras">Registro de compras</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="fechaDesde">Fecha desde</label>
+                <input type="date" id="fechaDesde" value="2025-06-16">
+            </div>
+
+            <div class="filter-group">
+                <label for="fechaHasta">Fecha hasta</label>
+                <input type="date" id="fechaHasta" value="2025-06-16">
+            </div>
+
+            <div class="filter-group">
+                <label for="estado">Estado</label>
+                <select id="estado">
+                    <option value="todos">Todos</option>
+                    <option value="diario">Diario</option>
+                    <option value="semanal">Semanal</option>
+                    <option value="mensual">Mensual</option>
+                </select>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="btn btn--clear" id="btn-clear">Limpiar filtros</button>
+                <button class="btn btn--apply" id="btn-apply">Aplicar filtros</button>
+                <button class="btn btn--export" id="btn-export">Exportar</button>
+            </div>
+        </section>
+
+        <section class="table-container">
+            <div class="tabla-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha y hora</th>
+                            <th>Asociado</th>
+                            <th>Documento</th>
+                            <th>Carreta</th>
+                            <th>Ruta</th>
+                            <th>Material</th>
+                            <th>Peso por Kg</th>
+                            <th>Precio Total</th>
+                            <th>Rechazado</th>
+                            <th>Tipo de Asociado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTable">
+                        <!-- Se llena dinámicamente desde el backend -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script>
+    (function () {
+        const API_URL = 'http://localhost:8082/api/reportes/informes';
+        let allData = [];
+
+        async function loadData() {
+            const tbody = document.getElementById('dataTable');
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('Error HTTP ' + response.status);
+                allData = await response.json();
+                renderTable(allData);
+            } catch (err) {
+                console.error('[Informes] Error cargando datos:', err);
+                tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#94a3b8;padding:20px;">Error al cargar datos del servidor</td></tr>';
+            }
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('dataTable');
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#94a3b8;padding:20px;">No hay registros</td></tr>';
+                return;
+            }
+            tbody.innerHTML = data.map(function (tx) {
+                const fecha = tx.fecha ? new Date(tx.fecha).toLocaleDateString('es-CO', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                }) : '';
+                const precioUnit = tx.precioUnitario != null
+                    ? Number(tx.precioUnitario).toFixed(0)
+                    : (tx.total && tx.cantidad ? (tx.total / tx.cantidad).toFixed(0) : 0);
+                return '<tr>' +
+                    '<td>' + (tx.id || '') + '</td>' +
+                    '<td>' + (fecha) + '</td>' +
+                    '<td>' + (tx.persona || 'N/A') + '</td>' +
+                    '<td>' + (tx.documento || '—') + '</td>' +
+                    '<td>' + (tx.carreta || '—') + '</td>' +
+                    '<td>' + (tx.ruta || '—') + '</td>' +
+                    '<td>' + (tx.material || '') + '</td>' +
+                    '<td>' + (tx.cantidad != null ? tx.cantidad + ' Kg.' : '—') + '</td>' +
+                    '<td>$ ' + Number(tx.total || 0).toLocaleString('es-CO') + ' COP</td>' +
+                    '<td>' + (tx.rechazado != null ? tx.rechazado + ' Kg.' : '—') + '</td>' +
+                    '<td>' + (tx.tipo || '—') + '</td>' +
+                    '<td class="actions">' +
+                        '<button class="edit"><i class="fas fa-pencil-alt"></i></button>' +
+                        '<button class="download"><i class="fas fa-download"></i></button>' +
+                        '<button class="delete"><i class="fas fa-trash-alt"></i></button>' +
+                    '</td>' +
+                '</tr>';
+            }).join('');
+        }
+
+        function applyFilters() {
+            const tipo = document.getElementById('tipoRegistro').value;
+            const desde = document.getElementById('fechaDesde').value;
+            const hasta = document.getElementById('fechaHasta').value;
+            const estado = document.getElementById('estado').value;
+
+            let filtered = allData.slice();
+
+            if (tipo === 'registro-ventas') {
+                filtered = filtered.filter(function (d) { return d.tipo === 'Venta'; });
+            } else if (tipo === 'registro-compras') {
+                filtered = filtered.filter(function (d) { return d.tipo === 'Compra'; });
+            }
+
+            if (estado && estado !== 'todos') {
+                filtered = filtered.filter(function (d) {
+                    return d.estado && d.estado.toLowerCase() === estado.toLowerCase();
+                });
+            }
+
+            if (desde) {
+                filtered = filtered.filter(function (d) { return d.fecha >= desde; });
+            }
+            if (hasta) {
+                filtered = filtered.filter(function (d) { return d.fecha <= hasta + 'T23:59:59'; });
+            }
+
+            renderTable(filtered);
+        }
+
+        function clearFilters() {
+            document.getElementById('tipoRegistro').value = '';
+            document.getElementById('fechaDesde').value = '';
+            document.getElementById('fechaHasta').value = '';
+            document.getElementById('estado').value = 'todos';
+            renderTable(allData);
+        }
+
+        // Scroll drag
+        var slider = document.querySelector('.tabla-scroll');
+        if (slider) {
+            var isDown = false, startX, scrollLeft;
+            slider.addEventListener('mousedown', function (e) {
+                isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', function () { isDown = false; });
+            slider.addEventListener('mouseup', function () { isDown = false; });
+            slider.addEventListener('mousemove', function (e) {
+                if (!isDown) return; e.preventDefault();
+                slider.scrollLeft = scrollLeft - ((e.pageX - slider.offsetLeft) - startX);
+            });
+        }
+
+        // Bind events
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('btn-apply').addEventListener('click', applyFilters);
+            document.getElementById('btn-clear').addEventListener('click', clearFilters);
+            loadData();
+        });
+    })();
+    </script>
+</body>
+
+</html>

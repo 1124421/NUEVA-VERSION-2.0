@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Navigation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f0f0f0;
+            cursor: pointer;
+        }
+
+        .menu li:hover {
+            background: #e0e0e0;
+        }
+
+        #content {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            min-height: 200px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Test de Navegación</h1>
+    <p id="status">Esperando interacción...</p>
+
+    <ul class="menu">
+        <li data-section="venta">Venta</li>
+        <li data-section="compra">Compra</li>
+        <li data-section="inventario">Inventario</li>
+        <li data-section="asociado">Asociado</li>
+    </ul>
+
+    <div id="content">
+        <p>Haz clic en un elemento del menú para cargar el contenido.</p>
+    </div>
+
+    <script>
+        console.log('Script cargado correctamente');
+
+        document.querySelectorAll('.menu li').forEach(item => {
+            console.log('Agregando listener a:', item.dataset.section);
+
+            item.addEventListener('click', async function () {
+                const section = this.dataset.section;
+                const statusEl = document.getElementById('status');
+                const contentEl = document.getElementById('content');
+
+                console.log('Click en:', section);
+                statusEl.textContent = `Cargando ${section}...`;
+                statusEl.className = '';
+
+                try {
+                    const url = `/components/${section}.html`;
+                    console.log('Fetching:', url);
+
+                    const response = await fetch(url);
+                    console.log('Response status:', response.status);
+
+                    if (response.ok) {
+                        const html = await response.text();
+                        console.log('HTML recibido, longitud:', html.length);
+                        contentEl.innerHTML = html;
+                        statusEl.textContent = `✓ ${section} cargado exitosamente`;
+                        statusEl.className = 'success';
+
+                        // Execute scripts
+                        const scripts = contentEl.querySelectorAll('script');
+                        console.log('Scripts encontrados:', scripts.length);
+                        scripts.forEach(oldScript => {
+                            const newScript = document.createElement('script');
+                            newScript.textContent = oldScript.textContent;
+                            oldScript.parentNode.replaceChild(newScript, oldScript);
+                        });
+                    } else {
+                        statusEl.textContent = `✗ Error ${response.status}: ${response.statusText}`;
+                        statusEl.className = 'error';
+                        contentEl.innerHTML = `<p class="error">No se pudo cargar ${section}</p>`;
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    statusEl.textContent = `✗ Error: ${error.message}`;
+                    statusEl.className = 'error';
+                    contentEl.innerHTML = `<p class="error">Error de red: ${error.message}</p>`;
+                }
+            });
+        });
+
+        console.log('Listeners agregados a todos los elementos del menú');
+    </script>
+</body>
+
+</html>

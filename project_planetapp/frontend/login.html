@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - PlanetApp</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --verde-renacer: #2d5a47;
+            --verde-hover: #234839;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: var(--verde-renacer);
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--verde-renacer);
+            box-shadow: 0 0 0 3px rgba(45, 90, 71, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: var(--verde-renacer);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            background: var(--verde-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 90, 71, 0.3);
+        }
+
+        .register-link,
+        .forgot-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .register-link a,
+        .forgot-link a {
+            color: var(--verde-renacer);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover,
+        .forgot-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        /* Recovery section */
+        .recovery-section {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .recovery-section h3 {
+            color: var(--verde-renacer);
+            font-size: 16px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .recovery-step {
+            display: none;
+        }
+
+        .recovery-step.active {
+            display: block;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .question-display {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 14px;
+            font-size: 14px;
+            color: #166534;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        /* ===== Disabled Form Group ===== */
+        .form-group.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .form-group.disabled input {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .btn-login.hidden,
+        .btn-secondary.hidden {
+            display: none;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--verde-renacer);
+            box-shadow: 0 0 0 3px rgba(45, 90, 71, 0.1);
+        }
+
+        /* ===== Password Toggle ===== */
+        .password-toggle {
+            cursor: pointer;
+            color: #999;
+            font-size: 14px;
+            margin-left: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--verde-renacer);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 38px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>🌍 PlanetApp</h1>
+            <p>Gestión de Reciclaje</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-login">Iniciar Sesión</button>
+        </form>
+
+        <div class="forgot-link">
+            <a href="#" id="btnForgot">¿Olvidaste tu contraseña?</a>
+        </div>
+
+
+        <div class="register-link" style="margin-top: 12px;">
+            <a href="index.html">← Volver al inicio</a>
+        </div>
+
+        <!-- Password Recovery Section -->
+        <div class="recovery-section" id="recoverySection">
+            <h3>Recuperar Contraseña</h3>
+
+            <!-- Step 1: Enter email -->
+            <div class="recovery-step active" id="recoveryStep1">
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="recoveryEmail" placeholder="Tu correo registrado..." autocomplete="off">
+                </div>
+                <button type="button" class="btn-login" id="btnGetQuestion">Buscar Pregunta</button>
+                <button type="button" class="btn-secondary" id="btnCancelRecovery1">Cancelar</button>
+            </div>
+
+            <!-- Step 2: Answer question (isolated) -->
+            <div class="recovery-step" id="recoveryStep2">
+                <div class="question-display" id="questionDisplay"></div>
+                <form id="answerFormLogin" autocomplete="off" action="#" method="post">
+                    <div class="form-group">
+                        <label>Tu Respuesta</label>
+                        <input type="password" id="recoveryAnswer" name="recovery_answer_xk92"
+                            placeholder="Escribe tu respuesta..." autocomplete="new-password" data-lpignore="true"
+                            data-form-type="other" readonly onfocus="this.removeAttribute('readonly');">
+                        <i class="fas fa-eye password-toggle" id="toggleRecoveryAnswer"></i>
+                    </div>
+                    <button type="button" class="btn-login" id="btnValidateAnswer">Validar Respuesta</button>
+                </form>
+                <button type="button" class="btn-secondary" id="btnCancelRecovery2">Cancelar</button>
+            </div>
+
+            <!-- Step 3: New password (isolated, only after validation) -->
+            <div class="recovery-step" id="recoveryStep3">
+
+                <p style="text-align:center;color:#16a34a;font-weight:600;margin-bottom:16px;">¡Respuesta correcta!</p>
+                <form id="passwordFormLogin" autocomplete="off" action="#" method="post">
+                    <div class="form-group">
+                        <label>Nueva Contraseña</label>
+                        <input type="password" id="newPassword" name="new_pass_xz83" placeholder="Mínimo 6 caracteres"
+                            minlength="6" autocomplete="new-password" data-lpignore="true" data-form-type="other"
+                            readonly onfocus="this.removeAttribute('readonly');">
+                        <i class="fas fa-eye password-toggle" id="toggleNewPassword"></i>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar Nueva Contraseña</label>
+                        <input type="password" id="confirmNewPassword" name="confirm_pass_xz83"
+                            placeholder="Repite la contraseña" autocomplete="new-password" data-lpignore="true"
+                            data-form-type="other" readonly onfocus="this.removeAttribute('readonly');">
+                        <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
+                    </div>
+                    <button type="button" class="btn-login" id="btnRecoverPassword">Cambiar Contraseña</button>
+                </form>
+                <button type="button" class="btn-secondary" id="btnCancelRecovery3">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="controllers/auth.js"></script>
+    <script>
+        // ========== EYE TOGGLE HANDLERS ==========
+        ['toggleRecoveryAnswer|recoveryAnswer', 'toggleNewPassword|newPassword', 'toggleConfirmPassword|confirmNewPassword'].forEach(function (pair) {
+            var parts = pair.split('|');
+            var toggleEl = document.getElementById(parts[0]);
+            var inputEl = document.getElementById(parts[1]);
+            if (toggleEl && inputEl) {
+                toggleEl.addEventListener('click', function () {
+                    if (inputEl.type === 'password') {
+                        inputEl.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        inputEl.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                });
+            }
+        });
+
+        // ========== SESSION GUARD ==========
+        (function () {
+            var userId = localStorage.getItem('user-id');
+            var legacyUser = localStorage.getItem('planetapp_user');
+            if (userId || legacyUser) {
+                window.location.replace('pages/panel-inicio.html');
+                return;
+            }
+        })();
+
+        // ========== EPHEMERAL STATE ==========
+        var _recoveryEmail = '';
+        var _recoveryAnswer = '';
+
+        // ========== HELPER FUNCTIONS ==========
+        function showError(message) {
+            var el = document.getElementById('errorMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            var el = document.getElementById('successMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function clearMessages() {
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // ========== LOGIN ==========
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var email = document.getElementById('email').value.trim();
+            var password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                showError('Ingrese correo y contraseña');
+                return;
+            }
+
+            var result = await login(email, password);
+            if (result.success) {
+                showSuccess('¡Inicio de sesión exitoso! Redirigiendo...');
+                setTimeout(function () {
+                    window.location.replace('pages/panel-inicio.html');
+                }, 1000);
+            } else {
+                showError(result.message);
+            }
+        });
+
+        // ========== RECOVERY FLOW ==========
+        function showRecoveryStep(stepNum) {
+            document.getElementById('recoverySection').style.display = 'block';
+            document.getElementById('recoveryStep1').classList.remove('active');
+            document.getElementById('recoveryStep2').classList.remove('active');
+            document.getElementById('recoveryStep3').classList.remove('active');
+            if (stepNum === 1) document.getElementById('recoveryStep1').classList.add('active');
+            if (stepNum === 2) document.getElementById('recoveryStep2').classList.add('active');
+            if (stepNum === 3) document.getElementById('recoveryStep3').classList.add('active');
+            clearMessages();
+        }
+
+        function hideRecovery() {
+            _recoveryEmail = '';
+            _recoveryAnswer = '';
+            document.getElementById('recoverySection').style.display = 'none';
+            document.getElementById('recoveryStep1').classList.add('active');
+            document.getElementById('recoveryStep2').classList.remove('active');
+            document.getElementById('recoveryStep3').classList.remove('active');
+            // Nuke all recovery fields
+            document.getElementById('recoveryEmail').value = '';
+            document.getElementById('recoveryAnswer').value = '';
+            document.getElementById('recoveryAnswer').setAttribute('readonly', '');
+            document.getElementById('newPassword').value = '';
+            document.getElementById('newPassword').setAttribute('readonly', '');
+            document.getElementById('confirmNewPassword').value = '';
+            document.getElementById('confirmNewPassword').setAttribute('readonly', '');
+            document.getElementById('questionDisplay').textContent = '';
+            clearMessages();
+        }
+
+        document.getElementById('btnForgot').addEventListener('click', function (e) {
+            e.preventDefault();
+            hideRecovery();
+            showRecoveryStep(1);
+        });
+
+        document.getElementById('btnCancelRecovery1').addEventListener('click', hideRecovery);
+        document.getElementById('btnCancelRecovery2').addEventListener('click', hideRecovery);
+        document.getElementById('btnCancelRecovery3').addEventListener('click', hideRecovery);
+
+        // Prevent form auto-submit
+        document.getElementById('answerFormLogin').addEventListener('submit', function (e) { e.preventDefault(); });
+        document.getElementById('passwordFormLogin').addEventListener('submit', function (e) { e.preventDefault(); });
+
+        // Step 1: Get question
+        document.getElementById('btnGetQuestion').addEventListener('click', async function () {
+            var email = document.getElementById('recoveryEmail').value.trim();
+            if (!email) {
+                showError('Ingrese su correo electrónico');
+                return;
+            }
+
+            var result = await getSecretQuestion(email);
+            if (result.success) {
+                _recoveryEmail = email;
+                // Reset answer field completely
+                document.getElementById('recoveryAnswer').value = '';
+                document.getElementById('recoveryAnswer').setAttribute('readonly', '');
+                document.getElementById('questionDisplay').textContent = result.preguntaSecreta;
+                showRecoveryStep(2);
+            } else {
+                showError(result.message);
+            }
+        });
+
+        // Step 2: Validate answer
+        document.getElementById('btnValidateAnswer').addEventListener('click', async function () {
+            var answer = document.getElementById('recoveryAnswer').value.trim();
+            if (!answer) {
+                showError('Ingrese su respuesta secreta');
+                return;
+            }
+
+            var result = await validateSecretAnswer(_recoveryEmail, answer);
+
+            if (result.success && result.valid) {
+                _recoveryAnswer = answer;
+                // Reset password fields completely
+                document.getElementById('newPassword').value = '';
+                document.getElementById('newPassword').setAttribute('readonly', '');
+                document.getElementById('confirmNewPassword').value = '';
+                document.getElementById('confirmNewPassword').setAttribute('readonly', '');
+                showRecoveryStep(3);
+                setTimeout(function () {
+                    document.getElementById('newPassword').removeAttribute('readonly');
+                    document.getElementById('newPassword').focus();
+                }, 300);
+            } else {
+                showError(result.message || 'La respuesta secreta es incorrecta.');
+            }
+        });
+
+        // Step 3: Change password
+        document.getElementById('btnRecoverPassword').addEventListener('click', async function () {
+            var newPass = document.getElementById('newPassword').value;
+            var confirmPass = document.getElementById('confirmNewPassword').value;
+
+            var errors = [];
+            if (!newPass || newPass.length < 6) errors.push('La contraseña debe tener al menos 6 caracteres');
+            if (newPass !== confirmPass) errors.push('Las contraseñas no coinciden');
+
+            if (errors.length > 0) {
+                showError(errors.join('. '));
+                return;
+            }
+
+            var result = await recoverPassword(_recoveryEmail, _recoveryAnswer, newPass);
+            if (result.success) {
+                showSuccess('¡Contraseña actualizada exitosamente!');
+                setTimeout(function () {
+                    hideRecovery();
+                }, 2000);
+            } else {
+                showError(result.message || 'Error al actualizar la contraseña');
+            }
+        });
+    </script>
+</body>
+
+</html>

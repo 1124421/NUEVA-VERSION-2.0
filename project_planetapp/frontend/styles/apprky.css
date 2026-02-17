@@ -1,0 +1,122 @@
+/**
+ * Estilos tipo Apprky: caja de información, pestañas, acordeón
+ * Para un look limpio y consistente con la referencia.
+ */
+
+:root {
+  --apprky-info-bg: #e3f2fd;
+  --apprky-info-border: #2196f3;
+  --apprky-tab-active: #1976d2;
+  --apprky-accordion-border: #e0e0e0;
+}
+
+/* Caja de información (alerta azul suave) */
+.apprky-info-box {
+  background: var(--apprky-info-bg);
+  border-left: 4px solid var(--apprky-info-border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #1565c0;
+}
+.apprky-info-box .apprky-info-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  opacity: 0.9;
+}
+.apprky-info-box p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Pestañas horizontales */
+.apprky-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 20px;
+}
+.apprky-tabs a,
+.apprky-tabs button {
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.apprky-tabs a:hover,
+.apprky-tabs button:hover {
+  color: #333;
+}
+.apprky-tabs a.active,
+.apprky-tabs button.active {
+  color: var(--apprky-tab-active);
+  border-bottom-color: var(--apprky-tab-active);
+}
+
+/* Acordeón (lista expandible) */
+.apprky-accordion {
+  border: 1px solid var(--apprky-accordion-border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.apprky-accordion-item {
+  border-bottom: 1px solid var(--apprky-accordion-border);
+}
+.apprky-accordion-item:last-child {
+  border-bottom: none;
+}
+.apprky-accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  background: #fafafa;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+.apprky-accordion-header:hover {
+  background: #f5f5f5;
+}
+.apprky-accordion-header .accordion-arrow {
+  width: 20px;
+  height: 20px;
+  color: #666;
+  transition: transform 0.2s;
+}
+.apprky-accordion-item.open .accordion-arrow {
+  transform: rotate(180deg);
+}
+.apprky-accordion-body {
+  padding: 0 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+.apprky-accordion-item.open .apprky-accordion-body {
+  max-height: 500px;
+}
+.apprky-accordion-body-inner {
+  padding: 16px 0;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+}

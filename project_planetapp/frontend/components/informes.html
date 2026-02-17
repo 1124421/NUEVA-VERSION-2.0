@@ -1,0 +1,372 @@
+<style>
+    .module-header {
+        background: var(--verde-renacer);
+        color: white;
+        padding: 16px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .module-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .filter-card {
+        background: white;
+        border-radius: 6px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+    }
+
+    .filter-row {
+        display: flex;
+        gap: 12px;
+        align-items: end;
+        flex-wrap: wrap;
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .filter-group label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        color: #666;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+    }
+
+    .filter-group select,
+    .filter-group input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+
+    .filter-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-sm {
+        padding: 8px 14px;
+        font-size: 12px;
+        border-radius: 4px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-sm i {
+        width: 14px;
+        height: 14px;
+    }
+
+    .btn-clear {
+        background: #f5f5f5;
+        color: #666;
+        border: 1px solid #ddd;
+    }
+
+    .btn-clear:hover {
+        background: #e0e0e0;
+    }
+
+    .btn-filter {
+        background: var(--verde-renacer);
+        color: white;
+    }
+
+    .btn-filter:hover {
+        background: var(--verde-hover);
+    }
+
+    .btn-export {
+        background: var(--verde-renacer);
+        color: white;
+    }
+
+    .btn-export:hover {
+        background: var(--verde-hover);
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 6px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+    }
+</style>
+
+<div
+    style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; margin-bottom: 16px;">
+    <h2 style="margin: 0; font-size: 16px; font-weight: 600; color: #2d5a47;">Informes</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div
+            style="width: 32px; height: 32px; border-radius: 50%; background: var(--verde-renacer); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px;">
+            U
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 12px; font-weight: 600; color: #333;" id="informesUserName"></div>
+            <div style="font-size: 10px; color: #666;">Usuario</div>
+        </div>
+    </div>
+</div>
+
+<!-- Filtros -->
+<div class="filter-card">
+    <div class="filter-row">
+        <div class="filter-group">
+            <label>Tipo de Registro</label>
+            <select id="filterTipoRegistro">
+                <option value="">Seleccione el registro</option>
+                <option value="compra">Compras</option>
+                <option value="venta">Ventas</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Período</label>
+            <select id="filterPeriodo">
+                <option value="">Personalizado</option>
+                <option value="diario">Diario</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensual">Mensual</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Fecha Desde</label>
+            <input type="date" id="filterFechaDesde">
+        </div>
+
+        <div class="filter-group">
+            <label>Estado</label>
+            <select id="filterEstado">
+                <option value="">Seleccione el estado</option>
+                <option value="completado">Completado</option>
+                <option value="pendiente">Pendiente</option>
+                <option value="rechazado">Rechazado</option>
+            </select>
+        </div>
+
+        <div class="filter-actions">
+            <button class="btn-sm btn-clear" onclick="limpiarFiltros()">
+                <i data-lucide="x"></i>
+                Limpiar
+            </button>
+            <button class="btn-sm btn-filter" onclick="aplicarFiltros()">
+                <i data-lucide="filter"></i>
+                Aplicar
+            </button>
+            <button class="btn-sm btn-export" onclick="exportarInforme()">
+                <i data-lucide="download"></i>
+                Exportar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla de Informes -->
+<div class="table-container">
+    <table id="tablaInformes" class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha y Hora</th>
+                <th>Asociado</th>
+                <th>Documento</th>
+                <th>Carreta</th>
+                <th>Ruta</th>
+                <th>Material</th>
+                <th>Peso por Kg</th>
+                <th>Precio Total</th>
+                <th>Rechazado</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="tablaInformesBody">
+            <!-- Se llenará dinámicamente -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let tablaInformes;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Inicializar DataTable
+        tablaInformes = $('#tablaInformes').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            },
+            pageLength: 10,
+            order: [[0, 'desc']],
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt'
+        });
+
+        // Configurar fecha de hoy por defecto
+        const hoy = new Date().toISOString().split('T')[0];
+        document.getElementById('filterFechaHasta').value = hoy;
+
+        // Listener para cambio de período
+        document.getElementById('filterPeriodo').addEventListener('change', function () {
+            const periodo = this.value;
+            const hoy = new Date();
+            const fechaHasta = document.getElementById('filterFechaHasta');
+            const fechaDesde = document.getElementById('filterFechaDesde');
+
+            fechaHasta.value = hoy.toISOString().split('T')[0];
+
+            if (periodo === 'diario') {
+                fechaDesde.value = hoy.toISOString().split('T')[0];
+            } else if (periodo === 'semanal') {
+                const semanaAtras = new Date(hoy);
+                semanaAtras.setDate(hoy.getDate() - 7);
+                fechaDesde.value = semanaAtras.toISOString().split('T')[0];
+            } else if (periodo === 'mensual') {
+                const mesAtras = new Date(hoy);
+                mesAtras.setMonth(hoy.getMonth() - 1);
+                fechaDesde.value = mesAtras.toISOString().split('T')[0];
+            }
+        });
+
+        // Cargar datos del backend
+        cargarInformes();
+
+        lucide.createIcons();
+    });
+
+    async function cargarInformes() {
+        try {
+            const response = await fetch('/reportes/informes');
+            if (!response.ok) throw new Error('Error al cargar informes');
+            const data = await response.json();
+
+            const tbody = document.getElementById('tablaInformesBody');
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="12" style="text-align:center;color:#94a3b8;padding:20px;">No hay registros</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(tx => {
+                const fecha = tx.fecha ? new Date(tx.fecha).toLocaleDateString('es-CO', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                }) : '';
+                const estadoClass = tx.estado === 'COMPLETADA' ? 'badge bg-success' : 'badge bg-danger';
+                const tipoClass = tx.tipo === 'Compra' ? 'badge bg-warning text-dark' : 'badge bg-info';
+                return `<tr>
+                    <td>${tx.id}</td>
+                    <td>${fecha}</td>
+                    <td>${tx.persona || 'N/A'}</td>
+                    <td>${tx.documento || '—'}</td>
+                    <td>${tx.carreta || '—'}</td>
+                    <td>${tx.ruta || '—'}</td>
+                    <td>${tx.material}</td>
+                    <td>${tx.cantidad} kg</td>
+                    <td>$${(tx.total || 0).toLocaleString('es-CO')}</td>
+                    <td>${tx.rechazado != null ? tx.rechazado + ' kg' : '—'}</td>
+                    <td><span class="${tipoClass}">${tx.tipo}</span></td>
+                    <td><span class="${estadoClass}">${tx.estado}</span></td>
+                </tr>`;
+            }).join('');
+
+            // Reinicializar DataTable con los nuevos datos
+            if (tablaInformes) {
+                tablaInformes.destroy();
+            }
+            tablaInformes = $('#tablaInformes').DataTable({
+                language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+                order: [[0, 'desc']],
+                paging: false,
+                searching: true,
+                info: false,
+                dom: 'rt'
+            });
+        } catch (err) {
+            console.error('[Informes] Error cargando datos:', err);
+        }
+    }
+
+    function limpiarFiltros() {
+        document.getElementById('filterTipoRegistro').value = '';
+        document.getElementById('filterPeriodo').value = '';
+        document.getElementById('filterFechaDesde').value = '';
+        document.getElementById('filterFechaHasta').value = new Date().toISOString().split('T')[0];
+        document.getElementById('filterEstado').value = '';
+
+        // Limpiar búsqueda de DataTable
+        tablaInformes.search('').draw();
+    }
+
+    function aplicarFiltros() {
+        const tipoRegistro = document.getElementById('filterTipoRegistro').value;
+        const estado = document.getElementById('filterEstado').value;
+        const fechaDesde = document.getElementById('filterFechaDesde').value;
+        const fechaHasta = document.getElementById('filterFechaHasta').value;
+
+        // Aquí implementarías la lógica de filtrado real
+        // Por ahora, mostramos un mensaje
+        console.log('Filtros aplicados:', { tipoRegistro, estado, fechaDesde, fechaHasta });
+
+        // Ejemplo de filtrado por tipo
+        if (tipoRegistro) {
+            tablaInformes.column(10).search(tipoRegistro === 'compra' ? 'Compra' : 'Venta').draw();
+        } else {
+            tablaInformes.column(10).search('').draw();
+        }
+
+        if (estado) {
+            tablaInformes.column(11).search(estado).draw();
+        } else {
+            tablaInformes.column(11).search('').draw();
+        }
+    }
+
+    function exportarInforme() {
+        // Obtener datos visibles de la tabla
+        const datos = tablaInformes.rows({ search: 'applied' }).data().toArray();
+
+        // Crear CSV
+        let csv = 'ID,Fecha y Hora,Asociado,Documento,Carreta,Ruta,Material,Peso por Kg,Precio Total,Rechazado,Tipo,Estado\n';
+
+        datos.forEach(fila => {
+            csv += fila.join(',') + '\n';
+        });
+
+        // Descargar archivo
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `informe_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    lucide.createIcons();
+</script>

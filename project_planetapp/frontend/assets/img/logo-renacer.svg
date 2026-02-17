@@ -1,0 +1,40 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gear/Cog -->
+  <g transform="translate(60, 60)">
+    <!-- Outer gear teeth -->
+    <path d="M 0,-45 L 5,-40 L 5,-35 L 0,-30 L -5,-35 L -5,-40 Z
+             M 30,-33.5 L 35,-28.5 L 32.5,-23.5 L 27.5,-21 L 25,-26 L 27.5,-31 Z
+             M 42.5,0 L 45,5 L 40,7.5 L 35,5 L 35,0 L 40,-2.5 Z
+             M 30,33.5 L 32.5,38.5 L 27.5,41 L 22.5,38.5 L 22.5,33.5 L 27.5,31 Z
+             M 0,45 L 5,40 L 5,35 L 0,30 L -5,35 L -5,40 Z
+             M -30,33.5 L -25,31 L -22.5,33.5 L -22.5,38.5 L -27.5,41 L -32.5,38.5 Z
+             M -42.5,0 L -40,-2.5 L -35,0 L -35,5 L -40,7.5 L -45,5 Z
+             M -30,-33.5 L -27.5,-31 L -25,-26 L -27.5,-21 L -32.5,-23.5 L -35,-28.5 Z" 
+          fill="#00897b" opacity="0.3"/>
+    
+    <!-- Main gear circle -->
+    <circle cx="0" cy="0" r="28" fill="#00acc1" opacity="0.8"/>
+    <circle cx="0" cy="0" r="20" fill="white"/>
+    <circle cx="0" cy="0" r="12" fill="#00acc1"/>
+  </g>
+  
+  <!-- Tree -->
+  <g transform="translate(60, 55)">
+    <!-- Trunk -->
+    <rect x="-4" y="15" width="8" height="25" fill="#5d4037" rx="2"/>
+    
+    <!-- Leaves - layered triangles -->
+    <path d="M 0,-20 L -18,0 L 18,0 Z" fill="#2d5a47"/>
+    <path d="M 0,-10 L -15,5 L 15,5 Z" fill="#388e3c"/>
+    <path d="M 0,0 L -12,15 L 12,15 Z" fill="#43a047"/>
+    
+    <!-- Highlight dots on leaves -->
+    <circle cx="-8" cy="-8" r="2" fill="#66bb6a" opacity="0.6"/>
+    <circle cx="6" cy="-2" r="2" fill="#66bb6a" opacity="0.6"/>
+    <circle cx="-4" cy="8" r="2" fill="#66bb6a" opacity="0.6"/>
+  </g>
+  
+  <!-- Company name -->
+  <text x="60" y="108" font-family="Arial, sans-serif" font-size="14" font-weight="bold" 
+        text-anchor="middle" fill="#2d5a47">RENACER</text>
+</svg>

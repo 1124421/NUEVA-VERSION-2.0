@@ -1,0 +1,22 @@
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Recycling arrows circle -->
+  <g transform="translate(25, 25)">
+    <!-- Arrow 1 (top) -->
+    <path d="M 0,-15 L -3,-10 L -1,-10 L -1,-5 L 1,-5 L 1,-10 L 3,-10 Z" fill="#2d5a47"/>
+    
+    <!-- Arrow 2 (bottom right) -->
+    <path d="M 13,7.5 L 10,12.5 L 11,13 L 6,14 L 7,9 L 8,9.5 L 11,4.5 Z" fill="#2d5a47"/>
+    
+    <!-- Arrow 3 (bottom left) -->
+    <path d="M -13,7.5 L -11,4.5 L -8,9.5 L -7,9 L -6,14 L -11,13 L -10,12.5 Z" fill="#2d5a47"/>
+    
+    <!-- Center circle -->
+    <circle cx="0" cy="0" r="4" fill="none" stroke="#2d5a47" stroke-width="1.5"/>
+    
+    <!-- Leaf accent -->
+    <path d="M -1,-2 Q -3,-4 -2,-6 Q -1,-5 0,-4 Q 1,-5 2,-6 Q 3,-4 1,-2 Z" fill="#43a047" opacity="0.8"/>
+  </g>
+  
+  <!-- Outer circle -->
+  <circle cx="25" cy="25" r="23" fill="none" stroke="#2d5a47" stroke-width="2"/>
+</svg>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos - PlanetApp</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Design System -->
+    <link rel="stylesheet" href="../styles/dashboard.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Web Components -->
+    <script type="module" src="../components/app-sidebar.js"></script>
+    <script type="module" src="../components/app-tabs.js"></script>
+    <script type="module" src="../components/app-accordion.js"></script>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <app-sidebar active="recursos" base-path=".." app-name="PlanetApp" subtitle="Gestión de Reciclaje"
+        version="v1.0.0"></app-sidebar>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-header__title">Recursos</h1>
+                <p class="page-header__subtitle">Normativa y documentación</p>
+            </div>
+            <div class="page-header__meta">
+                <span id="currentDate"></span>
+                <span class="page-header__user" id="userName">Usuario</span>
+            </div>
+        </div>
+
+        <!-- Section Title -->
+        <div class="card card--elevated" style="margin-bottom: 24px;">
+            <h2 style="font-size: 18px; font-weight: 600; margin: 0 0 8px 0;">Recursos y Normativa Ambiental</h2>
+            <p style="color: var(--color-text-muted); font-size: 14px; margin: 0;">Información oficial para cumplimiento
+                de Buenas Prácticas Ambientales</p>
+        </div>
+
+        <!-- Tabs Component -->
+        <app-tabs active-tab="0">
+            <app-tab label="Normativa Ambiental">
+                <!-- Info Box -->
+                <div class="info-box" style="margin-bottom: 20px;">
+                    <i data-lucide="info" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
+                    <span>La legislación ambiental establece los requisitos para la gestión integral de residuos sólidos
+                        en Colombia.</span>
+                </div>
+
+                <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Principales Requisitos para Gestión
+                    de Reciclaje</h3>
+                <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px;">Según Decreto 1077 de
+                    2015</p>
+
+                <!-- Accordion -->
+                <app-accordion>
+                    <app-accordion-item title="Instalaciones y Equipos">
+                        <p>Las instalaciones deben cumplir con requisitos sanitarios mínimos establecidos por la
+                            normativa local.
+                            Se requiere área de recepción, clasificación y almacenamiento temporal debidamente
+                            señalizadas.</p>
+                    </app-accordion-item>
+                    <app-accordion-item title="Clasificación de Materiales">
+                        <p>Los materiales reciclables deben clasificarse según su naturaleza: plásticos, metales,
+                            papel/cartón, vidrio,
+                            y otros materiales aprovechables, siguiendo la codificación de colores establecida.</p>
+                    </app-accordion-item>
+                    <app-accordion-item title="Registros Obligatorios">
+                        <p>Se deben mantener registros actualizados de entrada y salida de materiales, pesajes,
+                            transacciones
+                            comerciales y trazabilidad de los residuos aprovechados.</p>
+                    </app-accordion-item>
+                    <app-accordion-item title="Seguridad y Salud Ocupacional">
+                        <p>El personal debe contar con elementos de protección personal (EPP) adecuados, capacitación en
+                            manejo de residuos y protocolos de emergencia.</p>
+                    </app-accordion-item>
+                </app-accordion>
+            </app-tab>
+
+            <app-tab label="Calendario de Capacitaciones">
+                <div class="card">
+                    <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 16px;">Próximas Capacitaciones</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Tema</th>
+                                <th>Duración</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>15/02/2026</td>
+                                <td>Manejo seguro de residuos peligrosos</td>
+                                <td>4 horas</td>
+                                <td><span class="badge badge--warning">Próximo</span></td>
+                            </tr>
+                            <tr>
+                                <td>22/02/2026</td>
+                                <td>Clasificación de polímeros</td>
+                                <td>2 horas</td>
+                                <td><span class="badge badge--info">Programado</span></td>
+                            </tr>
+                            <tr>
+                                <td>01/03/2026</td>
+                                <td>Primeros auxilios básicos</td>
+                                <td>3 horas</td>
+                                <td><span class="badge badge--info">Programado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </app-tab>
+
+            <app-tab label="Guía de Materiales">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card card--accent-left card--green">
+                            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Metales</h5>
+                            <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">
+                                Aluminio, cobre, hierro, acero inoxidable, bronce, latón y otros metales no ferrosos.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card--accent-left card--blue">
+                            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Plásticos</h5>
+                            <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">
+                                PET, HDPE, PVC, LDPE, PP, PS y otros polímeros reciclables según código de
+                                identificación.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card--accent-left card--orange">
+                            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Papel y Cartón</h5>
+                            <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">
+                                Papel archivo, periódico, cartón corrugado, cartulina y productos celulósicos.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card card--accent-left card--red">
+                            <h5 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">Vidrio</h5>
+                            <p style="font-size: 13px; color: var(--color-text-muted); margin: 0;">
+                                Envases, botellas, frascos y vidrio plano clasificados por color cuando aplique.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </app-tab>
+
+            <app-tab label="Documentos">
+                <div class="card">
+                    <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 16px;">Documentos Descargables</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li
+                            style="padding: 12px 0; border-bottom: 1px solid var(--color-gray-200); display: flex; justify-content: space-between; align-items: center;">
+                            <span>Manual de Clasificación de Materiales</span>
+                            <button class="btn btn--secondary"><i data-lucide="download"
+                                    style="width: 14px; height: 14px;"></i> Descargar</button>
+                        </li>
+                        <li
+                            style="padding: 12px 0; border-bottom: 1px solid var(--color-gray-200); display: flex; justify-content: space-between; align-items: center;">
+                            <span>Formato de Registro de Pesaje</span>
+                            <button class="btn btn--secondary"><i data-lucide="download"
+                                    style="width: 14px; height: 14px;"></i> Descargar</button>
+                        </li>
+                        <li
+                            style="padding: 12px 0; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Protocolo de Seguridad y Salud</span>
+                            <button class="btn btn--secondary"><i data-lucide="download"
+                                    style="width: 14px; height: 14px;"></i> Descargar</button>
+                        </li>
+                    </ul>
+                </div>
+            </app-tab>
+        </app-tabs>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide Icons
+            lucide.createIcons();
+
+            // Set current date
+            const dateEl = document.getElementById('currentDate');
+            if (dateEl) {
+                const now = new Date();
+                dateEl.textContent = now.toLocaleDateString('es-CO', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            }
+
+            // Set username from localStorage
+            const userEl = document.getElementById('userName');
+            if (userEl) {
+                const username = localStorage.getItem('planetapp_user') || localStorage.getItem('user-name') || 'Usuario';
+                userEl.textContent = username;
+            }
+        });
+    </script>
+</body>
+
+</html>

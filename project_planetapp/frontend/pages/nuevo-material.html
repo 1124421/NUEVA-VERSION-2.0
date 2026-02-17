@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Materiales - PlanetApp</title>
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="../styles/estilos_materiales.css">
+    <link rel="stylesheet" href="../styles/menuestilos.css">
+    <!-- Íconos FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Cargar componentes Web -->
+    <script type="module" src="../components/components-loader.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- ✅ COMPONENTE REUTILIZABLE: Sidebar -->
+        <app-sidebar active="materiales" base-path=".."></app-sidebar>
+
+        <main class="main-content" style="margin-left: 280px;">
+            <!-- ✅ COMPONENTE REUTILIZABLE: Header -->
+            <app-header title="Gestión de Materiales">
+            </app-header>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Search and Tabs -->
+                <div class="content-header">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Buscar material" class="search-input">
+                    </div>
+                    <div class="tabs">
+                        <button id="btnCategoria" class="tab-btn">Agregar categoría</button>
+                        <button id="btnNuevoMaterial" class="tab-btn active">Nuevo material</button>
+                        <button id="btnInventario" class="tab-btn">Reporte de inventario</button>
+                    </div>
+                </div>
+
+                <!-- ✅ COMPONENTE REUTILIZABLE: Modal para agregar categoría -->
+                <app-modal id="modalCategoria" title="Agregar nueva categoría">
+                    <form id="formCategoria" class="modal-form">
+                        <label for="nombre-categoria">Nombre de la categoría</label>
+                        <input type="text" id="nombre-categoria" name="nombre-categoria" placeholder="Ingrese nombre">
+                        <button type="submit" class="btn-save">Guardar categoría</button>
+                    </form>
+                </app-modal>
+
+                <!-- Form Section -->
+                <div id="formSection" class="form-section">
+                    <h2>Agregar nuevo material</h2>
+                    <form class="material-form" id="materialForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="codigo">Código del material</label>
+                                <input type="text" id="codigo" name="codigo" placeholder="Ingrese aquí">
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcion">Descripción</label>
+                                <input type="text" id="descripcion" name="descripcion" placeholder="Ingrese aquí">
+                            </div>
+                            <div class="form-group">
+                                <label for="precio-unidad">Precio por unidad</label>
+                                <input type="number" id="precio-unidad" name="precio-unidad" placeholder="Ingrese aquí"
+                                    step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="precio-venta">Precio de venta</label>
+                                <input type="number" id="precio-venta" name="precio-venta" placeholder="Ingrese aquí"
+                                    step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label for="categoria">Categoría de material</label>
+                                <select id="categoria" name="categoria">
+                                    <option value="">Ingrese aquí</option>
+                                    <option value="herramientas">Herramientas</option>
+                                    <option value="materiales-construccion">Materiales de Construcción</option>
+                                    <option value="electricidad">Electricidad</option>
+                                    <option value="plomeria">Plomería</option>
+                                    <option value="pintura">Pintura</option>
+                                    <option value="plasticos">Plásticos</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cantidad">Cantidad actual</label>
+                                <input type="number" id="cantidad" name="cantidad" placeholder="Ingrese aquí" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-cancel">Cancelar</button>
+                            <button type="submit" class="btn btn-save">Guardar material</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Inventory Section -->
+                <div id="inventorySection" class="inventory-section">
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Precio unitario</th>
+                                <th>Precio de venta</th>
+                                <th>Cantidad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Materiales se cargarán dinámicamente desde el backend -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Elementos del modal
+        const modalCategoria = document.getElementById("modalCategoria");
+        const btnCategoria = document.getElementById("btnCategoria");
+        const btnNuevoMaterial = document.getElementById("btnNuevoMaterial");
+        const btnInventario = document.getElementById("btnInventario");
+        const formSection = document.getElementById("formSection");
+        const inventorySection = document.getElementById("inventorySection");
+
+        // Función para cambiar entre secciones
+        function showSection(section) {
+            // Ocultar todas las secciones
+            formSection.style.display = 'none';
+            inventorySection.style.display = 'none';
+
+            // Remover clase active de todos los botones
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Mostrar la sección seleccionada
+            if (section === 'form') {
+                formSection.style.display = 'block';
+                btnNuevoMaterial.classList.add('active');
+            } else if (section === 'inventory') {
+                inventorySection.style.display = 'block';
+                btnInventario.classList.add('active');
+            }
+        }
+
+        // Event listeners para los tabs
+        btnNuevoMaterial.addEventListener("click", () => {
+            showSection('form');
+        });
+
+        btnInventario.addEventListener("click", () => {
+            showSection('inventory');
+        });
+
+        // Abrir modal al hacer clic en "Agregar categoría" usando el componente
+        btnCategoria.addEventListener("click", () => {
+            modalCategoria.open();
+        });
+
+        // Inicializar mostrando la sección del formulario
+        showSection('form');
+    </script>
+</body>
+
+</html>

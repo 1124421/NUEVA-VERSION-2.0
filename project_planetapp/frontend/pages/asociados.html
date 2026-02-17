@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Panel de Asociados - PlanetApp</title>
+  <link rel="stylesheet" href="../styles/normalize.css">
+  <link rel="stylesheet" href="../styles/style_asociado.css">
+  <link rel="stylesheet" href="../styles/apprky.css">
+  <!-- Font Awesome para iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Cargar componentes Web -->
+  <script type="module" src="../components/components-loader.js"></script>
+
+  <style>
+    /* Estilos mejorados siguiendo la imagen de referencia */
+    .page-header {
+      background: white;
+      padding: 20px 30px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .apprky-header {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .page-header-left { display: flex; flex-direction: column; gap: 2px; }
+    .page-subtitle {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+    }
+    .header-date {
+      font-size: 13px;
+      color: #666;
+      margin-right: 12px;
+    }
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--verde-renacer);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    .user-info h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .user-info p {
+      margin: 0;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .search-filter-section {
+      background: white;
+      padding: 20px 30px;
+      margin-bottom: 20px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-container {
+      position: relative;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      width: 18px;
+      height: 18px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 12px 12px 42px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      background: #fafafa;
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #bbb;
+      background: white;
+    }
+
+    .btn-new {
+      background: var(--verde-renacer);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+
+    .btn-new:hover {
+      background: var(--verde-hover);
+    }
+
+    .filters-row {
+      display: flex;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .filter-group {
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .filter-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .filter-input,
+    .filter-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      background: #fafafa;
+      transition: all 0.3s;
+    }
+
+    .filter-input:focus,
+    .filter-select:focus {
+      outline: none;
+      border-color: #bbb;
+      background: white;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid #d0d0d0;
+      color: #555;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      background: #f8f8f8;
+      border-color: #aaa;
+    }
+
+    .btn-apply {
+      background: var(--verde-renacer);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-apply:hover {
+      background: var(--verde-hover);
+    }
+
+    .table-container {
+      background: white;
+      padding: 0 30px 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      background: #f2f2f2;
+      color: #333;
+      font-weight: 600;
+      text-align: left;
+      padding: 14px;
+      font-size: 13px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.2s;
+    }
+
+    tbody tr:hover {
+      background: #fafafa;
+    }
+
+    tbody td {
+      padding: 14px;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .badge-ingresos {
+      background: #e8f5e9;
+      color: var(--verde-renacer);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-activo {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-inactivo {
+      background: #f5f5f5;
+      color: #757575;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .action-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #666;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      color: var(--verde-renacer);
+    }
+
+    .btn-icon.delete:hover {
+      color: #d32f2f;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ Sidebar estilo Apprky -->
+  <app-sidebar active="asociados" base-path=".." app-name="PlanetApp" subtitle="Gestión de Reciclaje"></app-sidebar>
+
+  <div class="main-wrap" style="margin-left: 260px;">
+    <!-- Cabecera tipo Apprky: usuario y fecha a la derecha -->
+    <div class="page-header apprky-header">
+      <div class="page-header-left">
+        <h1 class="page-title">Asociados</h1>
+        <p class="page-subtitle">Recolectores y socios</p>
+      </div>
+      <div class="user-section">
+        <span class="header-date" id="headerDate"></span>
+        <div class="user-avatar">
+          <i data-lucide="user"></i>
+        </div>
+        <div class="user-info">
+          <h3 id="userName">Usuario</h3>
+          <p id="userRole">Administrador</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de búsqueda y filtros -->
+    <div class="search-filter-section">
+      <!-- Buscador y botón nuevo -->
+      <div class="search-row">
+        <div class="search-container">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" class="search-input" id="searchInput" placeholder="Buscar asociado">
+        </div>
+        <button class="btn-new" id="btnNuevo">
+          <i data-lucide="plus"></i>
+          Nuevo asociado
+        </button>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filters-row">
+        <div class="filter-group">
+          <label class="filter-label">Fecha desde</label>
+          <input type="date" class="filter-input" id="filterFechaDesde">
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Fecha hasta</label>
+          <input type="date" class="filter-input" id="filterFechaHasta">
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">Estado</label>
+          <select class="filter-select" id="filterEstado">
+            <option value="">Todos</option>
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
+        <button class="btn-outline" onclick="limpiarFiltros()">Limpiar filtros</button>
+        <button class="btn-apply" onclick="aplicarFiltros()">Aplicar filtros</button>
+      </div>
+    </div>
+
+    <!-- Tabla de asociados -->
+    <div class="table-container">
+      <table id="asociadosTable">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Documento</th>
+            <th>Contacto</th>
+            <th>Ingresos</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="asociadosTbody">
+          <!-- Se llenará dinámicamente desde el backend -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ✅ COMPONENTE REUTILIZABLE: Modal Form (Agregar / Editar) -->
+  <app-modal id="modalForm" title="Nuevo Asociado">
+    <form id="asociadoForm">
+      <input type="hidden" id="editIndex" value="">
+
+      <!-- Campos (puedes completar más info aquí) -->
+      <input id="nombre" type="text" placeholder="Nombre completo" required>
+      <input id="documento" type="text" placeholder="Documento" required>
+      <input id="contacto" type="text" placeholder="Teléfono o correo" required>
+      <input id="fechaInicio" type="date" placeholder="Fecha Inicio">
+      <input id="contrato" type="text" placeholder="Tipo de contrato">
+      <input id="cargo" type="text" placeholder="Cargo">
+      <input id="idUnico" type="text" placeholder="ID único">
+      <input id="tipoAsociado" type="text" placeholder="Tipo de asociado (Activo/Inactivo)">
+      <input id="ingresos" type="number" placeholder="Ingresos" min="0">
+
+      <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:8px;">
+        <button type="button" id="btnCancelForm" class="btn btn-secondary">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </app-modal>
+
+  <!-- ✅ COMPONENTE REUTILIZABLE: Modal Ver (solo lectura) -->
+  <app-modal id="modalVer" title="Datos del Asociado">
+    <p><strong>Nombre:</strong> <span id="verNombre"></span></p>
+    <p><strong>Documento:</strong> <span id="verDocumento"></span></p>
+    <p><strong>Contacto:</strong> <span id="verContacto"></span></p>
+    <p><strong>Fecha Inicio:</strong> <span id="verFechaInicio"></span></p>
+    <p><strong>Tipo de contrato:</strong> <span id="verContrato"></span></p>
+    <p><strong>Cargo:</strong> <span id="verCargo"></span></p>
+    <p><strong>ID único:</strong> <span id="verIdUnico"></span></p>
+    <p><strong>Tipo de asociado:</strong> <span id="verTipoAsociado"></span></p>
+    <p><strong>Ingresos:</strong> <span id="verIngresos"></span></p>
+    <div style="text-align:right; margin-top:10px;">
+      <button id="btnCloseVer" class="btn btn-primary">Cerrar</button>
+    </div>
+  </app-modal>
+
+  <!-- Arquitectura Hexagonal: entry point asociados -->
+  <script type="module" src="../src/entry-asociados.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      const dateEl = document.getElementById('headerDate');
+      if (dateEl) {
+        const d = new Date();
+        dateEl.textContent = d.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      }
+    });
+    function limpiarFiltros() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('filterFechaDesde').value = '';
+      document.getElementById('filterFechaHasta').value = '';
+      document.getElementById('filterEstado').value = '';
+    }
+    function aplicarFiltros() {
+      console.log('Aplicando filtros...');
+    }
+  </script>
+</body>
+
+</html>

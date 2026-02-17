@@ -1,0 +1,252 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Layout */
+body {
+    display: flex;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+/* Sidebar (espacio reservado) */
+.sidebar {
+    width: 60px;
+    background-color: #2e4c34;
+}
+
+/* Main content */
+.main {
+    flex: 1;
+    padding: 20px;
+    margin-left: 60px;
+    overflow-x: hidden;
+}
+
+/* Cuando la página usa app-sidebar (260px) */
+.main-informes {
+    margin-left: 260px;
+    padding: 30px;
+}
+
+/* Header */
+.header {
+    
+    background-color: transparent; 
+    border-radius: 0; 
+    box-shadow: none; 
+    padding: 0 0 15px 0; /* Ajustamos el padding para mantener espacio sin el "cuadro" */
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Mantenemos el margen inferior para la línea divisoria */
+    margin-bottom: 0; 
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    font-size: 36px;
+    color: #2e4c34;
+}
+
+.user p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.user span {
+    color: #666;
+    font-size: 12px;
+}
+
+
+/* ESTILO DE LA LÍNEA DIVISORIA */
+
+.header-divider {
+    border: none;
+    border-top: 2px solid #2e4c34;
+    /* Ajuste de márgenes: arriba 0, abajo 30px */
+    margin: 0 0 30px 0; 
+    opacity: 0.6;
+    width: 100%; 
+}
+
+
+/* Filter Section */
+.filters {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.filters select,
+.filters input {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    min-width: 150px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.filters button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.clear, .btn--clear {
+    background-color: #e0e0e0;
+    color: #555;
+}
+
+.clear:hover, .btn--clear:hover {
+    background-color: #d0d0d0;
+}
+
+.apply, .btn--apply {
+    background-color: #2e4c34;
+    color: white;
+}
+
+.apply:hover, .btn--apply:hover {
+    background-color: #253d29;
+}
+
+.export, .btn--export {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.export:hover, .btn--export:hover {
+    background-color: #3a7bd5;
+}
+
+/* Table Section */
+.table-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+/* ESTILOS DE TABLA Y ARRASTRE CORREGIDOS */
+.tabla-scroll {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    cursor: default;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.tabla-scroll:active {
+    cursor: default;
+}
+
+/* Ocultar barra en Chrome/Safari */
+.tabla-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+table {
+    border-collapse: collapse;
+    width: max-content;
+    min-width: 100%;
+    table-layout: fixed; 
+}
+
+thead th, tbody td {
+    padding: 15px;
+    text-align: left;
+    white-space: nowrap; 
+}
+
+
+
+
+thead th {
+    background-color: #fafafa;
+    color: #555;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody td {
+    color: #333;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+.actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 8px; 
+    padding: 0;
+    transition: opacity 0.2s ease;
+}
+
+.actions button:hover {
+    background-color: transparent;
+    opacity: 0.8;
+}
+
+/* Colores de los íconos */
+.actions .edit i { color: #20b2aa; } 
+.actions .download i { color: #4a90e2; } 
+.actions .delete i { color: #e74c3c; }

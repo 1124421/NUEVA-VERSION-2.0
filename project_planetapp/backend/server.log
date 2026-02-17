@@ -1,0 +1,243 @@
+? Database 'planetapp_db' already exists.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-02-09T22:38:14.815-05:00  INFO 10332 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : Starting PlanetAppApplication v1.0.0 using Java 25.0.1 with PID 10332 (C:\Users\Johana\Documents\project_planetapp\backend\build\libs\planetapp-backend-1.0.0.jar started by Johana in C:\Users\Johana\Documents\project_planetapp\backend)
+2026-02-09T22:38:14.816-05:00 DEBUG 10332 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-02-09T22:38:14.817-05:00  INFO 10332 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-02-09T22:38:15.608-05:00  INFO 10332 --- [planetapp-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-09T22:38:15.667-05:00  INFO 10332 --- [planetapp-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 8 JPA repository interfaces.
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by org.apache.tomcat.jni.Library in an unnamed module (jar:nested:/C:/Users/Johana/Documents/project_planetapp/backend/build/libs/planetapp-backend-1.0.0.jar/!BOOT-INF/lib/tomcat-embed-core-10.1.16.jar!/)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+2026-02-09T22:38:16.230-05:00  INFO 10332 --- [planetapp-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-09T22:38:16.240-05:00  INFO 10332 --- [planetapp-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-09T22:38:16.240-05:00  INFO 10332 --- [planetapp-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-02-09T22:38:16.288-05:00  INFO 10332 --- [planetapp-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-09T22:38:16.288-05:00  INFO 10332 --- [planetapp-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1414 ms
+2026-02-09T22:38:16.495-05:00  INFO 10332 --- [planetapp-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-09T22:38:16.547-05:00  INFO 10332 --- [planetapp-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2026-02-09T22:38:16.580-05:00  INFO 10332 --- [planetapp-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-09T22:38:16.802-05:00  INFO 10332 --- [planetapp-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-09T22:38:16.823-05:00  INFO 10332 --- [planetapp-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-09T22:38:16.872-05:00  INFO 10332 --- [planetapp-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@786ff0ea
+2026-02-09T22:38:16.874-05:00  INFO 10332 --- [planetapp-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-09T22:38:16.902-05:00  WARN 10332 --- [planetapp-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-09T22:38:17.639-05:00  INFO 10332 --- [planetapp-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-09T22:38:17.732-05:00  INFO 10332 --- [planetapp-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-09T22:38:17.963-05:00  INFO 10332 --- [planetapp-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-09T22:38:18.692-05:00  WARN 10332 --- [planetapp-backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-09T22:38:18.711-05:00  WARN 10332 --- [planetapp-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 85ac65d1-e040-4a9d-b901-b067681f5c38
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-09T22:38:18.796-05:00  INFO 10332 --- [planetapp-backend] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@35e79be0, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@678c654c, org.springframework.security.web.context.SecurityContextHolderFilter@3f491bd2, org.springframework.security.web.header.HeaderWriterFilter@1f94df5, org.springframework.web.filter.CorsFilter@5a566922, org.springframework.security.web.authentication.logout.LogoutFilter@73859ca8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b74dd88, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@736ded17, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@50e3be0a, org.springframework.security.web.access.ExceptionTranslationFilter@6d0e242f, org.springframework.security.web.access.intercept.AuthorizationFilter@687749d1]
+2026-02-09T22:38:19.312-05:00  INFO 10332 --- [planetapp-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path ''
+2026-02-09T22:38:19.321-05:00  INFO 10332 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : Started PlanetAppApplication in 4.894 seconds (process running for 5.546)
+2026-02-09T22:38:57.221-05:00  INFO 10332 --- [planetapp-backend] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-09T22:38:57.221-05:00  INFO 10332 --- [planetapp-backend] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-09T22:38:57.222-05:00  INFO 10332 --- [planetapp-backend] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.asociado_id,
+        c1_0.cantidad,
+        c1_0.estado,
+        c1_0.fecha_compra,
+        c1_0.material_id,
+        c1_0.observaciones,
+        c1_0.precio_unitario,
+        c1_0.total 
+    from
+        compras c1_0 
+    order by
+        c1_0.fecha_compra desc
+Hibernate: 
+    select
+        m1_0.nombre,
+        sum(c1_0.cantidad) 
+    from
+        compras c1_0 
+    join
+        materiales m1_0 
+            on m1_0.id=c1_0.material_id 
+    where
+        c1_0.estado='COMPLETADA' 
+    group by
+        m1_0.nombre 
+    order by
+        sum(c1_0.cantidad) desc
+Hibernate: 
+    select
+        count(*) 
+    from
+        asociados a1_0
+Hibernate: 
+    select
+        m1_0.nombre,
+        sum(v1_0.cantidad) 
+    from
+        ventas v1_0 
+    join
+        materiales m1_0 
+            on m1_0.id=v1_0.material_id 
+    where
+        v1_0.estado='COMPLETADA' 
+    group by
+        m1_0.nombre 
+    order by
+        sum(v1_0.cantidad) desc
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.cantidad,
+        v1_0.cliente,
+        v1_0.estado,
+        v1_0.fecha_venta,
+        v1_0.material_id,
+        v1_0.observaciones,
+        v1_0.precio_unitario,
+        v1_0.total 
+    from
+        ventas v1_0 
+    order by
+        v1_0.fecha_venta desc
+Hibernate: 
+    select
+        count(v1_0.id) 
+    from
+        ventas v1_0 
+    where
+        v1_0.estado=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        compras c1_0 
+    where
+        c1_0.estado=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.activo,
+        m1_0.categoria_id,
+        m1_0.codigo,
+        m1_0.descripcion,
+        m1_0.fecha_registro,
+        m1_0.nombre,
+        m1_0.precio_compra,
+        m1_0.precio_venta,
+        m1_0.stock,
+        m1_0.subcategoria_id,
+        m1_0.unidad 
+    from
+        materiales m1_0 
+    where
+        m1_0.stock<?
+Hibernate: 
+    select
+        count(*) 
+    from
+        asociados a1_0
+Hibernate: 
+    select
+        count(v1_0.id) 
+    from
+        ventas v1_0 
+    where
+        v1_0.estado=?
+Hibernate: 
+    select
+        count(c1_0.id) 
+    from
+        compras c1_0 
+    where
+        c1_0.estado=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.activo,
+        m1_0.categoria_id,
+        m1_0.codigo,
+        m1_0.descripcion,
+        m1_0.fecha_registro,
+        m1_0.nombre,
+        m1_0.precio_compra,
+        m1_0.precio_venta,
+        m1_0.stock,
+        m1_0.subcategoria_id,
+        m1_0.unidad 
+    from
+        materiales m1_0 
+    where
+        m1_0.stock<?
+Hibernate: 
+    select
+        m1_0.nombre,
+        sum(v1_0.cantidad) 
+    from
+        ventas v1_0 
+    join
+        materiales m1_0 
+            on m1_0.id=v1_0.material_id 
+    where
+        v1_0.estado='COMPLETADA' 
+    group by
+        m1_0.nombre 
+    order by
+        sum(v1_0.cantidad) desc
+Hibernate: 
+    select
+        m1_0.nombre,
+        sum(c1_0.cantidad) 
+    from
+        compras c1_0 
+    join
+        materiales m1_0 
+            on m1_0.id=c1_0.material_id 
+    where
+        c1_0.estado='COMPLETADA' 
+    group by
+        m1_0.nombre 
+    order by
+        sum(c1_0.cantidad) desc
+Hibernate: 
+    select
+        c1_0.id,
+        c1_0.asociado_id,
+        c1_0.cantidad,
+        c1_0.estado,
+        c1_0.fecha_compra,
+        c1_0.material_id,
+        c1_0.observaciones,
+        c1_0.precio_unitario,
+        c1_0.total 
+    from
+        compras c1_0 
+    order by
+        c1_0.fecha_compra desc
+Hibernate: 
+    select
+        v1_0.id,
+        v1_0.cantidad,
+        v1_0.cliente,
+        v1_0.estado,
+        v1_0.fecha_venta,
+        v1_0.material_id,
+        v1_0.observaciones,
+        v1_0.precio_unitario,
+        v1_0.total 
+    from
+        ventas v1_0 
+    order by
+        v1_0.fecha_venta desc

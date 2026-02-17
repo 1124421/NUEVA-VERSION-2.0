@@ -1,0 +1,936 @@
+<style>
+    .module-header {
+        background: white;
+        color: #333;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e0e0e0;
+        border-left: 5px solid var(--verde-renacer);
+    }
+
+    .module-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--verde-renacer);
+    }
+
+    .form-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+    }
+
+    .btn-action {
+        padding: 4px 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 11px;
+        margin: 0 2px;
+    }
+
+    .btn-edit {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .btn-edit:hover {
+        background: #1976d2;
+        color: white;
+    }
+
+    .btn-delete {
+        background: #ffebee;
+        color: #d32f2f;
+    }
+
+    .btn-delete:hover {
+        background: #d32f2f;
+        color: white;
+    }
+
+    .btn-view {
+        background: #e8f5e9;
+        color: var(--verde-renacer);
+    }
+
+    .btn-view:hover {
+        background: var(--verde-renacer);
+        color: white;
+    }
+
+    .invalid-feedback {
+        display: block;
+        font-size: 11px;
+        color: #d32f2f;
+        margin-top: 4px;
+    }
+
+    /* Modal Styles */
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+        background: white;
+        color: #333;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 20px 24px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .modal-title {
+        font-weight: 700;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #333;
+    }
+
+    .modal-title i {
+        color: var(--verde-renacer);
+    }
+
+    .modal-body {
+        padding: 24px;
+    }
+
+    .form-section-title {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 16px;
+        font-weight: 500;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 8px;
+    }
+
+    .form-label {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    .form-control,
+    .form-select {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 13px;
+        background: #fafafa;
+        transition: all 0.2s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--verde-renacer);
+        box-shadow: 0 0 0 3px rgba(45, 90, 71, 0.1);
+        background: white;
+    }
+
+    .form-control::placeholder {
+        color: #aaa;
+    }
+
+    .modal-footer {
+        border-top: none;
+        padding: 0 24px 24px 24px;
+    }
+
+    .btn-modal-cancel {
+        background: #757575;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-size: 13px;
+    }
+
+    .btn-modal-save {
+        background: var(--verde-renacer);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-size: 13px;
+    }
+
+    .btn-modal-save:hover {
+        background: var(--verde-hover);
+    }
+
+    /* Mini Modal for View */
+    .mini-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .mini-modal.show {
+        display: block;
+    }
+
+    .mini-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+
+    .mini-modal-overlay.show {
+        display: block;
+    }
+
+    .mini-modal-header {
+        padding: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .mini-modal-header h5 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .mini-modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mini-modal-close:hover {
+        color: #333;
+    }
+
+    .mini-modal-body {
+        padding: 24px;
+    }
+
+    .info-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: #e8f5e9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+    }
+
+    .info-avatar i {
+        width: 40px;
+        height: 40px;
+        color: var(--verde-renacer);
+    }
+
+    .info-name {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 4px;
+    }
+
+    .info-role {
+        text-align: center;
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .info-row:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #666;
+        font-size: 13px;
+    }
+
+    .info-value {
+        color: #333;
+        font-size: 13px;
+        text-align: right;
+    }
+</style>
+
+<div
+    style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; margin-bottom: 16px;">
+    <h2 style="margin: 0; font-size: 16px; font-weight: 600; color: #2d5a47;">Gestión de Clientes y Asociados</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div
+            style="width: 32px; height: 32px; border-radius: 50%; background: var(--verde-renacer); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px;">
+            U
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 12px; font-weight: 600; color: #333;" id="asociadoUserName"></div>
+            <div style="font-size: 10px; color: #666;">Usuario</div>
+        </div>
+    </div>
+</div>
+
+<!-- Botones de Registro -->
+<div class="mb-4">
+    <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalCliente" onclick="nuevoCliente()"
+        style="background: var(--verde-renacer); border: none; padding: 10px 20px; border-radius: 8px;">
+        <i data-lucide="user-plus" style="width: 18px; height: 18px; margin-right: 8px;"></i>
+        Registrar Cliente
+    </button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAsociado" onclick="nuevoAsociado()"
+        style="background: var(--verde-renacer); border: none; padding: 10px 20px; border-radius: 8px;">
+        <i data-lucide="users" style="width: 18px; height: 18px; margin-right: 8px;"></i>
+        Registrar Asociado
+    </button>
+</div>
+
+<!-- Tabla de Clientes -->
+<div class="form-card">
+    <h5 class="mb-3" style="color: #333; font-weight: 600;">
+        <i data-lucide="users" style="width: 18px; height: 18px; color: var(--verde-renacer); margin-right: 8px;"></i>
+        Clientes Registrados
+    </h5>
+
+    <div class="table-responsive">
+        <table id="clientesTable" class="table table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="background: #f0f2f5; color: #333; border-radius: 6px 0 0 6px;">ID</th>
+                    <th style="background: #f0f2f5; color: #333;">Nombre</th>
+                    <th style="background: #f0f2f5; color: #333;">Documento</th>
+                    <th style="background: #f0f2f5; color: #333;">Teléfono</th>
+                    <th style="background: #f0f2f5; color: #333;">Correo</th>
+                    <th style="background: #f0f2f5; color: #333; border-radius: 0 6px 6px 0;">Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="clientesTableBody">
+                <!-- Se llenará dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Tabla de Asociados -->
+<div class="form-card">
+    <h5 class="mb-3" style="color: #333; font-weight: 600;">
+        <i data-lucide="briefcase"
+            style="width: 18px; height: 18px; color: var(--verde-renacer); margin-right: 8px;"></i>
+        Asociados Registrados
+    </h5>
+
+    <div class="table-responsive">
+        <table id="asociadosTable" class="table table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="background: #f0f2f5; color: #333; border-radius: 6px 0 0 6px;">ID</th>
+                    <th style="background: #f0f2f5; color: #333;">Nombre</th>
+                    <th style="background: #f0f2f5; color: #333;">Documento</th>
+                    <th style="background: #f0f2f5; color: #333;">Teléfono</th>
+                    <th style="background: #f0f2f5; color: #333;">Tipo</th>
+                    <th style="background: #f0f2f5; color: #333;">Cargo</th>
+                    <th style="background: #f0f2f5; color: #333; border-radius: 0 6px 6px 0;">Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="asociadosTableBody">
+                <!-- Se llenará dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal Cliente -->
+<div class="modal fade" id="modalCliente" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-lucide="user-plus"></i>
+                    Nuevo Cliente
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formCliente">
+                    <input type="hidden" id="clienteId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombreCliente" placeholder="Ingrese nombre completo"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Documento</label>
+                        <input type="text" class="form-control" id="documentoCliente"
+                            placeholder="Ingrese número de documento" required pattern="[0-9]+">
+                        <div class="invalid-feedback" id="errorDocCliente" style="display: none;">Solo se permiten
+                            números</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="telefonoCliente"
+                            placeholder="Ingrese número de teléfono" required pattern="[0-9\-]+">
+                        <div class="invalid-feedback" id="errorTelCliente" style="display: none;">Solo se permiten
+                            números y guiones</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="correoCliente"
+                            placeholder="Ingrese correo electrónico">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-modal-save" onclick="guardarCliente()">
+                    Guardar cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Asociado -->
+<div class="modal fade" id="modalAsociado" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i data-lucide="users"></i>
+                    Nuevo Asociado
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAsociado">
+                    <input type="hidden" id="asociadoIdEdit">
+
+                    <div class="form-section-title">Datos del Asociado</div>
+                    <div class="row g-4 mb-4">
+                        <div class="col-12">
+                            <label class="form-label">Nombre completo del asociado</label>
+                            <input type="text" class="form-control" id="nombreAsociado" placeholder="Ingrese aquí"
+                                required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Documento</label>
+                            <input type="text" class="form-control" id="documentoAsociado" placeholder="Ingrese aquí"
+                                required pattern="[0-9]+">
+                            <div class="invalid-feedback" id="errorDocAsociado" style="display: none;">Solo se permiten
+                                números</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Telefono</label>
+                            <input type="text" class="form-control" id="telefonoAsociado" placeholder="Ingrese aquí"
+                                required pattern="[0-9\-]+">
+                            <div class="invalid-feedback" id="errorTelAsociado" style="display: none;">Solo se permiten
+                                números y guiones</div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Correo Electronico</label>
+                            <input type="email" class="form-control" id="correoAsociado" placeholder="Ingrese aquí">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title">Datos Laborales</div>
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <label class="form-label">Fecha de Inicio</label>
+                            <input type="date" class="form-control" id="fechaInicio" placeholder="Ingrese aquí"
+                                required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Tipo de contrato</label>
+                            <select class="form-select" id="tipoContrato" required>
+                                <option value="">Ingrese aquí...</option>
+                                <option value="Indefinido">Indefinido</option>
+                                <option value="Temporal">Temporal</option>
+                                <option value="Por Obra">Por Obra</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Cargo</label>
+                            <input type="text" class="form-control" id="cargo" placeholder="Ingrese aquí" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">ID</label>
+                            <input type="text" class="form-control" id="idAsociado" placeholder="Ingrese aquí">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Tipo de asociado</label>
+                            <select class="form-select" id="tipoAsociado" required>
+                                <option value="">Ingrese aquí...</option>
+                                <option value="Aforado">Aforado</option>
+                                <option value="No Aforado">No Aforado</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-modal-save" onclick="guardarAsociado()">
+                    Guardar cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mini Modal for Viewing Information -->
+<div class="mini-modal-overlay" id="miniModalOverlay" onclick="closeMiniModal()"></div>
+<div class="mini-modal" id="miniModal">
+    <div class="mini-modal-header">
+        <h5 id="miniModalTitle">Información del asociado</h5>
+        <button class="mini-modal-close" onclick="closeMiniModal()">×</button>
+    </div>
+    <div class="mini-modal-body">
+        <div class="info-avatar">
+            <i data-lucide="user"></i>
+        </div>
+        <div class="info-name" id="infoName">Nombre Completo</div>
+        <div class="info-role" id="infoRole">Cargo/Tipo</div>
+        <div id="infoDetails">
+            <!-- Se llenará dinámicamente -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Inicializar DataTables sin datos (se cargarán del backend)
+
+        // Tabla Clientes
+        $('#clientesTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            responsive: true,
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt',
+            data: [],
+            columns: [
+                { data: 'id', render: function (data) { return `<strong>#CL${String(data).padStart(3, '0')}</strong>`; } },
+                { data: 'nombre' },
+                { data: 'documento' },
+                { data: 'telefono' },
+                { data: 'correo' },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return `
+                            <button class="btn-action btn-view" onclick="verCliente('${row.id}')" title="Ver información">
+                                <i data-lucide="eye" style="width: 12px; height: 12px;"></i>
+                            </button>
+                            <button class="btn-action btn-edit" onclick="editarCliente('${row.id}')" title="Editar cliente">
+                                <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i> Editar
+                            </button>
+                            <button class="btn-action btn-delete" onclick="eliminarCliente('${row.id}')">
+                                <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i>
+                            </button>
+                        `;
+                    }
+                }
+            ],
+            columnDefs: [{ targets: 5, orderable: false }]
+        });
+
+        // Tabla Asociados
+        $('#asociadosTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            responsive: true,
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt',
+            data: [],
+            columns: [
+                { data: 'id', render: function (data) { return `<strong>#AS${String(data).padStart(3, '0')}</strong>`; } },
+                { data: 'nombre' },
+                { data: 'documento' },
+                { data: 'telefono' },
+                { data: 'tipo', render: function (data) { return `<span class="badge ${data === 'Aforado' ? 'bg-success' : 'bg-secondary'}">${data}</span>`; } },
+                { data: 'cargo' },
+                {
+                    data: null,
+                    render: function (data, type, row) {
+                        return `
+                            <button class="btn-action btn-view" onclick="verAsociado('${row.id}')" title="Ver información">
+                                <i data-lucide="eye" style="width: 12px; height: 12px;"></i>
+                            </button>
+                            <button class="btn-action btn-edit" onclick="editarAsociado('${row.id}')" title="Editar asociado">
+                                <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i> Editar
+                            </button>
+                            <button class="btn-action btn-delete" onclick="eliminarAsociado('${row.id}')">
+                                <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i>
+                            </button>
+                        `;
+                    }
+                }
+            ],
+            columnDefs: [{ targets: 6, orderable: false }]
+        });
+
+        lucide.createIcons();
+    });
+
+    // Validaciones (mantener las existentes, pero sin modificar el valor del input directamente)
+    document.getElementById('documentoCliente')?.addEventListener('input', function (e) {
+        const error = document.getElementById('errorDocCliente');
+        if (!/^[0-9]*$/.test(e.target.value)) {
+            error.style.display = 'block';
+        } else {
+            error.style.display = 'none';
+        }
+    });
+
+    document.getElementById('telefonoCliente')?.addEventListener('input', function (e) {
+        const error = document.getElementById('errorTelCliente');
+        if (!/^[0-9\-]*$/.test(e.target.value)) {
+            error.style.display = 'block';
+        } else {
+            error.style.display = 'none';
+        }
+    });
+
+    document.getElementById('documentoAsociado')?.addEventListener('input', function (e) {
+        const error = document.getElementById('errorDocAsociado');
+        if (!/^[0-9]*$/.test(e.target.value)) {
+            error.style.display = 'block';
+        } else {
+            error.style.display = 'none';
+        }
+    });
+
+    document.getElementById('telefonoAsociado')?.addEventListener('input', function (e) {
+        const error = document.getElementById('errorTelAsociado');
+        if (!/^[0-9\-]*$/.test(e.target.value)) {
+            error.style.display = 'block';
+        } else {
+            error.style.display = 'none';
+        }
+    });
+
+    // Funciones placeholders para conectar con Backend
+    function nuevoCliente() {
+        document.getElementById('formCliente').reset();
+        document.getElementById('clienteId').value = '';
+        document.getElementById('modalClienteTitle').innerHTML = '<i data-lucide="user-plus" style="width: 20px; height: 20px;"></i> Nuevo Cliente';
+        lucide.createIcons();
+    }
+
+    function editarCliente(id) {
+        const cliente = clientesData.find(c => c.id == id);
+        if (!cliente) return;
+
+        document.getElementById('clienteId').value = cliente.id;
+        document.getElementById('nombreCliente').value = cliente.nombre;
+        document.getElementById('documentoCliente').value = cliente.documento;
+        document.getElementById('telefonoCliente').value = cliente.telefono;
+        document.getElementById('correoCliente').value = cliente.correo;
+        document.getElementById('modalClienteTitle').innerHTML = '<i data-lucide="edit-2" style="width: 20px; height: 20px;"></i> Editar Cliente';
+
+        new bootstrap.Modal(document.getElementById('modalCliente')).show();
+        lucide.createIcons();
+    }
+
+    function guardarCliente() {
+        const form = document.getElementById('formCliente');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const id = document.getElementById('clienteId').value;
+        const cliente = {
+            id: id || Date.now(),
+            nombre: document.getElementById('nombreCliente').value,
+            documento: document.getElementById('documentoCliente').value,
+            telefono: document.getElementById('telefonoCliente').value,
+            correo: document.getElementById('correoCliente').value
+        };
+
+        if (id) {
+            const index = clientesData.findIndex(c => c.id == id);
+            clientesData[index] = cliente;
+            alert('Cliente actualizado!');
+        } else {
+            clientesData.push(cliente);
+            alert('Cliente registrado!');
+        }
+
+        bootstrap.Modal.getInstance(document.getElementById('modalCliente')).hide();
+        renderClientesTable();
+    }
+
+    function eliminarCliente(id) {
+        if (!confirm('¿Eliminar este cliente?')) return;
+        clientesData = clientesData.filter(c => c.id !== id);
+        alert('Cliente eliminado!');
+        renderClientesTable();
+    }
+
+    function renderClientesTable() {
+        const tbody = document.getElementById('clientesTableBody');
+        tbody.innerHTML = clientesData.map(c => `
+      <tr>
+        <td><strong>#CL${String(c.id).padStart(3, '0')}</strong></td>
+        <td>${c.nombre}</td>
+        <td>${c.documento}</td>
+        <td>${c.telefono}</td>
+        <td>${c.correo}</td>
+        <td>
+          <button class="btn-action btn-edit" onclick="editarCliente(${c.id})">
+            <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i> Editar
+          </button>
+          <button class="btn-action btn-delete" onclick="eliminarCliente(${c.id})">
+            <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i> Eliminar
+          </button>
+        </td>
+      </tr>
+    `).join('');
+        lucide.createIcons();
+    }
+
+    // ASOCIADOS
+    function nuevoAsociado() {
+        document.getElementById('formAsociado').reset();
+        document.getElementById('asociadoIdEdit').value = '';
+        document.getElementById('modalAsociadoTitle').innerHTML = '<i data-lucide="users" style="width: 20px; height: 20px;"></i> Nuevo Asociado';
+        lucide.createIcons();
+    }
+
+    function editarAsociado(id) {
+        const asociado = asociadosData.find(a => a.id === id);
+        if (!asociado) return;
+
+        document.getElementById('asociadoIdEdit').value = asociado.id;
+        document.getElementById('nombreAsociado').value = asociado.nombre;
+        document.getElementById('documentoAsociado').value = asociado.documento;
+        document.getElementById('telefonoAsociado').value = asociado.telefono;
+        document.getElementById('correoAsociado').value = asociado.correo;
+        document.getElementById('fechaInicio').value = asociado.fechaInicio;
+        document.getElementById('tipoContrato').value = asociado.tipoContrato;
+        document.getElementById('cargo').value = asociado.cargo;
+        document.getElementById('tipoAsociado').value = asociado.tipo;
+        document.getElementById('modalAsociadoTitle').innerHTML = '<i data-lucide="edit-2" style="width: 20px; height: 20px;"></i> Editar Asociado';
+
+        new bootstrap.Modal(document.getElementById('modalAsociado')).show();
+        lucide.createIcons();
+    }
+
+    function guardarAsociado() {
+        const form = document.getElementById('formAsociado');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const id = document.getElementById('asociadoIdEdit').value;
+        const asociado = {
+            id: id || Date.now(),
+            nombre: document.getElementById('nombreAsociado').value,
+            documento: document.getElementById('documentoAsociado').value,
+            telefono: document.getElementById('telefonoAsociado').value,
+            correo: document.getElementById('correoAsociado').value,
+            fechaInicio: document.getElementById('fechaInicio').value,
+            tipoContrato: document.getElementById('tipoContrato').value,
+            cargo: document.getElementById('cargo').value,
+            tipo: document.getElementById('tipoAsociado').value
+        };
+
+        if (id) {
+            const index = asociadosData.findIndex(a => a.id == id);
+            asociadosData[index] = asociado;
+            alert('Asociado actualizado!');
+        } else {
+            asociadosData.push(asociado);
+            alert('Asociado registrado!');
+        }
+
+        bootstrap.Modal.getInstance(document.getElementById('modalAsociado')).hide();
+        renderAsociadosTable();
+    }
+
+    function eliminarAsociado(id) {
+        if (!confirm('¿Eliminar este asociado?')) return;
+        asociadosData = asociadosData.filter(a => a.id !== id);
+        alert('Asociado eliminado!');
+        renderAsociadosTable();
+    }
+
+    function renderAsociadosTable() {
+        const tbody = document.getElementById('asociadosTableBody');
+        tbody.innerHTML = asociadosData.map(a => `
+      <tr>
+        <td><strong>#AS${String(a.id).padStart(3, '0')}</strong></td>
+        <td>${a.nombre}</td>
+        <td>${a.documento}</td>
+        <td>${a.telefono}</td>
+        <td><span class="badge ${a.tipo === 'Aforado' ? 'bg-success' : 'bg-secondary'}">${a.tipo}</span></td>
+        <td>${a.cargo}</td>
+        <td>
+          <button class="btn-action btn-edit" onclick="editarAsociado(${a.id})">
+            <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i> Editar
+          </button>
+          <button class="btn-action btn-delete" onclick="eliminarAsociado(${a.id})">
+            <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i> Eliminar
+          </button>
+        </td>
+      </tr>
+    `).join('');
+        lucide.createIcons();
+    }
+
+    // DataTables
+    $(document).ready(function () {
+        $('#clientesTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt',
+            columnDefs: [{ targets: 5, orderable: false }]
+        });
+
+        $('#asociadosTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt',
+            columnDefs: [{ targets: 6, orderable: false }]
+        });
+    });
+
+    // Mini Modal Functions
+    function verCliente(id) {
+        const cliente = clientesData.find(c => c.id == id);
+        if (!cliente) return;
+
+        document.getElementById('miniModalTitle').textContent = 'Información del cliente';
+        document.getElementById('infoName').textContent = cliente.nombre;
+        document.getElementById('infoRole').textContent = 'Cliente';
+
+        document.getElementById('infoDetails').innerHTML = `
+            <div class="info-row">
+                <span class="info-label">Documento</span>
+                <span class="info-value">${cliente.documento}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Teléfono</span>
+                <span class="info-value">${cliente.telefono}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Correo Electrónico</span>
+                <span class="info-value">${cliente.correo || 'No especificado'}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">ID Único</span>
+                <span class="info-value">#CL${String(cliente.id).padStart(3, '0')}</span>
+            </div>
+        `;
+
+        document.getElementById('miniModalOverlay').classList.add('show');
+        document.getElementById('miniModal').classList.add('show');
+        lucide.createIcons();
+    }
+
+    function verAsociado(id) {
+        const asociado = asociadosData.find(a => a.id == id);
+        if (!asociado) return;
+
+        document.getElementById('miniModalTitle').textContent = 'Información del asociado';
+        document.getElementById('infoName').textContent = asociado.nombre;
+        document.getElementById('infoRole').textContent = asociado.cargo;
+
+        document.getElementById('infoDetails').innerHTML = `
+            <div class="info-row">
+                <span class="info-label">Documento</span>
+                <span class="info-value">${asociado.documento}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Teléfono</span>
+                <span class="info-value">${asociado.telefono}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Correo Electrónico</span>
+                <span class="info-value">${asociado.correo || 'No especificado'}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Tipo</span>
+                <span class="info-value">${asociado.tipo}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Fecha Inicio</span>
+                <span class="info-value">${asociado.fechaInicio || 'No especificado'}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">ID Único</span>
+                <span class="info-value">#AS${String(asociado.id).padStart(3, '0')}</span>
+            </div>
+        `;
+
+        document.getElementById('miniModalOverlay').classList.add('show');
+        document.getElementById('miniModal').classList.add('show');
+        lucide.createIcons();
+    }
+
+    function closeMiniModal() {
+        document.getElementById('miniModalOverlay').classList.remove('show');
+        document.getElementById('miniModal').classList.remove('show');
+    }
+
+    lucide.createIcons();
+</script>

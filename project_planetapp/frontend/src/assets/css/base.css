@@ -1,0 +1,5 @@
+/* Base: variables y reset mínimo (complemento a normalize) */
+:root {
+  --verde-renacer: #2d5a47;
+  --verde-hover: #234839;
+}

@@ -1,0 +1,76 @@
+* { box-sizing: border-box; font-family: Arial, sans-serif; }
+
+body {
+  margin: 0;
+  background: #f5f6f8;
+  color: #333;
+}
+
+/* Header */
+.header {
+  background: #fff;
+  border-bottom: 2px solid #e0e0e0;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header h2 { margin: 0; }
+.user-info { display:flex; align-items:center; gap:10px; }
+.user-info i { font-size:32px; color:#2f4f4f; }
+.user-info div { display:flex; flex-direction:column; font-size:14px; }
+
+/* Container */
+.container {
+  width: 95%;
+  max-width: 1100px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Filtros */
+.filters { display:flex; gap:10px; align-items:center; margin-bottom:15px; }
+.search-box {
+  display:flex; align-items:center; background:#fff; border:1px solid #ddd;
+  padding:8px 12px; border-radius:8px; flex:1;
+}
+.search-box i { color:#999; margin-right:8px; }
+.search-box input { border:none; outline:none; flex:1; padding:6px 4px; }
+
+/* Botones */
+.btn { padding:8px 14px; border-radius:8px; border:none; cursor:pointer; }
+.btn-primary { background:#1b4332; color:#fff; }
+.btn-secondary { background:#e0e0e0; color:#333; }
+.btn:hover { opacity:0.95; }
+
+/* Tabla */
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+thead { background:#1b4332; color:white; }
+th, td { padding:10px; text-align:center; border-bottom:1px solid #ddd; font-size:14px; }
+tbody tr:hover { background:#f9f9f9; } /* SOLO filas del cuerpo cambian */
+.actions button { background:none; border:none; cursor:pointer; font-size:16px; margin:0 4px; }
+.actions .view { color:#2563eb; }
+.actions .edit { color:#f59e0b; }
+.actions .delete { color:#dc2626; }
+
+/* Badge (ingresos) */
+.badge { background:#d1fae5; color:#065f46; padding:6px 10px; border-radius:8px; font-size:13px; }
+
+/* Modal */
+.modal {
+  display:none;
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.5);
+  justify-content:center; align-items:center; z-index:50;
+}
+.modal .modal-content {
+  background:#fff; padding:18px; border-radius:12px; width:420px; max-height:90vh; overflow:auto;
+}
+.modal-content h3 { margin-top:0; margin-bottom:8px; }
+.modal-content input, .modal-content select {
+  width:100%; padding:8px; border:1px solid #ddd; border-radius:8px; margin-bottom:8px;
+}

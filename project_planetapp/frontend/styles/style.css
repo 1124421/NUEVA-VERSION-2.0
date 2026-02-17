@@ -1,0 +1,349 @@
+:root {
+    --main-color-hover: #234134;
+    --main-color: #294F3E;
+    --planetaap-color: #3cac34;
+    --background-color: #f8fafc;
+    --main-font: 'Poppins', sans-serif;
+
+    /* Dark Mode Variables (Default Light) */
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --text-main: #2c3e50;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+}
+
+/* Force Air Datepicker above modals (Asociados modal is 9999) */
+.air-datepicker-global-container,
+.air-datepicker {
+    z-index: 10001 !important;
+}
+
+html {
+    min-height: 100%;
+    font-size: 62.5%;
+    box-sizing: border-box;
+    /* HACK PARA BOX MODEL */
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url(../assets/fonts/Poppins-Medium.ttf) format(truetype);
+    font-weight: 500;
+    /* 'medium' se mapea a 500 */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url(../assets/fonts/Poppins-Regular.ttf) format(truetype);
+    font-weight: 400;
+    /* 'regular' se mapea a 400 */
+    font-style: normal;
+}
+
+/* Globales */
+h1,
+a {
+    font-family: var(--main-font);
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+p {
+    text-align: center;
+    font-size: 2rem;
+    font-family: var(--main-font);
+    font-weight: 400;
+}
+
+.flex-center {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    color: white;
+    border-radius: 8px;
+    margin: 5rem 0;
+    padding: 1.2rem 5rem;
+    background: linear-gradient(135deg, #2d5a47 0%, #3d7a5a 100%);
+    font-weight: 600;
+    font-size: 2rem;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(45, 90, 71, 0.25);
+}
+
+.btn--hover:hover {
+    background: linear-gradient(135deg, #234839 0%, #2d5a47 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(45, 90, 71, 0.35);
+}
+
+/* INICIO */
+
+.welcome {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.welcome__background {
+    background-image: url(../assets/img/inicio.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    grid-column: 1 / 4;
+    grid-row: 1 / 6;
+}
+
+.welcome__form img {
+    height: 15vh;
+}
+
+.welcome__form h1 {
+    font-size: 3rem;
+    color: black;
+}
+
+.welcome__form h1 span {
+    color: var(--planetaap-color);
+}
+
+.welcome__form h1 span span {
+    font-weight: 400;
+}
+
+.welcome__form {
+    grid-column: 4 / 6;
+    grid-row: 2/5;
+    background: var(--background-color);
+}
+
+/* ... Tus estilos existentes para :root, html, body, @font-face, etc. ... */
+
+/* Nuevo Contenedor para el Modal de Login */
+.login-modal__container {
+    position: fixed;
+    /* Fija el modal en la ventana, sin hacer scroll con el contenido */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Fondo semitransparente oscuro */
+    display: flex;
+    /* Para centrar la caja de login */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Asegura que esté por encima de otros elementos */
+    display: none;
+    /* Oculto por defecto */
+}
+
+/* Estilos para la caja del formulario de login */
+.login-modal__box {
+    background-color: #fff;
+    /* Fondo blanco */
+    padding: 3rem;
+    border-radius: 1rem;
+    /* Bordes redondeados */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    /* Sombra más pronunciada */
+    text-align: center;
+    max-width: 400px;
+    /* Ancho máximo de la caja */
+    width: 90%;
+    /* Ancho responsivo */
+    box-sizing: border-box;
+    position: relative;
+    /* Para cualquier posicionamiento interno si fuera necesario */
+}
+
+.login-modal__logo img {
+    width: 90px;
+    /* Tamaño del logo dentro del formulario */
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+.login-modal__box h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 3rem;
+    font-family: var(--main-font);
+    /* Aplica la fuente Poppins */
+    font-weight: 500;
+    /* Peso para el título */
+}
+
+.login-modal__input-group {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    /* Línea sutil bajo el input */
+    margin-bottom: 2.5rem;
+    padding-bottom: 0.8rem;
+}
+
+.login-modal__input-group i:first-child {
+    color: #777;
+    margin-right: 1.5rem;
+    font-size: 2rem;
+}
+
+.login-modal__input-group input {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    font-size: 1.8rem;
+    padding: 0.5rem 0;
+    color: #333;
+    font-family: var(--main-font);
+}
+
+.login-modal__input-group input::placeholder {
+    color: #aaa;
+}
+
+.password-toggle {
+    cursor: pointer;
+    color: #777;
+    font-size: 1.8rem;
+    margin-right: 0;
+    margin-left: 1rem;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: var(--main-color);
+}
+
+/* Hide browser native password reveal (Edge/Chrome/Safari) */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+input::-webkit-reveal,
+input::-webkit-clear-button {
+    display: none !important;
+}
+
+.login-modal__forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 1.5rem;
+    color: var(--main-color);
+    /* Usamos el color principal para consistencia */
+    text-decoration: none;
+    margin-top: -1.5rem;
+    /* Ajuste para que esté más cerca del input */
+    margin-bottom: 3rem;
+    font-family: var(--main-font);
+    /* Aplica la fuente Poppins */
+    font-weight: 400;
+}
+
+.login-modal__forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-modal__button {
+    background-color: var(--main-color);
+    /* Usa la variable de color principal */
+    color: white;
+    padding: 1.5rem 3.5rem;
+    /* Ajustar padding del botón */
+    border: none;
+    border-radius: 0.8rem;
+    /* Bordes un poco más redondeados */
+    font-size: 2.2rem;
+    /* Tamaño de fuente del botón */
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-family: var(--main-font);
+    /* Aplica la fuente Poppins */
+    font-weight: 500;
+}
+
+.login-modal__button a {
+    color: white;
+}
+
+/* ===== ACCESSIBILITY: Daltonismo & Font Size ===== */
+html.daltonismo-protanopia {
+    filter: url(#protanopia-filter);
+}
+
+html.daltonismo-deuteranopia {
+    filter: url(#deuteranopia-filter);
+}
+
+html.daltonismo-tritanopia {
+    filter: url(#tritanopia-filter);
+}
+
+:root {
+    --app-font-size: 14px;
+}
+
+html.app-font-custom body,
+html.app-font-custom .welcome__form,
+html.app-font-custom .login-modal__box,
+html.app-font-custom .btn,
+html.app-font-custom p,
+html.app-font-custom h1,
+html.app-font-custom h2,
+html.app-font-custom h3,
+html.app-font-custom input,
+html.app-font-custom label {
+    font-size: var(--app-font-size) !important;
+}
+
+/* Asegúrate de que el body no tenga overflow si quieres que el modal se vea bien */
+body {
+    overflow-x: hidden;
+}
+
+.question-display-box {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 1.5rem;
+    border-radius: 8px;
+    font-size: 1.6rem;
+    color: #444;
+    margin-bottom: 2rem;
+    font-family: var(--main-font);
+    text-align: left;
+    min-height: 5rem;
+    display: flex;
+    align-items: center;
+}

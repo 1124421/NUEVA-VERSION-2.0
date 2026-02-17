@@ -1,0 +1,308 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	deleted:    client/INFORMES.html
+	deleted:    client/Panel_inicio.html
+	deleted:    client/asociados.html
+	deleted:    client/assets/fonts/Poppins-Medium.ttf
+	deleted:    client/assets/fonts/Poppins-Regular.ttf
+	deleted:    client/assets/img/1.1.png
+	deleted:    client/assets/img/3.png
+	deleted:    client/assets/img/imagenes/boxes.svg
+	deleted:    client/assets/img/imagenes/document.svg
+	deleted:    client/assets/img/imagenes/exit.svg
+	deleted:    client/assets/img/imagenes/eye.svg
+	deleted:    client/assets/img/imagenes/home.svg
+	deleted:    client/assets/img/imagenes/pencil.svg
+	deleted:    client/assets/img/imagenes/plus.svg
+	deleted:    client/assets/img/imagenes/search.svg
+	deleted:    client/assets/img/imagenes/trash.svg
+	deleted:    client/assets/img/imagenes/users.svg
+	deleted:    client/assets/img/inicio.png
+	deleted:    client/assets/img/logo.PNG
+	deleted:    client/assets/img/logorenacer.png
+	deleted:    client/assets/vectores/boxes.svg
+	deleted:    client/assets/vectores/document.svg
+	deleted:    client/assets/vectores/exit.svg
+	deleted:    client/assets/vectores/eye.svg
+	deleted:    client/assets/vectores/home.svg
+	deleted:    client/assets/vectores/pencil.svg
+	deleted:    client/assets/vectores/plus.svg
+	deleted:    client/assets/vectores/search.svg
+	deleted:    client/assets/vectores/trash.svg
+	deleted:    client/assets/vectores/users.svg
+	deleted:    client/css/estilos_materiales.css
+	deleted:    client/css/menuestilos.css
+	deleted:    client/css/normalize.css
+	deleted:    client/css/panel.css
+	deleted:    client/css/style.css
+	deleted:    client/css/style_asociado.css
+	deleted:    client/css/vi.css
+	deleted:    client/index.html
+	deleted:    client/js/app.js
+	deleted:    client/js/app_asociados.js
+	deleted:    client/js/open-modal.js
+	deleted:    client/js/script_informes.js
+	deleted:    client/js/script_panel.js
+	deleted:    client/menu.html
+	deleted:    client/nuevomaterial.html
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .env
+	modified:   README.md
+	deleted:    componentes/menu.html
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	INICIAR_APP.bat
+	backend/.gradle/7.4.2/checksums/checksums.lock
+	backend/.gradle/7.4.2/fileChanges/last-build.bin
+	backend/.gradle/7.4.2/fileHashes/fileHashes.lock
+	backend/.gradle/7.4.2/gc.properties
+	backend/.gradle/8.5/checksums/checksums.lock
+	backend/.gradle/8.5/checksums/md5-checksums.bin
+	backend/.gradle/8.5/checksums/sha1-checksums.bin
+	backend/.gradle/8.5/dependencies-accessors/dependencies-accessors.lock
+	backend/.gradle/8.5/dependencies-accessors/gc.properties
+	backend/.gradle/8.5/executionHistory/executionHistory.bin
+	backend/.gradle/8.5/executionHistory/executionHistory.lock
+	backend/.gradle/8.5/fileChanges/last-build.bin
+	backend/.gradle/8.5/fileHashes/fileHashes.bin
+	backend/.gradle/8.5/fileHashes/fileHashes.lock
+	backend/.gradle/8.5/fileHashes/resourceHashesCache.bin
+	backend/.gradle/8.5/gc.properties
+	backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+	backend/.gradle/buildOutputCleanup/cache.properties
+	backend/.gradle/buildOutputCleanup/outputFiles.bin
+	backend/.gradle/file-system.probe
+	backend/.gradle/vcs-1/gc.properties
+	backend/README.md
+	backend/bin/main/application.yml
+	backend/bin/main/com/planetapp/PlanetAppApplication.class
+	backend/bin/main/com/planetapp/application/dto/AsociadoDTO.class
+	backend/bin/main/com/planetapp/application/dto/MaterialDTO.class
+	backend/bin/main/com/planetapp/application/services/AsociadoService.class
+	backend/bin/main/com/planetapp/application/services/MaterialService.class
+	backend/bin/main/com/planetapp/domain/entities/Asociado.class
+	backend/bin/main/com/planetapp/domain/entities/Material.class
+	backend/bin/main/com/planetapp/domain/repositories/AsociadoRepository.class
+	backend/bin/main/com/planetapp/domain/repositories/MaterialRepository.class
+	backend/bin/main/com/planetapp/infrastructure/config/CorsConfig$1.class
+	backend/bin/main/com/planetapp/infrastructure/config/CorsConfig.class
+	backend/bin/main/com/planetapp/infrastructure/controllers/AsociadoController.class
+	backend/bin/main/com/planetapp/infrastructure/controllers/MaterialController.class
+	backend/bin/main/static/assets/fonts/Poppins-Medium.ttf
+	backend/bin/main/static/assets/fonts/Poppins-Regular.ttf
+	backend/bin/main/static/assets/img/1.1.png
+	backend/bin/main/static/assets/img/3.png
+	backend/bin/main/static/assets/img/imagenes/boxes.svg
+	backend/bin/main/static/assets/img/imagenes/document.svg
+	backend/bin/main/static/assets/img/imagenes/exit.svg
+	backend/bin/main/static/assets/img/imagenes/eye.svg
+	backend/bin/main/static/assets/img/imagenes/home.svg
+	backend/bin/main/static/assets/img/imagenes/pencil.svg
+	backend/bin/main/static/assets/img/imagenes/plus.svg
+	backend/bin/main/static/assets/img/imagenes/search.svg
+	backend/bin/main/static/assets/img/imagenes/trash.svg
+	backend/bin/main/static/assets/img/imagenes/users.svg
+	backend/bin/main/static/assets/img/inicio.png
+	backend/bin/main/static/assets/img/logo.PNG
+	backend/bin/main/static/assets/img/logorenacer.png
+	backend/bin/main/static/assets/vectores/boxes.svg
+	backend/bin/main/static/assets/vectores/document.svg
+	backend/bin/main/static/assets/vectores/exit.svg
+	backend/bin/main/static/assets/vectores/eye.svg
+	backend/bin/main/static/assets/vectores/home.svg
+	backend/bin/main/static/assets/vectores/pencil.svg
+	backend/bin/main/static/assets/vectores/plus.svg
+	backend/bin/main/static/assets/vectores/search.svg
+	backend/bin/main/static/assets/vectores/trash.svg
+	backend/bin/main/static/assets/vectores/users.svg
+	backend/bin/main/static/components/app-header.js
+	backend/bin/main/static/components/app-modal.js
+	backend/bin/main/static/components/app-sidebar.js
+	backend/bin/main/static/components/asociado.html
+	backend/bin/main/static/components/components-loader.js
+	backend/bin/main/static/components/compra.html
+	backend/bin/main/static/components/configuracion.html
+	backend/bin/main/static/components/dashboard.html
+	backend/bin/main/static/components/informes.html
+	backend/bin/main/static/components/inventario.html
+	backend/bin/main/static/components/menu.html
+	backend/bin/main/static/components/modal.component.js
+	backend/bin/main/static/components/venta.html
+	backend/bin/main/static/controllers/asociados.controller.js
+	backend/bin/main/static/controllers/informes.controller.js
+	backend/bin/main/static/controllers/panel.controller.js
+	backend/bin/main/static/index.html
+	backend/bin/main/static/pages/asociados.html
+	backend/bin/main/static/pages/informes.html
+	backend/bin/main/static/pages/nuevo-material.html
+	backend/bin/main/static/pages/panel-inicio.html
+	backend/bin/main/static/styles/estilos_materiales.css
+	backend/bin/main/static/styles/menuestilos.css
+	backend/bin/main/static/styles/normalize.css
+	backend/bin/main/static/styles/panel.css
+	backend/bin/main/static/styles/style.css
+	backend/bin/main/static/styles/style_asociado.css
+	backend/bin/main/static/styles/vi.css
+	backend/build.gradle
+	backend/build/classes/java/main/com/planetapp/PlanetAppApplication.class
+	backend/build/classes/java/main/com/planetapp/application/dto/AsociadoDTO.class
+	backend/build/classes/java/main/com/planetapp/application/dto/MaterialDTO.class
+	backend/build/classes/java/main/com/planetapp/application/services/AsociadoService.class
+	backend/build/classes/java/main/com/planetapp/application/services/MaterialService.class
+	backend/build/classes/java/main/com/planetapp/domain/entities/Asociado.class
+	backend/build/classes/java/main/com/planetapp/domain/entities/Material.class
+	backend/build/classes/java/main/com/planetapp/domain/repositories/AsociadoRepository.class
+	backend/build/classes/java/main/com/planetapp/domain/repositories/MaterialRepository.class
+	backend/build/classes/java/main/com/planetapp/infrastructure/config/CorsConfig$1.class
+	backend/build/classes/java/main/com/planetapp/infrastructure/config/CorsConfig.class
+	backend/build/classes/java/main/com/planetapp/infrastructure/controllers/AsociadoController.class
+	backend/build/classes/java/main/com/planetapp/infrastructure/controllers/MaterialController.class
+	backend/build/resolvedMainClassName
+	backend/build/resources/main/application.yml
+	backend/build/resources/main/static/assets/fonts/Poppins-Medium.ttf
+	backend/build/resources/main/static/assets/fonts/Poppins-Regular.ttf
+	backend/build/resources/main/static/assets/img/1.1.png
+	backend/build/resources/main/static/assets/img/3.png
+	backend/build/resources/main/static/assets/img/imagenes/boxes.svg
+	backend/build/resources/main/static/assets/img/imagenes/document.svg
+	backend/build/resources/main/static/assets/img/imagenes/exit.svg
+	backend/build/resources/main/static/assets/img/imagenes/eye.svg
+	backend/build/resources/main/static/assets/img/imagenes/home.svg
+	backend/build/resources/main/static/assets/img/imagenes/pencil.svg
+	backend/build/resources/main/static/assets/img/imagenes/plus.svg
+	backend/build/resources/main/static/assets/img/imagenes/search.svg
+	backend/build/resources/main/static/assets/img/imagenes/trash.svg
+	backend/build/resources/main/static/assets/img/imagenes/users.svg
+	backend/build/resources/main/static/assets/img/inicio.png
+	backend/build/resources/main/static/assets/img/logo-renacer.svg
+	backend/build/resources/main/static/assets/img/logo.PNG
+	backend/build/resources/main/static/assets/img/logo.svg
+	backend/build/resources/main/static/assets/img/logorenacer.png
+	backend/build/resources/main/static/assets/vectores/boxes.svg
+	backend/build/resources/main/static/assets/vectores/document.svg
+	backend/build/resources/main/static/assets/vectores/exit.svg
+	backend/build/resources/main/static/assets/vectores/eye.svg
+	backend/build/resources/main/static/assets/vectores/home.svg
+	backend/build/resources/main/static/assets/vectores/pencil.svg
+	backend/build/resources/main/static/assets/vectores/plus.svg
+	backend/build/resources/main/static/assets/vectores/search.svg
+	backend/build/resources/main/static/assets/vectores/trash.svg
+	backend/build/resources/main/static/assets/vectores/users.svg
+	backend/build/resources/main/static/components/app-header.js
+	backend/build/resources/main/static/components/app-modal.js
+	backend/build/resources/main/static/components/app-sidebar.js
+	backend/build/resources/main/static/components/asociado.html
+	backend/build/resources/main/static/components/components-loader.js
+	backend/build/resources/main/static/components/compra.html
+	backend/build/resources/main/static/components/configuracion.html
+	backend/build/resources/main/static/components/dashboard.html
+	backend/build/resources/main/static/components/informes.html
+	backend/build/resources/main/static/components/inventario.html
+	backend/build/resources/main/static/components/menu.html
+	backend/build/resources/main/static/components/modal.component.js
+	backend/build/resources/main/static/components/venta.html
+	backend/build/resources/main/static/controllers/asociados.controller.js
+	backend/build/resources/main/static/controllers/informes.controller.js
+	backend/build/resources/main/static/controllers/panel.controller.js
+	backend/build/resources/main/static/index.html
+	backend/build/resources/main/static/pages/asociados.html
+	backend/build/resources/main/static/pages/informes.html
+	backend/build/resources/main/static/pages/nuevo-material.html
+	backend/build/resources/main/static/pages/panel-inicio.html
+	backend/build/resources/main/static/styles/estilos_materiales.css
+	backend/build/resources/main/static/styles/menuestilos.css
+	backend/build/resources/main/static/styles/normalize.css
+	backend/build/resources/main/static/styles/panel.css
+	backend/build/resources/main/static/styles/style.css
+	backend/build/resources/main/static/styles/style_asociado.css
+	backend/build/resources/main/static/styles/vi.css
+	backend/build/tmp/compileJava/compileTransaction/stash-dir/PlanetAppApplication.class.uniqueId0
+	backend/build/tmp/compileJava/previous-compilation-data.bin
+	backend/gradle.properties
+	backend/gradle/wrapper/gradle-wrapper.jar
+	backend/gradle/wrapper/gradle-wrapper.properties
+	backend/gradlew
+	backend/gradlew.bat
+	backend/output.log
+	backend/settings.gradle
+	backend/src/main/java/com/planetapp/PlanetAppApplication.java
+	backend/src/main/java/com/planetapp/application/dto/AsociadoDTO.java
+	backend/src/main/java/com/planetapp/application/dto/MaterialDTO.java
+	backend/src/main/java/com/planetapp/application/services/AsociadoService.java
+	backend/src/main/java/com/planetapp/application/services/MaterialService.java
+	backend/src/main/java/com/planetapp/domain/entities/Asociado.java
+	backend/src/main/java/com/planetapp/domain/entities/Material.java
+	backend/src/main/java/com/planetapp/domain/repositories/AsociadoRepository.java
+	backend/src/main/java/com/planetapp/domain/repositories/MaterialRepository.java
+	backend/src/main/java/com/planetapp/infrastructure/config/CorsConfig.java
+	backend/src/main/java/com/planetapp/infrastructure/controllers/AsociadoController.java
+	backend/src/main/java/com/planetapp/infrastructure/controllers/MaterialController.java
+	backend/src/main/resources/application.yml
+	backend/src/main/resources/static/assets/fonts/Poppins-Medium.ttf
+	backend/src/main/resources/static/assets/fonts/Poppins-Regular.ttf
+	backend/src/main/resources/static/assets/img/1.1.png
+	backend/src/main/resources/static/assets/img/3.png
+	backend/src/main/resources/static/assets/img/imagenes/boxes.svg
+	backend/src/main/resources/static/assets/img/imagenes/document.svg
+	backend/src/main/resources/static/assets/img/imagenes/exit.svg
+	backend/src/main/resources/static/assets/img/imagenes/eye.svg
+	backend/src/main/resources/static/assets/img/imagenes/home.svg
+	backend/src/main/resources/static/assets/img/imagenes/pencil.svg
+	backend/src/main/resources/static/assets/img/imagenes/plus.svg
+	backend/src/main/resources/static/assets/img/imagenes/search.svg
+	backend/src/main/resources/static/assets/img/imagenes/trash.svg
+	backend/src/main/resources/static/assets/img/imagenes/users.svg
+	backend/src/main/resources/static/assets/img/inicio.png
+	backend/src/main/resources/static/assets/img/logo-renacer.svg
+	backend/src/main/resources/static/assets/img/logo.PNG
+	backend/src/main/resources/static/assets/img/logo.svg
+	backend/src/main/resources/static/assets/img/logorenacer.png
+	backend/src/main/resources/static/assets/vectores/boxes.svg
+	backend/src/main/resources/static/assets/vectores/document.svg
+	backend/src/main/resources/static/assets/vectores/exit.svg
+	backend/src/main/resources/static/assets/vectores/eye.svg
+	backend/src/main/resources/static/assets/vectores/home.svg
+	backend/src/main/resources/static/assets/vectores/pencil.svg
+	backend/src/main/resources/static/assets/vectores/plus.svg
+	backend/src/main/resources/static/assets/vectores/search.svg
+	backend/src/main/resources/static/assets/vectores/trash.svg
+	backend/src/main/resources/static/assets/vectores/users.svg
+	backend/src/main/resources/static/components/app-header.js
+	backend/src/main/resources/static/components/app-modal.js
+	backend/src/main/resources/static/components/app-sidebar.js
+	backend/src/main/resources/static/components/asociado.html
+	backend/src/main/resources/static/components/components-loader.js
+	backend/src/main/resources/static/components/compra.html
+	backend/src/main/resources/static/components/configuracion.html
+	backend/src/main/resources/static/components/dashboard.html
+	backend/src/main/resources/static/components/informes.html
+	backend/src/main/resources/static/components/inventario.html
+	backend/src/main/resources/static/components/menu.html
+	backend/src/main/resources/static/components/modal.component.js
+	backend/src/main/resources/static/components/venta.html
+	backend/src/main/resources/static/controllers/asociados.controller.js
+	backend/src/main/resources/static/controllers/informes.controller.js
+	backend/src/main/resources/static/controllers/panel.controller.js
+	backend/src/main/resources/static/index.html
+	backend/src/main/resources/static/pages/asociados.html
+	backend/src/main/resources/static/pages/informes.html
+	backend/src/main/resources/static/pages/nuevo-material.html
+	backend/src/main/resources/static/pages/panel-inicio.html
+	backend/src/main/resources/static/styles/estilos_materiales.css
+	backend/src/main/resources/static/styles/menuestilos.css
+	backend/src/main/resources/static/styles/normalize.css
+	backend/src/main/resources/static/styles/panel.css
+	backend/src/main/resources/static/styles/style.css
+	backend/src/main/resources/static/styles/style_asociado.css
+	backend/src/main/resources/static/styles/vi.css
+	backend/startup.log
+	final_git_status.txt
+	start-backend.ps1
+

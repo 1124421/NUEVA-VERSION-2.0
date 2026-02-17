@@ -1,0 +1,413 @@
+<style>
+    .module-header {
+        background: var(--verde-renacer);
+        color: white;
+        padding: 16px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .module-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .inv-tabs {
+        display: flex;
+        gap: 0;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .inv-tab {
+        padding: 10px 24px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.2s;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+    }
+
+    .inv-tab:hover {
+        color: #2d5a47;
+    }
+
+    .inv-tab.active {
+        color: #2d5a47;
+        border-bottom-color: #2d5a47;
+    }
+
+    .search-card {
+        background: white;
+        border-radius: 6px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+    }
+
+    .search-box {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .search-box input {
+        flex: 1;
+        padding: 10px 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    .search-box button {
+        padding: 10px 18px;
+        background: var(--verde-renacer);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .search-box button:hover {
+        background: var(--verde-hover);
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 6px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+    }
+
+    .stock-badge {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 10px;
+        display: inline-block;
+    }
+
+    .stock-alto {
+        background: #e8f5e9;
+        color: #2d5a47;
+    }
+
+    .stock-medio {
+        background: #fff3e0;
+        color: #f57c00;
+    }
+
+    .stock-bajo {
+        background: #ffebee;
+        color: #d32f2f;
+    }
+
+    .mov-compra {
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 11px;
+    }
+
+    .mov-venta {
+        background: #ffebee;
+        color: #c62828;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 11px;
+    }
+
+    .mov-ajuste {
+        background: #fff3e0;
+        color: #e65100;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 11px;
+    }
+
+    .cantidad-positiva {
+        color: #2e7d32;
+        font-weight: 600;
+    }
+
+    .cantidad-negativa {
+        color: #c62828;
+        font-weight: 600;
+    }
+
+    #tablaInventario th,
+    #tablaMovimientos th {
+        background: #f0f2f5 !important;
+        color: #333 !important;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .tab-panel {
+        display: none;
+    }
+
+    .tab-panel.active {
+        display: block;
+    }
+</style>
+
+<div class="module-header">
+    <h2>
+        <i data-lucide="package"></i>
+        Inventario de Materiales
+    </h2>
+</div>
+
+<!-- Tabs -->
+<div class="inv-tabs">
+    <button class="inv-tab active" onclick="switchTab('stock')">
+        <i data-lucide="box" style="width: 14px; height: 14px; margin-right: 4px;"></i>
+        Stock Actual
+    </button>
+    <button class="inv-tab" onclick="switchTab('movimientos')">
+        <i data-lucide="history" style="width: 14px; height: 14px; margin-right: 4px;"></i>
+        Historial de Movimientos
+    </button>
+</div>
+
+<!-- Buscador -->
+<div class="search-card">
+    <div class="search-box">
+        <input type="text" id="searchInventario" placeholder="Buscar material por nombre, código o categoría...">
+        <button onclick="buscarInventario()">
+            <i data-lucide="search"></i>
+            Buscar
+        </button>
+    </div>
+</div>
+
+<!-- Tab: Stock Actual -->
+<div id="panelStock" class="tab-panel active">
+    <div class="table-container">
+        <table id="tablaInventario" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Material</th>
+                    <th>Categoría</th>
+                    <th>Stock Actual (Kg)</th>
+                    <th>Precio Compra ($/Kg)</th>
+                    <th>Precio Venta ($/Kg)</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tablaInventarioBody">
+                <!-- Se llenará dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Tab: Historial Movimientos -->
+<div id="panelMovimientos" class="tab-panel">
+    <div class="table-container">
+        <table id="tablaMovimientos" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Material</th>
+                    <th>Subcategoría</th>
+                    <th>Stock Anterior</th>
+                    <th>Movimiento</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Stock Actual</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody id="tablaMovimientosBody">
+                <!-- Se llenará dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let tablaInventario;
+    let tablaMovimientos;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarStock();
+        cargarMovimientos();
+
+        // Buscador
+        document.getElementById('searchInventario').addEventListener('keyup', function () {
+            buscarInventario();
+        });
+
+        lucide.createIcons();
+    });
+
+    function switchTab(tab) {
+        // Toggle tabs
+        document.querySelectorAll('.inv-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+        if (tab === 'stock') {
+            document.querySelectorAll('.inv-tab')[0].classList.add('active');
+            document.getElementById('panelStock').classList.add('active');
+        } else {
+            document.querySelectorAll('.inv-tab')[1].classList.add('active');
+            document.getElementById('panelMovimientos').classList.add('active');
+        }
+
+        // Apply search to active table
+        buscarInventario();
+        lucide.createIcons();
+    }
+
+    async function cargarStock() {
+        try {
+            const response = await fetch('/inventario/stock');
+            if (!response.ok) throw new Error('Error al cargar stock');
+            const data = await response.json();
+
+            const tbody = document.getElementById('tablaInventarioBody');
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:20px;">No hay materiales registrados</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(m => {
+                let estadoClass = 'stock-alto';
+                let estadoText = 'Disponible';
+                if (m.stock <= 0) {
+                    estadoClass = 'stock-bajo';
+                    estadoText = 'Sin Stock';
+                } else if (m.stock < 10) {
+                    estadoClass = 'stock-bajo';
+                    estadoText = 'Stock Bajo';
+                } else if (m.stock < 50) {
+                    estadoClass = 'stock-medio';
+                    estadoText = 'Stock Medio';
+                }
+
+                return `<tr>
+                    <td>${m.codigo || '—'}</td>
+                    <td>${m.nombre}</td>
+                    <td>${m.categoria}</td>
+                    <td class="text-end">${Number(m.stock).toLocaleString('es-CO')} kg</td>
+                    <td class="text-end">$${Number(m.precioCompra).toLocaleString('es-CO')}</td>
+                    <td class="text-end">$${Number(m.precioVenta).toLocaleString('es-CO')}</td>
+                    <td><span class="stock-badge ${estadoClass}">${estadoText}</span></td>
+                </tr>`;
+            }).join('');
+
+            // Init DataTable
+            if (tablaInventario) tablaInventario.destroy();
+            tablaInventario = $('#tablaInventario').DataTable({
+                language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+                dom: 'rt',
+                order: [[1, 'asc']],
+                paging: false,
+                searching: true,
+                info: false
+            });
+        } catch (err) {
+            console.error('[Inventario] Error cargando stock:', err);
+        }
+    }
+
+    async function cargarMovimientos() {
+        try {
+            const response = await fetch('/inventario/movimientos');
+            if (!response.ok) throw new Error('Error al cargar movimientos');
+            const data = await response.json();
+
+            const tbody = document.getElementById('tablaMovimientosBody');
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#94a3b8;padding:20px;">No hay movimientos registrados</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = data.map(m => {
+                const fecha = m.fecha ? new Date(m.fecha).toLocaleDateString('es-CO', {
+                    day: '2-digit', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                }) : '';
+
+                // Tipo badge
+                let tipoBadge = '';
+                if (m.tipo === 'COMPRA') tipoBadge = '<span class="mov-compra">Compra</span>';
+                else if (m.tipo === 'VENTA') tipoBadge = '<span class="mov-venta">Venta</span>';
+                else tipoBadge = '<span class="mov-ajuste">Ajuste</span>';
+
+                // Cantidad con signo y color
+                const cantidadNum = Number(m.cantidad);
+                const cantidadClass = cantidadNum >= 0 ? 'cantidad-positiva' : 'cantidad-negativa';
+                const cantidadText = cantidadNum >= 0
+                    ? `+${cantidadNum.toLocaleString('es-CO')} kg`
+                    : `${cantidadNum.toLocaleString('es-CO')} kg`;
+
+                const stockAnt = m.stockAnterior != null ? `${Number(m.stockAnterior).toLocaleString('es-CO')} kg` : '—';
+                const stockAct = m.stockActual != null ? `${Number(m.stockActual).toLocaleString('es-CO')} kg` : '—';
+                const precio = m.precioUnitario != null ? `$${Number(m.precioUnitario).toLocaleString('es-CO')}` : '—';
+
+                return `<tr>
+                    <td>${m.codigo || '—'}</td>
+                    <td>${m.material}</td>
+                    <td>${m.subcategoria}</td>
+                    <td class="text-end">${stockAnt}</td>
+                    <td class="text-end"><span class="${cantidadClass}">${cantidadText}</span></td>
+                    <td>${tipoBadge}</td>
+                    <td class="text-end">${precio}</td>
+                    <td class="text-end">${stockAct}</td>
+                    <td>${fecha}</td>
+                </tr>`;
+            }).join('');
+
+            // Init DataTable
+            if (tablaMovimientos) tablaMovimientos.destroy();
+            tablaMovimientos = $('#tablaMovimientos').DataTable({
+                language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+                dom: 'rt',
+                order: [[8, 'desc']],
+                paging: false,
+                searching: true,
+                info: false
+            });
+        } catch (err) {
+            console.error('[Inventario] Error cargando movimientos:', err);
+        }
+    }
+
+    function buscarInventario() {
+        const termino = document.getElementById('searchInventario').value;
+        // Search active table
+        if (document.getElementById('panelStock').classList.contains('active') && tablaInventario) {
+            tablaInventario.search(termino).draw();
+        } else if (tablaMovimientos) {
+            tablaMovimientos.search(termino).draw();
+        }
+    }
+
+    lucide.createIcons();
+</script>

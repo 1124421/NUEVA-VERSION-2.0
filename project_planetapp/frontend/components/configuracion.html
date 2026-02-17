@@ -1,0 +1,275 @@
+<style>
+    .module-header {
+        background: linear-gradient(135deg, #757575 0%, #616161 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(117, 117, 117, 0.2);
+    }
+
+    .module-header h2 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+    }
+
+    .form-card h5 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .form-card h5 i {
+        width: 18px;
+        height: 18px;
+        color: var(--verde-renacer);
+    }
+
+    .colorblind-option {
+        background: #f8f9fa;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .colorblind-option:hover {
+        border-color: var(--verde-renacer);
+        background: var(--verde-light);
+    }
+
+    .colorblind-option.active {
+        border-color: var(--verde-renacer);
+        background: var(--verde-light);
+        box-shadow: 0 4px 12px rgba(45, 90, 71, 0.2);
+    }
+
+    .colorblind-option input[type="radio"] {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--verde-renacer);
+    }
+
+    .colorblind-info {
+        flex: 1;
+    }
+
+    .colorblind-info h6 {
+        margin: 0 0 4px 0;
+        font-weight: 700;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .colorblind-info p {
+        margin: 0;
+        font-size: 12px;
+        color: #666;
+    }
+</style>
+
+<div class="module-header">
+    <h2>
+        <i data-lucide="settings"></i>
+        Configuración del Sistema
+    </h2>
+</div>
+
+<!-- Configuración de Accesibilidad -->
+<div class="form-card">
+    <h5>
+        <i data-lucide="eye"></i>
+        Accesibilidad Visual
+    </h5>
+
+    <p class="mb-3 text-muted" style="font-size: 13px;">
+        Selecciona un filtro de daltonismo para adaptar los colores de la interfaz a tu visión.
+    </p>
+
+    <div class="colorblind-options">
+        <div class="colorblind-option" onclick="setColorblindMode('none')" id="option-none">
+            <input type="radio" name="colorblind" value="none" checked>
+            <div class="colorblind-info">
+                <h6>Visión Normal</h6>
+                <p>Sin filtros de color aplicados</p>
+            </div>
+        </div>
+
+        <div class="colorblind-option" onclick="setColorblindMode('protanopia')" id="option-protanopia">
+            <input type="radio" name="colorblind" value="protanopia">
+            <div class="colorblind-info">
+                <h6>Protanopía (Ceguera al Rojo)</h6>
+                <p>Dificultad para distinguir entre rojo y verde</p>
+            </div>
+        </div>
+
+        <div class="colorblind-option" onclick="setColorblindMode('deuteranopia')" id="option-deuteranopia">
+            <input type="radio" name="colorblind" value="deuteranopia">
+            <div class="colorblind-info">
+                <h6>Deuteranopía (Ceguera al Verde)</h6>
+                <p>Dificultad para distinguir entre rojo y verde (más común)</p>
+            </div>
+        </div>
+
+        <div class="colorblind-option" onclick="setColorblindMode('tritanopia')" id="option-tritanopia">
+            <input type="radio" name="colorblind" value="tritanopia">
+            <div class="colorblind-info">
+                <h6>Tritanopía (Ceguera al Azul)</h6>
+                <p>Dificultad para distinguir entre azul y amarillo</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-3" style="font-size: 12px; border-radius: 8px;">
+        <i data-lucide="info" style="width: 16px; height: 16px; vertical-align: middle;"></i>
+        Los cambios se aplicarán inmediatamente y se guardarán para futuras sesiones.
+    </div>
+</div>
+
+<!-- Configuración de Tamaño de Fuente -->
+<div class="form-card">
+    <h5>
+        <i data-lucide="type"></i>
+        Tamaño de Fuente
+    </h5>
+
+    <p class="mb-3 text-muted" style="font-size: 13px;">
+        Ajusta el tamaño del texto para mejorar la legibilidad.
+    </p>
+
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-secondary" onclick="setFontSize('small')">
+            <i data-lucide="minus" style="width: 14px; height: 14px;"></i> Pequeño
+        </button>
+        <button type="button" class="btn btn-outline-secondary active" onclick="setFontSize('normal')">
+            <i data-lucide="type" style="width: 14px; height: 14px;"></i> Normal
+        </button>
+        <button type="button" class="btn btn-outline-secondary" onclick="setFontSize('large')">
+            <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Grande
+        </button>
+    </div>
+</div>
+
+<!-- Información del Usuario -->
+<div class="form-card">
+    <h5>
+        <i data-lucide="user"></i>
+        Información de la Cuenta
+    </h5>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Usuario</label>
+            <input type="text" class="form-control" id="configUsername" readonly>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Rol</label>
+            <input type="text" class="form-control" value="Administrador" readonly>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-danger" onclick="cerrarSesion()">
+            <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+            Cerrar Sesión
+        </button>
+    </div>
+</div>
+
+<script>
+    // Load current settings
+    document.addEventListener('DOMContentLoaded', () => {
+        // Load username
+        const username = localStorage.getItem('planetapp_user');
+        if (username) {
+            document.getElementById('configUsername').value = username;
+        }
+
+        // Load colorblind mode
+        const colorblindMode = localStorage.getItem('colorblind_mode') || 'none';
+        const radio = document.querySelector(`input[value="${colorblindMode}"]`);
+        if (radio) {
+            radio.checked = true;
+            document.getElementById(`option-${colorblindMode}`).classList.add('active');
+        }
+
+        // Load font size
+        const fontSize = localStorage.getItem('font_size') || 'normal';
+        document.querySelectorAll('.btn-group button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`button[onclick="setFontSize('${fontSize}')"]`)?.classList.add('active');
+
+        lucide.createIcons();
+    });
+
+    function setColorblindMode(mode) {
+        // Remove all colorblind classes
+        document.body.classList.remove('protanopia', 'deuteranopia', 'tritanopia');
+
+        // Add new class if not none
+        if (mode !== 'none') {
+            document.body.classList.add(mode);
+        }
+
+        // Save preference
+        localStorage.setItem('colorblind_mode', mode);
+
+        // Update UI
+        document.querySelectorAll('.colorblind-option').forEach(opt => {
+            opt.classList.remove('active');
+        });
+        document.getElementById(`option-${mode}`).classList.add('active');
+
+        // Update radio
+        document.querySelector(`input[value="${mode}"]`).checked = true;
+    }
+
+    function setFontSize(size) {
+        const sizes = {
+            small: '12px',
+            normal: '13px',
+            large: '15px'
+        };
+
+        document.body.style.fontSize = sizes[size];
+        localStorage.setItem('font_size', size);
+
+        // Update button states
+        document.querySelectorAll('.btn-group button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.closest('button').classList.add('active');
+    }
+
+    function cerrarSesion() {
+        if (confirm('¿Está seguro de cerrar sesión?')) {
+            localStorage.removeItem('planetapp_user');
+            window.location.href = '../index.html';
+        }
+    }
+
+    lucide.createIcons();
+</script>

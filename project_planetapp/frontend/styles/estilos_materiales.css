@@ -1,0 +1,427 @@
+ body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            display: flex;
+        }
+
+        /* Contenedor principal */
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+
+        /* === Contenido principal === */
+        .main-content {
+            flex: 1;
+            margin-left: 80px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+            width: calc(100% - 80px);
+        }
+
+        .sidebar:hover ~ .main-content {
+            margin-left: 200px;
+            width: calc(100% - 200px);
+        }
+
+        /* === Encabezado === */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #2d5a47;
+            padding: 8px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            color: #333;
+            margin: 0;
+            font-weight: 645;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            background: #2d5a47;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+        }
+
+        /* === Sección de búsqueda y tabs === */
+        .content-header {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .search-container i {
+            margin-right: 10px;
+            color:#2d5a47;
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            background: transparent;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* === BOTONES MEJORADOS === */
+        .tab-btn {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #333;
+        }
+
+        .tab-btn:hover {
+            background: #f0f0f0;
+            border-color: #aaa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .tab-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .tab-btn.active {
+            background: #2d5a47;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(45, 90, 71, 0.3);
+        }
+
+        .tab-btn.active:hover {
+            background: #244a3a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(45, 90, 71, 0.4);
+        }
+
+        /* === Formulario === */
+        .form-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-top: 30px;
+        }
+
+        .form-section h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #444;
+            padding-left: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Botones de cancelar */
+        .btn-cancel {
+            background: #fff;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .btn-cancel:hover {
+            background: #f5f5f5;
+            border-color: #aaa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .btn-cancel:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        /* === Botones principales === */
+        .btn-save, .btn-primary, .btn-search {
+            background: #2d5a47;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-save:hover,
+        .btn-primary:hover,
+        .btn-search:hover {
+            background: #244a3a;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            transform: translateY(-3px);
+        }
+
+        .btn-save:active,
+        .btn-primary:active,
+        .btn-search:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        /* === Modal === */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1100;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 450px;
+            min-height: 250px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            position: relative;
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            text-align: left;
+        }
+
+        /* Botón de cerrar (X) */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .close-btn:hover {
+            color: #2d5a47;
+        }
+
+        /* Título del modal */
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        /* Formulario del modal */
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-form label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            text-align: left;
+        }
+
+        .modal-form input {
+            width: 100%;
+            height: 50px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        /* === BOTÓN DEL MODAL CORREGIDO === */
+        .modal-form .btn-save {
+            width: auto;
+            align-self: center;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: #2d5a47;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-form .btn-save:hover {
+            background: #244a3a;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+            transform: translateY(-3px);
+        }
+
+        .modal-form .btn-save:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        /* === SECCIÓN DE INVENTARIO === */
+        .inventory-section {
+            background: #fff;
+            padding: 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            display: none;
+            margin-top: 30px;
+            overflow: hidden;
+        }
+
+        .inventory-section.active {
+            display: block;
+        }
+
+        .inventory-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .inventory-table th {
+            background: #f8f9fa;
+            color: #333;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .inventory-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            font-size: 13px;
+        }
+
+        .inventory-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 4px 6px;
+            margin: 0 2px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .action-btn.edit:hover {
+            color: #2d5a47;
+        }
+
+        .action-btn.delete:hover {
+            color: #e74c3c;
+        }
+

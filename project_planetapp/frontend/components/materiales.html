@@ -1,0 +1,1027 @@
+<style>
+    .module-header {
+        background: white;
+        color: #333;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e0e0e0;
+        border-left: 5px solid var(--verde-renacer);
+    }
+
+    .module-header h2 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--verde-renacer);
+    }
+
+    .section-card {
+        background: white;
+        border-radius: 6px;
+        padding: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e0e0e0;
+        margin-bottom: 12px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-action {
+        padding: 4px 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 11px;
+        margin: 0 2px;
+    }
+
+    .btn-view {
+        background: #e8f5e9;
+        color: var(--verde-renacer);
+    }
+
+    .btn-view:hover {
+        background: var(--verde-renacer);
+        color: white;
+    }
+
+    .btn-edit {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+
+    .btn-edit:hover {
+        background: #1976d2;
+        color: white;
+    }
+
+    .btn-delete {
+        background: #ffebee;
+        color: #d32f2f;
+    }
+
+    .btn-delete:hover {
+        background: #d32f2f;
+        color: white;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+        background: white;
+        color: #333;
+        border-bottom: 1px solid #f0f0f0;
+        padding: 20px 24px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .modal-title {
+        font-weight: 700;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #333;
+    }
+
+    .modal-title i {
+        color: var(--verde-renacer);
+    }
+
+    .modal-body {
+        padding: 24px;
+    }
+
+    .btn-modal-save {
+        background: var(--verde-renacer);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-size: 13px;
+    }
+
+    .btn-modal-save:hover {
+        background: var(--verde-hover);
+    }
+
+    .btn-modal-cancel {
+        background: #f5f5f5;
+        color: #666;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 500;
+        font-size: 13px;
+    }
+
+    .btn-modal-cancel:hover {
+        background: #e0e0e0;
+    }
+
+    .category-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 600;
+        background: #e8f5e9;
+        color: var(--verde-renacer);
+        margin: 2px;
+    }
+
+    .mini-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .mini-modal.show {
+        display: block;
+    }
+
+    .mini-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+
+    .mini-modal-overlay.show {
+        display: block;
+    }
+
+    .mini-modal-header {
+        padding: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .mini-modal-header h5 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #333;
+    }
+
+    .mini-modal-close {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mini-modal-close:hover {
+        color: #333;
+    }
+
+    .mini-modal-body {
+        padding: 24px;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .info-row:last-child {
+        border-bottom: none;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #666;
+        font-size: 13px;
+    }
+
+    .info-value {
+        color: #333;
+        font-size: 13px;
+        text-align: right;
+    }
+</style>
+
+<!-- Simple Header: Module Name | User Profile -->
+<div
+    style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; margin-bottom: 16px;">
+    <h2 style="margin: 0; font-size: 16px; font-weight: 600; color: #2d5a47;">Gestión de Materiales</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div
+            style="width: 32px; height: 32px; border-radius: 50%; background: var(--verde-renacer); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px;">
+            U
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 12px; font-weight: 600; color: #333;" id="materialesUserName"></div>
+            <div style="font-size: 10px; color: #666;">Usuario</div>
+        </div>
+    </div>
+</div>
+
+<!-- Search and Actions Bar -->
+<div style="background: #f8f9fa; padding: 10px 16px; border-radius: 6px; margin-bottom: 12px;">
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <!-- Search Input -->
+        <div style="flex: 1; min-width: 200px; position: relative;">
+            <i data-lucide="search"
+                style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: #999;"></i>
+            <input type="text" id="searchMateriales" placeholder="Buscar asociado"
+                style="width: 100%; padding: 6px 10px 6px 32px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px; outline: none;">
+        </div>
+
+        <!-- Action Buttons -->
+        <button onclick="nuevaCategoria()" data-bs-toggle="modal" data-bs-target="#modalCategoria"
+            style="background: white; color: #333; border: 1px solid #ddd; padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: 500; cursor: pointer; white-space: nowrap;">
+            Agregar categoría
+        </button>
+        <button onclick="nuevoMaterial()" data-bs-toggle="modal" data-bs-target="#modalMaterial"
+            style="background: #f0f2f5; color: #333; border: none; padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: 500; cursor: pointer; white-space: nowrap;">
+            Nuevo material
+        </button>
+        <button onclick="generarReporteInventario()"
+            style="background: #f0f2f5; color: #333; border: none; padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: 500; cursor: pointer; white-space: nowrap;">
+            Reporte de inventario
+        </button>
+    </div>
+</div>
+
+<!-- Tabs Navigation -->
+<ul class="nav nav-tabs mb-3" id="materialesTabs" role="tablist" style="border-bottom: 2px solid #e0e0e0;">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="categorias-tab" data-bs-toggle="tab" data-bs-target="#categorias"
+            type="button" style="font-size: 12px; padding: 8px 16px; font-weight: 500;">
+            <i data-lucide="folder" style="width: 14px; height: 14px; margin-right: 6px;"></i>
+            Categorías
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="subcategorias-tab" data-bs-toggle="tab" data-bs-target="#subcategorias"
+            type="button" style="font-size: 12px; padding: 8px 16px; font-weight: 500;">
+            <i data-lucide="folder-tree" style="width: 14px; height: 14px; margin-right: 6px;"></i>
+            Subcategorías
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="materiales-tab" data-bs-toggle="tab" data-bs-target="#materiales" type="button"
+            style="font-size: 12px; padding: 8px 16px; font-weight: 500;">
+            <i data-lucide="package" style="width: 14px; height: 14px; margin-right: 6px;"></i>
+            Materiales
+        </button>
+    </li>
+</ul>
+
+<!-- Tab Content -->
+<div class="tab-content" id="materialesTabContent">
+    <!-- CATEGORÍAS TAB -->
+    <div class="tab-pane fade show active" id="categorias" role="tabpanel">
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="section-title mb-0">
+                    <i data-lucide="folder"></i>
+                    Categorías de Materiales
+                </h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCategoria"
+                    onclick="nuevaCategoria()"
+                    style="background: var(--verde-renacer); border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px;">
+                    <i data-lucide="plus" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                    Nueva Categoría
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="categoriasTable" class="table table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="background: #f0f2f5; color: #333; border-radius: 6px 0 0 6px;">ID
+                            </th>
+                            <th style="background: #f0f2f5; color: #333;">Nombre</th>
+                            <th style="background: #f0f2f5; color: #333;">Descripción</th>
+                            <th style="background: #f0f2f5; color: #333;">Subcategorías</th>
+                            <th style="background: #f0f2f5; color: #333; border-radius: 0 6px 6px 0;">
+                                Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriasTableBody">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBCATEGORÍAS TAB -->
+    <div class="tab-pane fade" id="subcategorias" role="tabpanel">
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="section-title mb-0">
+                    <i data-lucide="folder-tree"></i>
+                    Subcategorías
+                </h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSubcategoria"
+                    onclick="nuevaSubcategoria()"
+                    style="background: var(--verde-renacer); border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px;">
+                    <i data-lucide="plus" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                    Nueva Subcategoría
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="subcategoriasTable" class="table table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="background: #f0f2f5; color: #333; border-radius: 6px 0 0 6px;">ID
+                            </th>
+                            <th style="background: #f0f2f5; color: #333;">Nombre</th>
+                            <th style="background: #f0f2f5; color: #333;">Categoría</th>
+                            <th style="background: #f0f2f5; color: #333;">Descripción</th>
+                            <th style="background: #f0f2f5; color: #333; border-radius: 0 6px 6px 0;">
+                                Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="subcategoriasTableBody">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MATERIALES TAB -->
+    <div class="tab-pane fade" id="materiales" role="tabpanel">
+        <div class="section-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="section-title mb-0">
+                    <i data-lucide="package"></i>
+                    Materiales de Reciclaje
+                </h5>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMaterial"
+                    onclick="nuevoMaterial()"
+                    style="background: var(--verde-renacer); border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px;">
+                    <i data-lucide="plus" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                    Nuevo Material
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table id="materialesTable" class="table table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="background: #f0f2f5; color: #333; border-radius: 6px 0 0 6px;">
+                                Código</th>
+                            <th style="background: #f0f2f5; color: #333;">Descripción</th>
+                            <th style="background: #f0f2f5; color: #333;">Categoría</th>
+                            <th style="background: #f0f2f5; color: #333;">Subcategoría</th>
+                            <th style="background: #f0f2f5; color: #333;">P. Compra</th>
+                            <th style="background: #f0f2f5; color: #333;">P. Venta</th>
+                            <th style="background: #f0f2f5; color: #333;">Stock (kg)</th>
+                            <th style="background: #f0f2f5; color: #333; border-radius: 0 6px 6px 0;">
+                                Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="materialesTableBody">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div id="materialesPagination"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Categoría -->
+<div class="modal fade" id="modalCategoria" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCategoriaTitle">
+                    Nueva Categoría
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formCategoria">
+                    <input type="hidden" id="categoriaId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de la Categoría</label>
+                        <input type="text" class="form-control" id="nombreCategoria" placeholder="Ej: Plásticos"
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcionCategoria" rows="3"
+                            placeholder="Descripción de la categoría"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-modal-save" onclick="guardarCategoria()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Subcategoría -->
+<div class="modal fade" id="modalSubcategoria" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalSubcategoriaTitle">
+                    Nueva Subcategoría
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formSubcategoria">
+                    <input type="hidden" id="subcategoriaId">
+
+                    <div class="mb-3">
+                        <label class="form-label">Categoría Principal</label>
+                        <select class="form-control" id="categoriaSubcategoria" required>
+                            <option value="">Seleccione una categoría</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre de la Subcategoría</label>
+                        <input type="text" class="form-control" id="nombreSubcategoria" placeholder="Ej: PET" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcionSubcategoria" rows="3"
+                            placeholder="Descripción de la subcategoría"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-modal-save" onclick="guardarSubcategoria()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Material -->
+<div class="modal fade" id="modalMaterial" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMaterialTitle">
+                    Nuevo Material
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formMaterial">
+                    <input type="hidden" id="materialIdEdit">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Código</label>
+                            <input type="text" class="form-control" id="codigoMaterial" placeholder="Ej: MAT-001"
+                                required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Descripción</label>
+                            <input type="text" class="form-control" id="descripcionMaterial"
+                                placeholder="Nombre del material" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Categoría</label>
+                            <select class="form-control" id="categoriaMaterial"
+                                onchange="cargarSubcategoriasPorCategoria()" required>
+                                <option value="">Seleccione una categoría</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Subcategoría</label>
+                            <select class="form-control" id="subcategoriaMaterial" required>
+                                <option value="">Seleccione una subcategoría</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Precio Compra ($/kg)</label>
+                            <input type="number" class="form-control" id="precioCompraMaterial" placeholder="0.00"
+                                step="0.01" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Precio Venta ($/kg)</label>
+                            <input type="number" class="form-control" id="precioVentaMaterial" placeholder="0.00"
+                                step="0.01" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Cantidad Actual (kg)</label>
+                            <input type="number" class="form-control" id="cantidadMaterial" placeholder="0.00"
+                                step="0.01" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-modal-cancel" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn-modal-save" onclick="guardarMaterial()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mini Modal for Viewing Information -->
+<div class="mini-modal-overlay" id="miniModalOverlay" onclick="closeMiniModal()"></div>
+<div class="mini-modal" id="miniModal">
+    <div class="mini-modal-header">
+        <h5 id="miniModalTitle">Información del Material</h5>
+        <button class="mini-modal-close" onclick="closeMiniModal()">×</button>
+    </div>
+    <div class="mini-modal-body" id="miniModalBody">
+        <!-- Se llenará dinámicamente -->
+    </div>
+</div>
+
+<script>
+    // Datos de ejemplo
+    let categoriasData = [
+        { id: 1, nombre: 'Plásticos', descripcion: 'Materiales plásticos reciclables' },
+        { id: 2, nombre: 'Metales', descripcion: 'Metales ferrosos y no ferrosos' },
+        { id: 3, nombre: 'Papel y Cartón', descripcion: 'Productos de papel reciclable' }
+    ];
+
+    let subcategoriasData = [
+        { id: 1, nombre: 'PET', categoriaId: 1, descripcion: 'Polietileno Tereftalato' },
+        { id: 2, nombre: 'HDPE', categoriaId: 1, descripcion: 'Polietileno de Alta Densidad' },
+        { id: 3, nombre: 'Aluminio', categoriaId: 2, descripcion: 'Aluminio reciclable' },
+        { id: 4, nombre: 'Cobre', categoriaId: 2, descripcion: 'Cobre y aleaciones' }
+    ];
+
+    let materialesData = [
+        {
+            id: 1,
+            codigo: 'MAT-001',
+            descripcion: 'Botellas PET',
+            categoriaId: 1,
+            subcategoriaId: 1,
+            precioCompra: 0.50,
+            precioVenta: 0.80,
+            cantidad: 150.5
+        },
+        {
+            id: 2,
+            codigo: 'MAT-002',
+            descripcion: 'Latas de Aluminio',
+            categoriaId: 2,
+            subcategoriaId: 3,
+            precioCompra: 1.20,
+            precioVenta: 1.80,
+            cantidad: 85.3
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Inicializar DataTables
+        $('#categoriasTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt',
+            columnDefs: [{ targets: 4, orderable: false }]
+        });
+
+        $('#subcategoriasTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt',
+            columnDefs: [{ targets: 4, orderable: false }]
+        });
+
+        const matTable = $('#materialesTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            paging: false,
+            searching: false,
+            info: false,
+            dom: 'rt',
+            columnDefs: [{ targets: 7, orderable: false }]
+        });
+
+        // Cargar datos iniciales
+        renderCategoriasTable();
+        renderSubcategoriasTable();
+        renderMaterialesTable();
+        cargarCategoriasEnSelects();
+
+        lucide.createIcons();
+    });
+
+    // ===== CATEGORÍAS =====
+    function renderCategoriasTable() {
+        const tbody = document.getElementById('categoriasTableBody');
+        tbody.innerHTML = categoriasData.map(c => {
+            const subcategorias = subcategoriasData.filter(s => s.categoriaId === c.id).length;
+            return `
+                <tr>
+                    <td><strong>#CAT${String(c.id).padStart(3, '0')}</strong></td>
+                    <td>${c.nombre}</td>
+                    <td>${c.descripcion || '-'}</td>
+                    <td><span class="badge bg-secondary">${subcategorias}</span></td>
+                    <td>
+                        <button class="btn-action btn-edit" onclick="editarCategoria(${c.id})">
+                            <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i>
+                        </button>
+                        <button class="btn-action btn-delete" onclick="eliminarCategoria(${c.id})">
+                            <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        lucide.createIcons();
+    }
+
+    function nuevaCategoria() {
+        document.getElementById('formCategoria').reset();
+        document.getElementById('categoriaId').value = '';
+        document.getElementById('modalCategoriaTitle').innerHTML = '<i data-lucide="folder"></i> Nueva Categoría';
+        lucide.createIcons();
+    }
+
+    function editarCategoria(id) {
+        const categoria = categoriasData.find(c => c.id === id);
+        if (!categoria) return;
+
+        document.getElementById('categoriaId').value = categoria.id;
+        document.getElementById('nombreCategoria').value = categoria.nombre;
+        document.getElementById('descripcionCategoria').value = categoria.descripcion || '';
+        document.getElementById('modalCategoriaTitle').innerHTML = '<i data-lucide="edit-2"></i> Editar Categoría';
+
+        new bootstrap.Modal(document.getElementById('modalCategoria')).show();
+        lucide.createIcons();
+    }
+
+    function guardarCategoria() {
+        const form = document.getElementById('formCategoria');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const id = document.getElementById('categoriaId').value;
+        const categoria = {
+            id: id || Date.now(),
+            nombre: document.getElementById('nombreCategoria').value,
+            descripcion: document.getElementById('descripcionCategoria').value
+        };
+
+        if (id) {
+            const index = categoriasData.findIndex(c => c.id == id);
+            categoriasData[index] = categoria;
+            alert('Categoría actualizada!');
+        } else {
+            categoriasData.push(categoria);
+            alert('Categoría registrada!');
+        }
+
+        bootstrap.Modal.getInstance(document.getElementById('modalCategoria')).hide();
+        renderCategoriasTable();
+        cargarCategoriasEnSelects();
+    }
+
+    function eliminarCategoria(id) {
+        if (!confirm('¿Está seguro de eliminar esta categoría?')) return;
+
+        categoriasData = categoriasData.filter(c => c.id !== id);
+        renderCategoriasTable();
+        cargarCategoriasEnSelects();
+        alert('Categoría eliminada!');
+    }
+
+    // ===== SUBCATEGORÍAS =====
+    function renderSubcategoriasTable() {
+        const tbody = document.getElementById('subcategoriasTableBody');
+        tbody.innerHTML = subcategoriasData.map(s => {
+            const categoria = categoriasData.find(c => c.id === s.categoriaId);
+            return `
+                <tr>
+                    <td><strong>#SUB${String(s.id).padStart(3, '0')}</strong></td>
+                    <td>${s.nombre}</td>
+                    <td><span class="category-badge">${categoria ? categoria.nombre : 'N/A'}</span></td>
+                    <td>${s.descripcion || '-'}</td>
+                    <td>
+                        <button class="btn-action btn-edit" onclick="editarSubcategoria(${s.id})">
+                            <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i>
+                        </button>
+                        <button class="btn-action btn-delete" onclick="eliminarSubcategoria(${s.id})">
+                            <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        lucide.createIcons();
+    }
+
+    function nuevaSubcategoria() {
+        document.getElementById('formSubcategoria').reset();
+        document.getElementById('subcategoriaId').value = '';
+        document.getElementById('modalSubcategoriaTitle').innerHTML = '<i data-lucide="folder-tree"></i> Nueva Subcategoría';
+        cargarCategoriasEnSelects();
+        lucide.createIcons();
+    }
+
+    function editarSubcategoria(id) {
+        const subcategoria = subcategoriasData.find(s => s.id === id);
+        if (!subcategoria) return;
+
+        document.getElementById('subcategoriaId').value = subcategoria.id;
+        document.getElementById('categoriaSubcategoria').value = subcategoria.categoriaId;
+        document.getElementById('nombreSubcategoria').value = subcategoria.nombre;
+        document.getElementById('descripcionSubcategoria').value = subcategoria.descripcion || '';
+        document.getElementById('modalSubcategoriaTitle').innerHTML = '<i data-lucide="edit-2"></i> Editar Subcategoría';
+
+        new bootstrap.Modal(document.getElementById('modalSubcategoria')).show();
+        lucide.createIcons();
+    }
+
+    function guardarSubcategoria() {
+        const form = document.getElementById('formSubcategoria');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const id = document.getElementById('subcategoriaId').value;
+        const subcategoria = {
+            id: id || Date.now(),
+            nombre: document.getElementById('nombreSubcategoria').value,
+            categoriaId: parseInt(document.getElementById('categoriaSubcategoria').value),
+            descripcion: document.getElementById('descripcionSubcategoria').value
+        };
+
+        if (id) {
+            const index = subcategoriasData.findIndex(s => s.id == id);
+            subcategoriasData[index] = subcategoria;
+            alert('Subcategoría actualizada!');
+        } else {
+            subcategoriasData.push(subcategoria);
+            alert('Subcategoría registrada!');
+        }
+
+        bootstrap.Modal.getInstance(document.getElementById('modalSubcategoria')).hide();
+        renderSubcategoriasTable();
+    }
+
+    function eliminarSubcategoria(id) {
+        if (!confirm('¿Está seguro de eliminar esta subcategoría?')) return;
+
+        subcategoriasData = subcategoriasData.filter(s => s.id !== id);
+        renderSubcategoriasTable();
+        alert('Subcategoría eliminada!');
+    }
+
+    // ===== MATERIALES =====
+    function renderMaterialesTable() {
+        const tbody = document.getElementById('materialesTableBody');
+        tbody.innerHTML = materialesData.map(m => {
+            const categoria = categoriasData.find(c => c.id === m.categoriaId);
+            const subcategoria = subcategoriasData.find(s => s.id === m.subcategoriaId);
+            return `
+                <tr>
+                    <td><strong>${m.codigo}</strong></td>
+                    <td>${m.descripcion}</td>
+                    <td><span class="category-badge">${categoria ? categoria.nombre : 'N/A'}</span></td>
+                    <td>${subcategoria ? subcategoria.nombre : 'N/A'}</td>
+                    <td>$${m.precioCompra.toFixed(2)}</td>
+                    <td>$${m.precioVenta.toFixed(2)}</td>
+                    <td><strong>${m.cantidad.toFixed(2)} kg</strong></td>
+                    <td>
+                        <button class="btn-action btn-view" onclick="verMaterial(${m.id})" title="Ver información">
+                            <i data-lucide="eye" style="width: 12px; height: 12px;"></i>
+                        </button>
+                        <button class="btn-action btn-edit" onclick="editarMaterial(${m.id})">
+                            <i data-lucide="edit-2" style="width: 12px; height: 12px;"></i>
+                        </button>
+                        <button class="btn-action btn-delete" onclick="eliminarMaterial(${m.id})">
+                            <i data-lucide="trash-2" style="width: 12px; height: 12px;"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
+        lucide.createIcons();
+    }
+
+    function nuevoMaterial() {
+        document.getElementById('formMaterial').reset();
+        document.getElementById('materialIdEdit').value = '';
+        document.getElementById('modalMaterialTitle').innerHTML = '<i data-lucide="package"></i> Nuevo Material';
+        cargarCategoriasEnSelects();
+        lucide.createIcons();
+    }
+
+    function editarMaterial(id) {
+        const material = materialesData.find(m => m.id === id);
+        if (!material) return;
+
+        document.getElementById('materialIdEdit').value = material.id;
+        document.getElementById('codigoMaterial').value = material.codigo;
+        document.getElementById('descripcionMaterial').value = material.descripcion;
+        document.getElementById('categoriaMaterial').value = material.categoriaId;
+        cargarSubcategoriasPorCategoria();
+        document.getElementById('subcategoriaMaterial').value = material.subcategoriaId;
+        document.getElementById('precioCompraMaterial').value = material.precioCompra;
+        document.getElementById('precioVentaMaterial').value = material.precioVenta;
+        document.getElementById('cantidadMaterial').value = material.cantidad;
+        document.getElementById('modalMaterialTitle').innerHTML = '<i data-lucide="edit-2"></i> Editar Material';
+
+        new bootstrap.Modal(document.getElementById('modalMaterial')).show();
+        lucide.createIcons();
+    }
+
+    function guardarMaterial() {
+        const form = document.getElementById('formMaterial');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const id = document.getElementById('materialIdEdit').value;
+        const material = {
+            id: id || Date.now(),
+            codigo: document.getElementById('codigoMaterial').value,
+            descripcion: document.getElementById('descripcionMaterial').value,
+            categoriaId: parseInt(document.getElementById('categoriaMaterial').value),
+            subcategoriaId: parseInt(document.getElementById('subcategoriaMaterial').value),
+            precioCompra: parseFloat(document.getElementById('precioCompraMaterial').value),
+            precioVenta: parseFloat(document.getElementById('precioVentaMaterial').value),
+            cantidad: parseFloat(document.getElementById('cantidadMaterial').value)
+        };
+
+        if (id) {
+            const index = materialesData.findIndex(m => m.id == id);
+            materialesData[index] = material;
+            alert('Material actualizado!');
+        } else {
+            materialesData.push(material);
+            alert('Material registrado!');
+        }
+
+        bootstrap.Modal.getInstance(document.getElementById('modalMaterial')).hide();
+        renderMaterialesTable();
+    }
+
+    function eliminarMaterial(id) {
+        if (!confirm('¿Está seguro de eliminar este material?')) return;
+
+        materialesData = materialesData.filter(m => m.id !== id);
+        renderMaterialesTable();
+        alert('Material eliminado!');
+    }
+
+    function verMaterial(id) {
+        const material = materialesData.find(m => m.id === id);
+        if (!material) return;
+
+        const categoria = categoriasData.find(c => c.id === material.categoriaId);
+        const subcategoria = subcategoriasData.find(s => s.id === material.subcategoriaId);
+
+        document.getElementById('miniModalTitle').textContent = 'Información del Material';
+        document.getElementById('miniModalBody').innerHTML = `
+            <div class="text-center mb-3">
+                <h5 style="color: var(--verde-renacer); font-weight: 700;">${material.descripcion}</h5>
+                <p style="color: #666; font-size: 13px;">${material.codigo}</p>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Categoría</span>
+                <span class="info-value">${categoria ? categoria.nombre : 'N/A'}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Subcategoría</span>
+                <span class="info-value">${subcategoria ? subcategoria.nombre : 'N/A'}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Precio Compra</span>
+                <span class="info-value">$${material.precioCompra.toFixed(2)}/kg</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Precio Venta</span>
+                <span class="info-value">$${material.precioVenta.toFixed(2)}/kg</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Stock Actual</span>
+                <span class="info-value"><strong>${material.cantidad.toFixed(2)} kg</strong></span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Margen</span>
+                <span class="info-value" style="color: var(--verde-renacer); font-weight: 600;">
+                    ${((material.precioVenta - material.precioCompra) / material.precioCompra * 100).toFixed(1)}%
+                </span>
+            </div>
+        `;
+
+        document.getElementById('miniModalOverlay').classList.add('show');
+        document.getElementById('miniModal').classList.add('show');
+        lucide.createIcons();
+    }
+
+    function closeMiniModal() {
+        document.getElementById('miniModalOverlay').classList.remove('show');
+        document.getElementById('miniModal').classList.remove('show');
+    }
+
+    // ===== UTILIDADES =====
+    function cargarCategoriasEnSelects() {
+        const selectCategoria = document.getElementById('categoriaSubcategoria');
+        const selectCategoriaMaterial = document.getElementById('categoriaMaterial');
+
+        const options = categoriasData.map(c => `<option value="${c.id}">${c.nombre}</option>`).join('');
+
+        selectCategoria.innerHTML = '<option value="">Seleccione una categoría</option>' + options;
+        selectCategoriaMaterial.innerHTML = '<option value="">Seleccione una categoría</option>' + options;
+    }
+
+    function cargarSubcategoriasPorCategoria() {
+        const categoriaId = parseInt(document.getElementById('categoriaMaterial').value);
+        const selectSubcategoria = document.getElementById('subcategoriaMaterial');
+
+        if (!categoriaId) {
+            selectSubcategoria.innerHTML = '<option value="">Seleccione una subcategoría</option>';
+            return;
+        }
+
+        const subcategorias = subcategoriasData.filter(s => s.categoriaId === categoriaId);
+        const options = subcategorias.map(s => `<option value="${s.id}">${s.nombre}</option>`).join('');
+
+        selectSubcategoria.innerHTML = '<option value="">Seleccione una subcategoría</option>' + options;
+    }
+
+    // ===== REPORTE DE INVENTARIO =====
+    function generarReporteInventario() {
+        const totalMateriales = materialesData.length;
+        const totalCategorias = categoriasData.length;
+        const totalSubcategorias = subcategoriasData.length;
+        const valorTotal = materialesData.reduce((sum, m) => sum + (m.cantidad * m.precioVenta), 0);
+
+        showSuccess(
+            `Total Categorías: ${totalCategorias} | Total Subcategorías: ${totalSubcategorias} | Total Materiales: ${totalMateriales} | Valor Total: $${valorTotal.toFixed(2)}`,
+            'Reporte de Inventario'
+        );
+    }
+
+    lucide.createIcons();
+</script>

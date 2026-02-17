@@ -1,0 +1,126 @@
+/* ============================================
+   Custom Theme: Air Datepicker + Tom Select
+   Color: Verde Renacer (#2d5a47)
+   ============================================ */
+
+/* ===== AIR DATEPICKER ===== */
+
+.air-datepicker {
+    --adp-font-family: 'Inter', system-ui, sans-serif;
+    --adp-font-size: 13px;
+    --adp-width: 260px;
+    --adp-border-radius: 12px;
+    --adp-background-color: #ffffff;
+    --adp-color: #334155;
+    --adp-color-secondary: #94a3b8;
+    --adp-border-color: #e2e8f0;
+
+    /* Selection colors */
+    --adp-color-current-date: #2d5a47;
+    --adp-cell-background-color-selected: #2d5a47;
+    --adp-cell-background-color-selected-hover: #245239;
+    --adp-color-selected: #ffffff;
+    --adp-cell-background-color-in-range: rgba(45, 90, 71, 0.1);
+    --adp-cell-background-color-in-range-hover: rgba(45, 90, 71, 0.18);
+
+    /* Navigation */
+    --adp-nav-arrow-color: #2d5a47;
+    --adp-nav-color-secondary: #2d5a47;
+
+    /* Overall shadow */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+}
+
+.air-datepicker-nav--title {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.air-datepicker-cell.-day-.-current- {
+    font-weight: 700;
+}
+
+.air-datepicker-cell.-day-:hover {
+    background-color: rgba(45, 90, 71, 0.08);
+    border-radius: 50%;
+}
+
+.air-datepicker-cell.-selected- {
+    border-radius: 50%;
+}
+
+/* Smooth transition on calendar input */
+input[data-datepicker] {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+input[data-datepicker]:focus {
+    border-color: #2d5a47;
+    box-shadow: 0 0 0 3px rgba(45, 90, 71, 0.12);
+}
+
+/* ===== TOM SELECT ===== */
+
+.ts-wrapper.single .ts-control {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    min-height: 38px;
+}
+
+.ts-wrapper.single .ts-control:hover {
+    border-color: #2d5a47;
+}
+
+.ts-wrapper.single.focus .ts-control {
+    border-color: #2d5a47;
+    box-shadow: 0 0 0 3px rgba(45, 90, 71, 0.12);
+}
+
+.ts-dropdown {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-top: 4px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+}
+
+.ts-dropdown .option {
+    padding: 8px 14px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    color: #334155;
+}
+
+.ts-dropdown .option:hover,
+.ts-dropdown .active {
+    background-color: rgba(45, 90, 71, 0.08);
+    color: #2d5a47;
+}
+
+.ts-dropdown .option.selected {
+    background-color: #2d5a47;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Caret styling */
+.ts-wrapper.single .ts-control::after {
+    border-color: #64748b transparent transparent transparent;
+}
+
+.ts-wrapper.single.focus .ts-control::after {
+    border-color: #2d5a47 transparent transparent transparent;
+}
+
+/* Remove default blue highlight */
+.ts-wrapper .ts-control .item {
+    color: #1e293b;
+}

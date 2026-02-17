@@ -1,0 +1,412 @@
+<style>
+    .form-card {
+        background: white;
+        border-radius: 6px;
+        padding: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e0e0e0;
+        margin-bottom: 12px;
+    }
+
+    .info-box {
+        background: #e8f5e9;
+        border: 1px solid var(--verde-renacer);
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 16px;
+    }
+
+    .info-box h6 {
+        margin: 0 0 8px 0;
+        color: var(--verde-renacer);
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    .info-box p {
+        margin: 3px 0;
+        font-size: 12px;
+        color: #333;
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+    .search-results {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 10;
+        display: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-top: 4px;
+    }
+
+    .search-results.show {
+        display: block;
+    }
+
+    .search-result-item {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .search-result-item:hover {
+        background: #f8f9fa;
+    }
+
+    .material-row {
+        background: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .btn-remove {
+        background: #d32f2f;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 10px;
+        font-size: 11px;
+        cursor: pointer;
+    }
+</style>
+
+<!-- Simple Header: Module Name | User Profile -->
+<div
+    style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; margin-bottom: 16px;">
+    <h2 style="margin: 0; font-size: 16px; font-weight: 600; color: #2d5a47;">Registro de Compras</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <div
+            style="width: 32px; height: 32px; border-radius: 50%; background: var(--verde-renacer); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px;">
+            U
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 12px; font-weight: 600; color: #333;" id="compraUserName"></div>
+            <div style="font-size: 10px; color: #666;">Usuario</div>
+        </div>
+    </div>
+</div>
+
+<!-- Formulario de Compra -->
+<div class="form-card">
+    <h5 class="mb-3">
+        <i data-lucide="plus-circle" style="width: 18px; height: 18px; color: var(--verde-renacer);"></i>
+        Nueva Compra
+    </h5>
+
+    <form id="formCompra">
+        <!-- Buscador de Asociado -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Buscar Asociado</label>
+            <div class="search-box">
+                <input type="text" class="form-control" id="searchAsociado" placeholder="Buscar por nombre..."
+                    autocomplete="off">
+                <div class="search-results" id="asociadoResults"></div>
+            </div>
+            <input type="hidden" id="asociadoId">
+        </div>
+
+        <!-- Información del Asociado Seleccionado -->
+        <div id="asociadoInfo" style="display: none;">
+            <div class="info-box">
+                <h6><i data-lucide="user-check" style="width: 14px; height: 14px;"></i> Información del Asociado</h6>
+                <p><strong>Nombre:</strong> <span id="infoAsociadoNombre"></span></p>
+                <p><strong>Documento:</strong> <span id="infoAsociadoDoc"></span></p>
+                <p><strong>Tipo:</strong> <span id="infoAsociadoTipo"></span></p>
+                <p><strong>Cargo:</strong> <span id="infoAsociadoCargo"></span></p>
+            </div>
+        </div>
+
+        <!-- Campos adicionales -->
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Ruta</label>
+                <input type="text" class="form-control" id="ruta" placeholder="Ej: Zona Norte" required>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Carreta</label>
+                <input type="text" class="form-control" id="carreta" placeholder="Ej: C-001" required>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Materiales Rechazados (kg)</label>
+                <input type="number" class="form-control" id="rechazados" placeholder="0.0" min="0" step="0.1"
+                    value="0">
+            </div>
+        </div>
+
+        <!-- Buscador de Materiales -->
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Agregar Materiales (Máximo 8)</label>
+            <div class="search-box">
+                <input type="text" class="form-control" id="searchMaterial" placeholder="Buscar material..."
+                    autocomplete="off">
+                <div class="search-results" id="materialResults"></div>
+            </div>
+            <small class="text-muted">Materiales agregados: <span id="contadorMateriales">0</span>/8</small>
+        </div>
+
+        <!-- Lista de Materiales Seleccionados -->
+        <div id="materialesCompra" class="mb-3">
+            <!-- Materiales aparecerán aquí -->
+        </div>
+
+        <!-- Total -->
+        <div class="mb-3">
+            <h5>Total: $<span id="totalCompra">0.00</span></h5>
+        </div>
+
+        <button type="submit" class="btn btn-primary"
+            style="background: var(--verde-renacer); border-color: var(--verde-renacer);">
+            <i data-lucide="save" style="width: 16px; height: 16px;"></i>
+            Registrar Compra
+        </button>
+    </form>
+</div>
+
+<!-- Tabla de Compras -->
+<div class="form-card">
+    <h5 class="mb-3">
+        <i data-lucide="list" style="width: 18px; height: 18px; color: var(--verde-renacer);"></i>
+        Compras Registradas
+    </h5>
+
+    <table id="comprasTable" class="table table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Asociado</th>
+                <th>Ruta</th>
+                <th>Total Kg</th>
+                <th>Total $</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Compras se cargarán dinámicamente desde el backend -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Datos de ejemplo
+    const asociadosData = [
+        { id: 1, nombre: 'María García', documento: '12345678', tipo: 'Aforado', cargo: 'Recolector', activo: true },
+        { id: 2, nombre: 'Carlos Ruiz', documento: '87654321', tipo: 'No Aforado', cargo: 'Clasificador', activo: true },
+        { id: 3, nombre: 'Laura Sánchez', documento: '11223344', tipo: 'Aforado', cargo: 'Supervisor', activo: false }
+    ];
+
+    const materialesData = [
+        { id: 1, nombre: 'Plástico PET', precioCompra: 2.50, stock: 150, activo: true },
+        { id: 2, nombre: 'Cartón', precioCompra: 1.50, stock: 200, activo: true },
+        { id: 3, nombre: 'Vidrio', precioCompra: 2.00, stock: 100, activo: true },
+        { id: 4, nombre: 'Aluminio', precioCompra: 12.00, stock: 50, activo: true },
+        { id: 5, nombre: 'Papel', precioCompra: 1.00, stock: 300, activo: true },
+        { id: 6, nombre: 'Plástico HDPE', precioCompra: 3.50, stock: 120, activo: true },
+        { id: 7, nombre: 'Cobre', precioCompra: 18.00, stock: 30, activo: false }
+    ];
+
+    let materialesCompra = [];
+    let asociadoSeleccionado = null;
+
+    // Buscador de asociados
+    document.getElementById('searchAsociado').addEventListener('input', function (e) {
+        const query = e.target.value.toLowerCase();
+        const results = document.getElementById('asociadoResults');
+
+        if (query.length < 2) {
+            results.classList.remove('show');
+            return;
+        }
+
+        const filtered = asociadosData.filter(a =>
+            a.nombre.toLowerCase().includes(query) && (a.activo !== false)
+        );
+
+        results.innerHTML = filtered.map(a => `
+      <div class="search-result-item" onclick="selectAsociado(${a.id})">
+        <strong>${a.nombre}</strong><br>
+        <small class="text-muted">${a.tipo} | ${a.cargo}</small>
+      </div>
+    `).join('');
+
+        results.classList.add('show');
+    });
+
+    function selectAsociado(id) {
+        const asociado = asociadosData.find(a => a.id === id);
+        if (!asociado) return;
+
+        asociadoSeleccionado = asociado;
+        document.getElementById('asociadoId').value = id;
+        document.getElementById('searchAsociado').value = asociado.nombre;
+        document.getElementById('asociadoResults').classList.remove('show');
+
+        // Mostrar información del asociado
+        document.getElementById('asociadoInfo').style.display = 'block';
+        document.getElementById('infoAsociadoNombre').textContent = asociado.nombre;
+        document.getElementById('infoAsociadoDoc').textContent = asociado.documento;
+        document.getElementById('infoAsociadoTipo').textContent = asociado.tipo;
+        document.getElementById('infoAsociadoCargo').textContent = asociado.cargo;
+
+        lucide.createIcons();
+    }
+
+    // Buscador de materiales
+    document.getElementById('searchMaterial').addEventListener('input', function (e) {
+        const query = e.target.value.toLowerCase();
+        const results = document.getElementById('materialResults');
+
+        if (query.length < 2) {
+            results.classList.remove('show');
+            return;
+        }
+
+        const filtered = materialesData.filter(m =>
+            m.nombre.toLowerCase().includes(query) && (m.activo !== false)
+        );
+
+        results.innerHTML = filtered.map(m => `
+      <div class="search-result-item" onclick="addMaterial(${m.id})">
+        <strong>${m.nombre}</strong> - $${m.precioCompra.toFixed(2)}/kg<br>
+        <small class="text-muted">Stock: ${m.stock} kg</small>
+      </div>
+    `).join('');
+
+        results.classList.add('show');
+    });
+
+    function addMaterial(id) {
+        if (materialesCompra.length >= 8) {
+            alert('Máximo 8 materiales permitidos');
+            return;
+        }
+
+        if (materialesCompra.find(m => m.id === id)) {
+            alert('Este material ya fue agregado');
+            return;
+        }
+
+        const material = materialesData.find(m => m.id === id);
+        if (!material) return;
+
+        materialesCompra.push({
+            id: material.id,
+            nombre: material.nombre,
+            precio: material.precioCompra,
+            peso: 0
+        });
+
+        renderMateriales();
+        document.getElementById('searchMaterial').value = '';
+        document.getElementById('materialResults').classList.remove('show');
+    }
+
+    function renderMateriales() {
+        const container = document.getElementById('materialesCompra');
+        container.innerHTML = materialesCompra.map((m, index) => `
+      <div class="material-row">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <strong>${m.nombre}</strong><br>
+            <small class="text-muted">Precio: $${m.precio.toFixed(2)}/kg</small>
+          </div>
+          <button type="button" class="btn-remove" onclick="removeMaterial(${index})">
+            <i data-lucide="x" style="width: 12px; height: 12px;"></i> Quitar
+          </button>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-6">
+            <label class="form-label" style="font-size: 12px;">Peso (kg)</label>
+            <input type="number" class="form-control form-control-sm" 
+                   value="${m.peso}" min="0" step="0.1" 
+                   onchange="updatePeso(${index}, this.value)"
+                   placeholder="0.0">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" style="font-size: 12px;">Subtotal</label>
+            <input type="text" class="form-control form-control-sm" 
+                   value="$${(m.peso * m.precio).toFixed(2)}" readonly>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+        document.getElementById('contadorMateriales').textContent = materialesCompra.length;
+        lucide.createIcons();
+        calcularTotal();
+    }
+
+    function updatePeso(index, value) {
+        materialesCompra[index].peso = parseFloat(value) || 0;
+        renderMateriales();
+    }
+
+    function removeMaterial(index) {
+        materialesCompra.splice(index, 1);
+        renderMateriales();
+    }
+
+    function calcularTotal() {
+        const total = materialesCompra.reduce((sum, m) => sum + (m.peso * m.precio), 0);
+        document.getElementById('totalCompra').textContent = total.toFixed(2);
+    }
+
+    // Formulario
+    document.getElementById('formCompra').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (!asociadoSeleccionado) {
+            alert('Debe seleccionar un asociado');
+            return;
+        }
+
+        if (materialesCompra.length === 0) {
+            alert('Debe agregar al menos un material');
+            return;
+        }
+
+        const totalKg = materialesCompra.reduce((sum, m) => sum + m.peso, 0);
+        const totalPrecio = materialesCompra.reduce((sum, m) => sum + (m.peso * m.precio), 0);
+
+        console.log('Compra registrada:', {
+            asociado: asociadoSeleccionado,
+            ruta: document.getElementById('ruta').value,
+            carreta: document.getElementById('carreta').value,
+            rechazados: document.getElementById('rechazados').value,
+            materiales: materialesCompra,
+            totalKg,
+            totalPrecio
+        });
+
+        alert('Compra registrada exitosamente!');
+
+        // Limpiar
+        this.reset();
+        materialesCompra = [];
+        asociadoSeleccionado = null;
+        document.getElementById('asociadoInfo').style.display = 'none';
+        renderMateriales();
+    });
+
+    // DataTable
+    $(document).ready(function () {
+        $('#comprasTable').DataTable({
+            language: { url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' },
+            pageLength: 10
+        });
+    });
+
+    lucide.createIcons();
+</script>

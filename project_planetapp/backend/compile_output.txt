@@ -1,0 +1,59 @@
+﻿.\gradlew.bat : 
+WARNING: A 
+restricted method in 
+java.lang.System has 
+been called
+En línea: 1 
+Carácter: 1
++ .\gradlew.bat 
+compileJava 2>&1 | 
+Out-File -FilePath 
+compile_output.tx ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (WARNING   
+ : A rest...has b    
+een called:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+WARNING: java.lang.Sy
+stem::load has been 
+called by net.rubygra
+pefruit.platform.inte
+rnal.NativeLibraryLoa
+der in an unnamed 
+module (file:/C:/User
+s/Johana/.gradle/wrap
+per/dists/gradle-8.5-
+bin/5t9huq95ubn472n8r
+pzujfbqh/gradle-8.5/l
+ib/native-platform-0.
+22-milestone-25.jar)
+WARNING: Use --enable
+-native-access=ALL-UN
+NAMED to avoid a 
+warning for callers 
+in this module
+WARNING: Restricted 
+methods will be 
+blocked in a future 
+release unless 
+native access is 
+enabled
+
+> Task :compileJava UP-TO-DATE
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.5/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 2s
+1 actionable task: 1 up-to-date

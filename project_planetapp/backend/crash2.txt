@@ -1,0 +1,260 @@
+﻿? Database 'planetapp_db' already exists.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2026-02-09T22:16:48.171-05:00  INFO 27628 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : Starting PlanetAppApplication v1.0.0 using Java 25.0.1 with PID 27628 (C:\Users\Johana\Documents\project_planetapp\backend\build\libs\planetapp-backend-1.0.0.jar started by Johana in C:\Users\Johana\Documents\project_planetapp\backend)
+2026-02-09T22:16:48.172-05:00 DEBUG 27628 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : Running with Spring Boot v3.2.0, Spring v6.1.1
+2026-02-09T22:16:48.172-05:00  INFO 27628 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-02-09T22:16:48.920-05:00  INFO 27628 --- [planetapp-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-09T22:16:48.978-05:00  INFO 27628 --- [planetapp-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 8 JPA repository interfaces.
+java : WARNING: A 
+restricted method in 
+java.lang.System has 
+been called
+En línea: 1 
+Carácter: 5
++ & { java -jar build
+\libs\planetapp-backe
+nd-1.0.0.jar } 2>&1 
+| Out-Fil ...
++     ~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (WARNING   
+ : A rest...has b    
+een called:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+WARNING: java.lang.Sy
+stem::load has been 
+called by org.apache.
+tomcat.jni.Library 
+in an unnamed module 
+(jar:nested:/C:/Users
+/Johana/Documents/pro
+ject_planetapp/backen
+d/build/libs/planetap
+p-backend-1.0.0.jar/!
+BOOT-INF/lib/tomcat-e
+mbed-core-10.1.16.jar
+!/)
+WARNING: Use --enable
+-native-access=ALL-UN
+NAMED to avoid a 
+warning for callers 
+in this module
+WARNING: Restricted 
+methods will be 
+blocked in a future 
+release unless 
+native access is 
+enabled
+
+2026-02-09T22:16:49.509-05:00  INFO 27628 --- [planetapp-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8082 (http)
+2026-02-09T22:16:49.519-05:00  INFO 27628 --- [planetapp-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-09T22:16:49.519-05:00  INFO 27628 --- [planetapp-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-02-09T22:16:49.566-05:00  INFO 27628 --- [planetapp-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-09T22:16:49.567-05:00  INFO 27628 --- [planetapp-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1339 ms
+2026-02-09T22:16:49.742-05:00  INFO 27628 --- [planetapp-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-09T22:16:49.794-05:00  INFO 27628 --- [planetapp-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2026-02-09T22:16:49.823-05:00  INFO 27628 --- [planetapp-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-09T22:16:50.040-05:00  INFO 27628 --- [planetapp-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-09T22:16:50.058-05:00  INFO 27628 --- [planetapp-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-09T22:16:50.107-05:00  INFO 27628 --- [planetapp-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5d84e363
+2026-02-09T22:16:50.110-05:00  INFO 27628 --- [planetapp-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-09T22:16:50.135-05:00  WARN 27628 --- [planetapp-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-09T22:16:50.886-05:00  INFO 27628 --- [planetapp-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    alter table if exists compras 
+       drop constraint if exists FKqyn315xjy2qmhu78hu40b54jv
+Hibernate: 
+    alter table if exists compras 
+       drop constraint if exists FKss395qfnpc8oge1ceoo6s0ii3
+Hibernate: 
+    alter table if exists materiales 
+       drop constraint if exists FKgfd517sdhguq0fu2nak1k3p09
+2026-02-09T22:16:50.909-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-02-09T22:16:50.910-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : no existe la restricción «fkgfd517sdhguq0fu2nak1k3p09» en la relación «materiales», omitiendo
+Hibernate: 
+    alter table if exists materiales 
+       drop constraint if exists FK6qk3vwqykykuh4r37wg5k9u8o
+2026-02-09T22:16:50.910-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-02-09T22:16:50.910-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : no existe la restricción «fk6qk3vwqykykuh4r37wg5k9u8o» en la relación «materiales», omitiendo
+Hibernate: 
+    alter table if exists subcategorias 
+       drop constraint if exists FKiucm5ipf0wvec50s8j67r33rk
+2026-02-09T22:16:50.911-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-02-09T22:16:50.911-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : no existe la relación «subcategorias», omitiendo
+Hibernate: 
+    alter table if exists ventas 
+       drop constraint if exists FKms0sp2o7o6953i3sjjpbtsa8g
+Hibernate: 
+    drop table if exists asociados cascade
+Hibernate: 
+    drop table if exists categorias cascade
+2026-02-09T22:16:50.917-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-02-09T22:16:50.917-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : la tabla «categorias» no existe, omitiendo
+Hibernate: 
+    drop table if exists clientes cascade
+Hibernate: 
+    drop table if exists compras cascade
+Hibernate: 
+    drop table if exists materiales cascade
+Hibernate: 
+    drop table if exists subcategorias cascade
+2026-02-09T22:16:50.925-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-02-09T22:16:50.926-05:00  WARN 27628 --- [planetapp-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : la tabla «subcategorias» no existe, omitiendo
+Hibernate: 
+    drop table if exists users cascade
+Hibernate: 
+    drop table if exists ventas cascade
+Hibernate: 
+    create table asociados (
+        activo boolean not null,
+        fecha_registro date not null,
+        id bigserial not null,
+        documento varchar(20) not null unique,
+        telefono varchar(20),
+        apellido varchar(100) not null,
+        email varchar(100),
+        nombre varchar(100) not null,
+        direccion varchar(200),
+        primary key (id)
+    )
+Hibernate: 
+    create table categorias (
+        activo boolean not null,
+        id bigserial not null,
+        nombre varchar(100) not null unique,
+        descripcion varchar(500),
+        primary key (id)
+    )
+Hibernate: 
+    create table clientes (
+        activo boolean not null,
+        fecha_registro date not null,
+        id bigserial not null,
+        documento varchar(20) not null unique,
+        telefono varchar(20),
+        email varchar(100),
+        nombre varchar(100) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table compras (
+        cantidad float(53) not null,
+        precio_unitario float(53) not null,
+        total float(53) not null,
+        asociado_id bigint not null,
+        fecha_compra timestamp(6) not null,
+        id bigserial not null,
+        material_id bigint not null,
+        estado varchar(20) not null check (estado in ('COMPLETADA','CANCELADA')),
+        observaciones varchar(500),
+        primary key (id)
+    )
+Hibernate: 
+    create table materiales (
+        activo boolean not null,
+        fecha_registro date not null,
+        precio_compra float(53) not null,
+        precio_venta float(53) not null,
+        stock float(53) not null,
+        categoria_id bigint,
+        id bigserial not null,
+        subcategoria_id bigint,
+        codigo varchar(50) unique,
+        unidad varchar(50),
+        nombre varchar(100) not null,
+        descripcion varchar(500),
+        primary key (id)
+    )
+Hibernate: 
+    create table subcategorias (
+        activo boolean not null,
+        categoria_id bigint not null,
+        id bigserial not null,
+        nombre varchar(100) not null,
+        descripcion varchar(500),
+        primary key (id)
+    )
+Hibernate: 
+    create table users (
+        activo boolean not null,
+        created_at timestamp(6) not null,
+        id bigserial not null,
+        updated_at timestamp(6),
+        email varchar(255) not null unique,
+        nombre varchar(255) not null,
+        password varchar(255) not null,
+        rol varchar(255) not null,
+        telefono varchar(255),
+        primary key (id)
+    )
+Hibernate: 
+    create table ventas (
+        cantidad float(53) not null,
+        precio_unitario float(53) not null,
+        total float(53) not null,
+        fecha_venta timestamp(6) not null,
+        id bigserial not null,
+        material_id bigint not null,
+        estado varchar(20) not null check (estado in ('COMPLETADA','CANCELADA')),
+        cliente varchar(200),
+        observaciones varchar(500),
+        primary key (id)
+    )
+Hibernate: 
+    alter table if exists compras 
+       add constraint FKqyn315xjy2qmhu78hu40b54jv 
+       foreign key (asociado_id) 
+       references asociados
+Hibernate: 
+    alter table if exists compras 
+       add constraint FKss395qfnpc8oge1ceoo6s0ii3 
+       foreign key (material_id) 
+       references materiales
+Hibernate: 
+    alter table if exists materiales 
+       add constraint FKgfd517sdhguq0fu2nak1k3p09 
+       foreign key (categoria_id) 
+       references categorias
+Hibernate: 
+    alter table if exists materiales 
+       add constraint FK6qk3vwqykykuh4r37wg5k9u8o 
+       foreign key (subcategoria_id) 
+       references subcategorias
+Hibernate: 
+    alter table if exists subcategorias 
+       add constraint FKiucm5ipf0wvec50s8j67r33rk 
+       foreign key (categoria_id) 
+       references categorias
+Hibernate: 
+    alter table if exists ventas 
+       add constraint FKms0sp2o7o6953i3sjjpbtsa8g 
+       foreign key (material_id) 
+       references materiales
+2026-02-09T22:16:51.038-05:00  INFO 27628 --- [planetapp-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-09T22:16:51.285-05:00  INFO 27628 --- [planetapp-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-09T22:16:51.953-05:00  WARN 27628 --- [planetapp-backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-09T22:16:51.967-05:00  WARN 27628 --- [planetapp-backend] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 8281d638-2542-413e-a185-e67d1bfd8fcb
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-02-09T22:16:52.037-05:00  INFO 27628 --- [planetapp-backend] [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2394fad2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@53785d1a, org.springframework.security.web.context.SecurityContextHolderFilter@7f3aa737, org.springframework.security.web.header.HeaderWriterFilter@2b1aa390, org.springframework.web.filter.CorsFilter@1d7eb170, org.springframework.security.web.authentication.logout.LogoutFilter@66373f77, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@34bcdc9f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76296c86, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75d454a4, org.springframework.security.web.access.ExceptionTranslationFilter@4d162d67, org.springframework.security.web.access.intercept.AuthorizationFilter@70201785]
+2026-02-09T22:16:52.409-05:00  INFO 27628 --- [planetapp-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path ''
+2026-02-09T22:16:52.417-05:00  INFO 27628 --- [planetapp-backend] [           main] com.planetapp.PlanetAppApplication       : Started PlanetAppApplication in 4.603 seconds (process running for 5.189)

@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/normalize.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <title>Renacer</title>
+    <style>
+        /* ===== Modal Overlay Animation ===== */
+        .login-modal__container {
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+
+        .login-modal__container.active {
+            display: flex !important;
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ===== Modal Box Animation ===== */
+        .login-modal__box {
+            transform: translateY(30px) scale(0.96);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+            opacity: 0;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .login-modal__container.active .login-modal__box {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* ===== Logo Override (Renacer logo) ===== */
+        .login-modal__logo {
+            margin-bottom: 1rem;
+        }
+
+        .login-modal__logo img {
+            width: 100px !important;
+            height: auto;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 2px 6px rgba(41, 79, 62, 0.15));
+        }
+
+        /* ===== "Iniciar sesión" Title ===== */
+        .login-modal__box h2 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 2.5rem;
+            font-family: var(--main-font);
+            font-weight: 500;
+            letter-spacing: -0.3px;
+        }
+
+        /* ===== Close Button ===== */
+        .login-modal__close {
+            position: absolute;
+            top: 1rem;
+            right: 1.4rem;
+            background: none;
+            border: none;
+            font-size: 2.6rem;
+            color: #bbb;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+            line-height: 1;
+            padding: 0.5rem;
+        }
+
+        .login-modal__close:hover {
+            color: #555;
+            transform: scale(1.12);
+        }
+
+        /* ===== Input Focus Effects ===== */
+        .login-modal__input-group {
+            transition: border-color 0.3s ease;
+        }
+
+        .login-modal__input-group:focus-within {
+            border-bottom-color: var(--main-color);
+        }
+
+        .login-modal__input-group:focus-within i:first-child {
+            color: var(--main-color);
+            transition: color 0.3s ease;
+        }
+
+        /* ===== Green Divider ===== */
+        .login-modal__divider {
+            width: 50px;
+            height: 3px;
+            background: var(--planetaap-color);
+            border-radius: 2px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* ===== Button Enhancements ===== */
+        .login-modal__button {
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .login-modal__button:hover {
+            background-color: var(--main-color-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(41, 79, 62, 0.3);
+        }
+
+        .login-modal__button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(41, 79, 62, 0.2);
+        }
+
+        .login-modal__button.loading {
+            pointer-events: none;
+            opacity: 0.75;
+        }
+
+        /* ===== Forgot Password Link ===== */
+        .login-modal__forgot-password {
+            display: block;
+            text-align: center !important;
+            font-size: 1.5rem !important;
+            color: var(--main-color) !important;
+            text-decoration: none;
+            margin-top: 2rem !important;
+            margin-bottom: 0 !important;
+            font-family: var(--main-font);
+            font-weight: 400;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .login-modal__forgot-password:hover {
+            color: var(--planetaap-color) !important;
+            text-decoration: underline;
+        }
+
+        /* ===== Error & Success Messages ===== */
+        .login-modal__error {
+            background: #fef2f2;
+            color: #dc2626;
+            padding: 1rem 1.5rem;
+            border-radius: 0.6rem;
+            margin-bottom: 2rem;
+            font-size: 1.4rem;
+            font-family: var(--main-font);
+            display: none;
+            text-align: left;
+            border-left: 3px solid #dc2626;
+        }
+
+        .login-modal__error.visible {
+            display: block;
+            animation: shakeError 0.4s ease;
+        }
+
+        @keyframes shakeError {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-5px);
+            }
+
+            40% {
+                transform: translateX(5px);
+            }
+
+            60% {
+                transform: translateX(-3px);
+            }
+
+            80% {
+                transform: translateX(3px);
+            }
+        }
+
+        .login-modal__success {
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 1rem 1.5rem;
+            border-radius: 0.6rem;
+            margin-bottom: 2rem;
+            font-size: 1.4rem;
+            font-family: var(--main-font);
+            display: none;
+            text-align: center;
+            border-left: 3px solid #16a34a;
+        }
+
+        .login-modal__success.visible {
+            display: block;
+        }
+
+        /* ===== Recovery Sections ===== */
+        .login-modal__recovery {
+            display: none;
+        }
+
+        .login-modal__recovery.active {
+            display: block;
+        }
+
+        .login-modal__recovery h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            font-family: var(--main-font);
+            font-weight: 500;
+        }
+
+        .login-modal__back-btn {
+            background: none;
+            border: none;
+            color: var(--main-color);
+            font-size: 1.5rem;
+            font-family: var(--main-font);
+            cursor: pointer;
+            margin-top: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .login-modal__back-btn:hover {
+            color: var(--planetaap-color);
+            text-decoration: underline;
+        }
+
+        /* ===== Question Display ===== */
+        .question-display-box {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.6rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            font-family: var(--main-font);
+            font-weight: 500;
+            text-align: left;
+        }
+
+        /* ===== Recovery Select ===== */
+        .login-modal__input-group select {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            font-size: 1.6rem;
+            padding: 0.5rem 0;
+            color: #333;
+            font-family: var(--main-font);
+            background: transparent;
+            cursor: pointer;
+        }
+
+        /* ===== Register Link in Modal ===== */
+        .login-modal__register {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #777;
+            font-family: var(--main-font);
+        }
+
+        .login-modal__register a {
+            color: var(--main-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .login-modal__register a:hover {
+            color: var(--planetaap-color);
+            text-decoration: underline;
+        }
+
+        /* ===== Disabled Input State ===== */
+        .login-modal__input-group.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            background: #f5f5f5;
+            border-radius: 0.4rem;
+        }
+
+        .login-modal__input-group.disabled input {
+            cursor: not-allowed;
+        }
+
+        .login-modal__button.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="welcome" style="background-color: var(--background-color);">
+        <div class="welcome__background"></div>
+
+        <div class="welcome__form">
+            <div class="flex-center">
+                <div class="welcome__logo">
+                    <img src="assets/img/logo.PNG" alt="logo de planetaap" />
+                </div>
+                <h1>
+                    Bienvenido a <span>Planet<span>app</span></span>
+                </h1>
+                <p>
+                    Impulsa la acción, registra y recicla <br />
+                    con eficiencia y compromiso. <br />
+                    Soluciones rápidas, impacto real.
+                </p>
+                <a class="btn btn--primary btn--hover" href="#" id="abrir-login">Ingresar</a>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= LOGIN MODAL ================= -->
+    <div class="login-modal__container" id="loginModal">
+        <div class="login-modal__box">
+            <button class="login-modal__close" id="closeModal" aria-label="Cerrar">&times;</button>
+
+            <!-- Logo Renacer (mismo del index) -->
+            <div class="login-modal__logo">
+                <img src="assets/img/logo.PNG" alt="Logo Renacer" />
+            </div>
+
+            <!-- Messages -->
+            <div class="login-modal__error" id="modalError"></div>
+            <div class="login-modal__success" id="modalSuccess"></div>
+
+            <!-- ===== LOGIN VIEW ===== -->
+            <div id="loginView">
+                <h2>Iniciar sesión en tu cuenta</h2>
+                <div class="login-modal__divider"></div>
+
+                <form id="modalLoginForm" autocomplete="on">
+                    <div class="login-modal__input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="email" id="modalEmail" placeholder="Correo electrónico" required
+                            autocomplete="username" />
+                    </div>
+
+                    <div class="login-modal__input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="modalPassword" placeholder="Contraseña" required
+                            autocomplete="current-password" />
+                        <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                    </div>
+
+                    <button type="submit" class="login-modal__button" id="btnLogin">Inicia sesión</button>
+                </form>
+
+                <a href="#" class="login-modal__forgot-password" id="btnShowRecovery">¿Olvidaste tu contraseña?</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= MODAL 2: RECOVERY EMAIL ================= -->
+    <div class="login-modal__container" id="recoveryEmailModal">
+        <div class="login-modal__box">
+            <button class="login-modal__close" id="closeRecoveryEmail" aria-label="Cerrar">&times;</button>
+            <div class="login-modal__logo">
+                <img src="assets/img/logo.PNG" alt="Logo Renacer" />
+            </div>
+            <div class="login-modal__error" id="recoveryEmailError"></div>
+            <h3 style="font-size:2rem;color:#2c3e50;margin-bottom:2rem;font-family:var(--main-font);font-weight:500;">
+                Recuperar Contraseña</h3>
+            <div class="login-modal__divider"></div>
+            <div class="login-modal__input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="recoveryEmail" placeholder="Tu correo registrado..." autocomplete="off" />
+            </div>
+            <button type="button" class="login-modal__button" id="btnGetQuestion">Buscar Pregunta Secreta</button>
+            <button type="button" class="login-modal__back-btn" id="btnBackToLogin1">
+                <i class="fas fa-arrow-left"></i> Volver al login
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= MODAL 3: SECRET ANSWER ================= -->
+    <div class="login-modal__container" id="recoveryAnswerModal">
+        <div class="login-modal__box">
+            <button class="login-modal__close" id="closeRecoveryAnswer" aria-label="Cerrar">&times;</button>
+            <div class="login-modal__logo">
+                <img src="assets/img/logo.PNG" alt="Logo Renacer" />
+            </div>
+            <div class="login-modal__error" id="recoveryAnswerError"></div>
+            <div class="login-modal__success" id="recoveryAnswerSuccess"></div>
+            <h3 style="font-size:2rem;color:#2c3e50;margin-bottom:2rem;font-family:var(--main-font);font-weight:500;">
+                Responde tu pregunta secreta</h3>
+            <div class="login-modal__divider"></div>
+            <div class="question-display-box" id="questionDisplay"></div>
+            <!-- Isolated form to prevent autocomplete leakage -->
+            <form id="answerForm" autocomplete="off" action="#" method="post">
+                <div class="login-modal__input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="recoveryAnswer" name="recovery_answer_xk92"
+                        placeholder="Escribe tu respuesta secreta..." autocomplete="new-password" data-lpignore="true"
+                        data-form-type="other" readonly onfocus="this.removeAttribute('readonly');" />
+                    <i class="fas fa-eye password-toggle" id="toggleRecoveryAnswer"></i>
+                </div>
+                <button type="button" class="login-modal__button" id="btnValidateAnswer">Validar Respuesta</button>
+            </form>
+            <button type="button" class="login-modal__back-btn" id="btnBackToLogin2">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= MODAL 4: NEW PASSWORD ================= -->
+    <div class="login-modal__container" id="recoveryPasswordModal">
+        <div class="login-modal__box">
+            <button class="login-modal__close" id="closeRecoveryPassword" aria-label="Cerrar">&times;</button>
+            <div class="login-modal__logo">
+                <img src="assets/img/logo.PNG" alt="Logo Renacer" />
+            </div>
+            <div class="login-modal__error" id="recoveryPasswordError"></div>
+            <div class="login-modal__success" id="recoveryPasswordSuccess"></div>
+
+            <h3
+                style="font-size:2rem;color:#2c3e50;margin-bottom:0.5rem;font-family:var(--main-font);font-weight:500;text-align:center;">
+                ¡Respuesta correcta!</h3>
+            <p
+                style="text-align:center;font-size:1.4rem;color:#64748b;margin-bottom:2.5rem;font-family:var(--main-font);">
+                Ahora establece tu nueva contraseña</p>
+            <div class="login-modal__divider"></div>
+            <!-- Isolated form to prevent autocomplete leakage -->
+            <form id="passwordForm" autocomplete="off" action="#" method="post">
+                <div class="login-modal__input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="newPassword" name="new_pass_xz83"
+                        placeholder="Nueva contraseña (mín. 6 caracteres)" minlength="6" autocomplete="new-password"
+                        data-lpignore="true" data-form-type="other" readonly
+                        onfocus="this.removeAttribute('readonly');" />
+                    <i class="fas fa-eye password-toggle" id="toggleNewPassword"></i>
+                </div>
+                <div class="login-modal__input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirmNewPassword" name="confirm_pass_xz83"
+                        placeholder="Confirmar nueva contraseña" autocomplete="new-password" data-lpignore="true"
+                        data-form-type="other" readonly onfocus="this.removeAttribute('readonly');" />
+                    <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
+                </div>
+                <button type="button" class="login-modal__button" id="btnRecoverPassword">Cambiar Contraseña</button>
+            </form>
+            <button type="button" class="login-modal__back-btn" id="btnBackToLogin3">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= ACCESSIBILITY FILTERS ================= -->
+    <svg style="position:absolute;width:0;height:0;" aria-hidden="true">
+        <defs>
+            <filter id="protanopia-filter">
+                <feColorMatrix type="matrix"
+                    values="0.56667, 0.43333, 0, 0, 0 0.55833, 0.44167, 0, 0, 0 0, 0.24167, 0.75833, 0, 0 0, 0, 0, 1, 0" />
+            </filter>
+            <filter id="deuteranopia-filter">
+                <feColorMatrix type="matrix"
+                    values="0.625, 0.375, 0, 0, 0 0.7, 0.3, 0, 0, 0 0, 0.3, 0.7, 0, 0 0, 0, 0, 1, 0" />
+            </filter>
+            <filter id="tritanopia-filter">
+                <feColorMatrix type="matrix"
+                    values="0.95, 0.05, 0, 0, 0 0, 0.43333, 0.56667, 0, 0 0, 0.475, 0.525, 0, 0 0, 0, 0, 1, 0" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- ================= SCRIPTS ================= -->
+    <script src="controllers/auth.js"></script>
+    <script>
+        // ========== ACCESSIBILITY INIT ==========
+        (function () {
+            const mode = localStorage.getItem('daltonismo-mode');
+            if (mode && mode !== 'none') {
+                document.documentElement.classList.add('daltonismo-' + mode);
+            }
+            const fontSize = localStorage.getItem('app-font-size');
+            if (fontSize && parseInt(fontSize) !== 14) {
+                document.documentElement.style.setProperty('--app-font-size', fontSize + 'px');
+                document.documentElement.classList.add('app-font-custom');
+            }
+        })();
+
+        // ========== SESSION GUARD & GATEKEEPER ==========
+        (function () {
+            // FORCE CLEAN START: Clear fragment and view to ensure we always start at Welcome
+            if (window.location.hash) {
+                window.location.hash = '';
+            }
+            localStorage.removeItem('current-view');
+
+            // Mark that we are entering via index for this specific browser session
+            sessionStorage.setItem('gatekeeper-entry', 'true');
+
+            console.log('[SessionGuard] Force start from index enabled. Clean session state applied.');
+        })();
+
+        // ========== EPHEMERAL RECOVERY STATE ==========
+        var _recoveryEmail = '';
+        var _recoveryAnswer = '';
+
+        // ========== DOM REFERENCES ==========
+        var loginModal = document.getElementById('loginModal');
+        var recoveryEmailModal = document.getElementById('recoveryEmailModal');
+        var recoveryAnswerModal = document.getElementById('recoveryAnswerModal');
+        var recoveryPasswordModal = document.getElementById('recoveryPasswordModal');
+        var loginErrorEl = document.getElementById('modalError');
+        var loginSuccessEl = document.getElementById('modalSuccess');
+
+        // ========== GENERIC MODAL HELPERS ==========
+        function openModalEl(modalEl) {
+            modalEl.style.display = 'flex';
+            void modalEl.offsetWidth;
+            modalEl.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModalEl(modalEl, callback) {
+            modalEl.classList.remove('active');
+            setTimeout(function () {
+                modalEl.style.display = 'none';
+                if (!document.querySelector('.login-modal__container.active')) {
+                    document.body.style.overflow = '';
+                }
+                if (callback) callback();
+            }, 350);
+        }
+
+        function closeAllModals() {
+            [loginModal, recoveryEmailModal, recoveryAnswerModal, recoveryPasswordModal].forEach(function (m) {
+                m.classList.remove('active');
+                m.style.display = 'none';
+            });
+            document.body.style.overflow = '';
+            resetAllRecoveryState();
+        }
+
+        function resetAllRecoveryState() {
+            _recoveryEmail = '';
+            _recoveryAnswer = '';
+            document.getElementById('recoveryEmail').value = '';
+            document.getElementById('recoveryAnswer').value = '';
+            document.getElementById('recoveryAnswer').setAttribute('readonly', '');
+            document.getElementById('newPassword').value = '';
+            document.getElementById('newPassword').setAttribute('readonly', '');
+            document.getElementById('confirmNewPassword').value = '';
+            document.getElementById('confirmNewPassword').setAttribute('readonly', '');
+            document.getElementById('questionDisplay').textContent = '';
+            // Clear all messages across all modals
+            document.querySelectorAll('.login-modal__error').forEach(function (el) { el.classList.remove('visible'); el.textContent = ''; });
+            document.querySelectorAll('.login-modal__success').forEach(function (el) { el.classList.remove('visible'); el.textContent = ''; });
+        }
+
+        // ========== SCOPED MESSAGE HELPERS ==========
+        function showModalError(modalEl, msg) {
+            var errEl = modalEl.querySelector('.login-modal__error');
+            if (!errEl) return;
+            errEl.textContent = msg;
+            errEl.classList.remove('visible');
+            void errEl.offsetWidth;
+            errEl.classList.add('visible');
+            var succEl = modalEl.querySelector('.login-modal__success');
+            if (succEl) succEl.classList.remove('visible');
+        }
+
+        function showModalSuccess(modalEl, msg) {
+            var succEl = modalEl.querySelector('.login-modal__success');
+            if (!succEl) return;
+            succEl.textContent = msg;
+            succEl.classList.add('visible');
+            var errEl = modalEl.querySelector('.login-modal__error');
+            if (errEl) errEl.classList.remove('visible');
+        }
+
+        function clearModalMessages(modalEl) {
+            var errEl = modalEl.querySelector('.login-modal__error');
+            var succEl = modalEl.querySelector('.login-modal__success');
+            if (errEl) { errEl.classList.remove('visible'); errEl.textContent = ''; }
+            if (succEl) { succEl.classList.remove('visible'); succEl.textContent = ''; }
+        }
+
+        // ========== LOGIN MODAL ==========
+        document.getElementById('abrir-login').addEventListener('click', function (e) {
+            e.preventDefault();
+            openModalEl(loginModal);
+            setTimeout(function () { document.getElementById('modalEmail').focus(); }, 400);
+        });
+
+        document.getElementById('closeModal').addEventListener('click', function () {
+            closeModalEl(loginModal, function () {
+                document.getElementById('modalLoginForm').reset();
+                clearModalMessages(loginModal);
+                var btn = document.getElementById('btnLogin');
+                btn.classList.remove('loading');
+                btn.textContent = 'Inicia sesión';
+            });
+        });
+
+        loginModal.addEventListener('click', function (e) {
+            if (e.target === loginModal) document.getElementById('closeModal').click();
+        });
+
+        // ========== PASSWORD TOGGLE ==========
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            var passInput = document.getElementById('modalPassword');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+
+        // ========== RECOVERY EYE TOGGLES ==========
+        ['toggleRecoveryAnswer|recoveryAnswer', 'toggleNewPassword|newPassword', 'toggleConfirmPassword|confirmNewPassword'].forEach(function (pair) {
+            var parts = pair.split('|');
+            var toggleEl = document.getElementById(parts[0]);
+            var inputEl = document.getElementById(parts[1]);
+            if (toggleEl && inputEl) {
+                toggleEl.addEventListener('click', function () {
+                    if (inputEl.type === 'password') {
+                        inputEl.type = 'text';
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    } else {
+                        inputEl.type = 'password';
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    }
+                });
+            }
+        });
+
+        // ========== LOGIN SUBMIT ==========
+        document.getElementById('modalLoginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var email = document.getElementById('modalEmail').value.trim();
+            var password = document.getElementById('modalPassword').value;
+
+            if (!email || !password) {
+                showModalError(loginModal, 'Ingrese correo y contraseña');
+                return;
+            }
+
+            var btn = document.getElementById('btnLogin');
+            btn.classList.add('loading');
+            btn.textContent = 'Verificando...';
+
+            var result = await login(email, password);
+
+            if (result.success) {
+                showModalSuccess(loginModal, '¡Bienvenido! Redirigiendo al panel...');
+                btn.textContent = '✓ Acceso concedido';
+                setTimeout(function () {
+                    window.location.replace('pages/panel-inicio.html');
+                }, 1200);
+            } else {
+                showModalError(loginModal, result.message || 'Credenciales inválidas');
+                btn.classList.remove('loading');
+                btn.textContent = 'Inicia sesión';
+            }
+        });
+
+        // ========== ESCAPE KEY ==========
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeAllModals();
+        });
+
+        // ========== RECOVERY FLOW: MODAL 2 (EMAIL) ==========
+        document.getElementById('btnShowRecovery').addEventListener('click', function (e) {
+            e.preventDefault();
+            closeModalEl(loginModal, function () {
+                resetAllRecoveryState();
+                openModalEl(recoveryEmailModal);
+                setTimeout(function () { document.getElementById('recoveryEmail').focus(); }, 400);
+            });
+        });
+
+        document.getElementById('closeRecoveryEmail').addEventListener('click', function () {
+            closeModalEl(recoveryEmailModal, function () { resetAllRecoveryState(); openModalEl(loginModal); });
+        });
+        recoveryEmailModal.addEventListener('click', function (e) {
+            if (e.target === recoveryEmailModal) document.getElementById('closeRecoveryEmail').click();
+        });
+        document.getElementById('btnBackToLogin1').addEventListener('click', function () {
+            closeModalEl(recoveryEmailModal, function () { resetAllRecoveryState(); openModalEl(loginModal); });
+        });
+
+        // Step 1: Get secret question
+        document.getElementById('btnGetQuestion').addEventListener('click', async function () {
+            var email = document.getElementById('recoveryEmail').value.trim();
+            if (!email) {
+                showModalError(recoveryEmailModal, 'Ingrese su correo electrónico');
+                return;
+            }
+
+            var result = await getSecretQuestion(email);
+            if (result.success) {
+                _recoveryEmail = email;
+                closeModalEl(recoveryEmailModal, function () {
+                    // Reset answer modal fields completely
+                    document.getElementById('recoveryAnswer').value = '';
+                    document.getElementById('recoveryAnswer').setAttribute('readonly', '');
+                    clearModalMessages(recoveryAnswerModal);
+                    document.getElementById('questionDisplay').textContent = result.preguntaSecreta;
+                    openModalEl(recoveryAnswerModal);
+                });
+            } else {
+                showModalError(recoveryEmailModal, result.message || 'No se encontró el usuario');
+            }
+        });
+
+        // ========== RECOVERY FLOW: MODAL 3 (ANSWER) ==========
+        document.getElementById('closeRecoveryAnswer').addEventListener('click', function () {
+            closeModalEl(recoveryAnswerModal, function () { resetAllRecoveryState(); openModalEl(loginModal); });
+        });
+        recoveryAnswerModal.addEventListener('click', function (e) {
+            if (e.target === recoveryAnswerModal) document.getElementById('closeRecoveryAnswer').click();
+        });
+        document.getElementById('btnBackToLogin2').addEventListener('click', function () {
+            closeModalEl(recoveryAnswerModal, function () { resetAllRecoveryState(); openModalEl(loginModal); });
+        });
+
+        // Prevent form submission
+        document.getElementById('answerForm').addEventListener('submit', function (e) { e.preventDefault(); });
+
+        // Step 2: Validate secret answer
+        document.getElementById('btnValidateAnswer').addEventListener('click', async function () {
+            var answer = document.getElementById('recoveryAnswer').value.trim();
+            if (!answer) {
+                showModalError(recoveryAnswerModal, 'Ingrese su respuesta secreta');
+                return;
+            }
+
+            var result = await validateSecretAnswer(_recoveryEmail, answer);
+
+            if (result.success && result.valid) {
+                _recoveryAnswer = answer;
+                closeModalEl(recoveryAnswerModal, function () {
+                    // Reset password modal fields completely
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('newPassword').setAttribute('readonly', '');
+                    document.getElementById('confirmNewPassword').value = '';
+                    document.getElementById('confirmNewPassword').setAttribute('readonly', '');
+                    clearModalMessages(recoveryPasswordModal);
+                    openModalEl(recoveryPasswordModal);
+                    setTimeout(function () {
+                        document.getElementById('newPassword').removeAttribute('readonly');
+                        document.getElementById('newPassword').focus();
+                    }, 500);
+                });
+            } else {
+                showModalError(recoveryAnswerModal, result.message || 'La respuesta secreta es incorrecta. Intente nuevamente.');
+            }
+        });
+
+        // ========== RECOVERY FLOW: MODAL 4 (NEW PASSWORD) ==========
+        document.getElementById('closeRecoveryPassword').addEventListener('click', function () {
+            closeModalEl(recoveryPasswordModal, function () { resetAllRecoveryState(); openModalEl(loginModal); });
+        });
+        recoveryPasswordModal.addEventListener('click', function (e) {
+            if (e.target === recoveryPasswordModal) document.getElementById('closeRecoveryPassword').click();
+        });
+        document.getElementById('btnBackToLogin3').addEventListener('click', function () {
+            closeModalEl(recoveryPasswordModal, function () { resetAllRecoveryState(); openModalEl(loginModal); });
+        });
+
+        // Prevent form submission
+        document.getElementById('passwordForm').addEventListener('submit', function (e) { e.preventDefault(); });
+
+        // Step 3: Submit new password
+        document.getElementById('btnRecoverPassword').addEventListener('click', async function () {
+            var newPass = document.getElementById('newPassword').value;
+            var confirmPass = document.getElementById('confirmNewPassword').value;
+
+            var errors = [];
+            if (!newPass || newPass.length < 6) errors.push('La contraseña debe tener al menos 6 caracteres');
+            if (newPass !== confirmPass) errors.push('Las contraseñas no coinciden');
+
+            if (errors.length > 0) {
+                showModalError(recoveryPasswordModal, errors.join('. '));
+                return;
+            }
+
+            var result = await recoverPassword(_recoveryEmail, _recoveryAnswer, newPass);
+            if (result.success) {
+                showModalSuccess(recoveryPasswordModal, '¡Contraseña actualizada exitosamente!');
+                setTimeout(function () {
+                    closeModalEl(recoveryPasswordModal, function () {
+                        resetAllRecoveryState();
+                        openModalEl(loginModal);
+                    });
+                }, 2000);
+            } else {
+                showModalError(recoveryPasswordModal, result.message || 'Error al actualizar la contraseña');
+            }
+        });
+    </script>
+</body>
+
+</html>
